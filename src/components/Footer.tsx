@@ -26,6 +26,7 @@ export function Footer() {
                   href={href}
                   target={link.external ? "_blank" : undefined}
                   rel={link.external ? "noopener noreferrer" : undefined}
+                  data-umami-event={link.external ? "pilot_cta_click" : undefined}
                   className="font-body text-ink-soft hover:text-brand font-semibold underline-offset-4 hover:underline"
                 >
                   {link.label}

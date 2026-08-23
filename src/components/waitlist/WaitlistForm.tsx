@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { Button, Input, Text } from "@/components/primitives";
+import { track } from "@/lib/analytics";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -67,6 +68,7 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
         const ok = (await res.json().catch(() => null)) as { state?: string } | null;
         setConfirmSent(ok?.state === "confirm_sent");
         setStatus("success");
+        track("waitlist_submit", { state: ok?.state ?? "joined" });
         return;
       }
       const data = (await res.json().catch(() => null)) as { error?: string } | null;
