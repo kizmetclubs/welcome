@@ -43,6 +43,7 @@ export function Clubs({ eyebrow, heading, intro, clubs, suggestion }: ClubsSecti
               href={suggestionHref}
               target="_blank"
               rel="noopener noreferrer"
+              data-umami-event="pilot_cta_click"
               className="text-brand font-semibold underline-offset-4 hover:underline"
             >
               {suggestion.label}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ConfirmTracker } from "@/components/ConfirmTracker";
 import { Container, Heading, Section, Text } from "@/components/primitives";
 import { getServiceClient, isWaitlistConfigured } from "@/lib/supabase";
 
@@ -40,6 +41,7 @@ export default async function ConfirmPage({
         <Container size="prose" className="text-center">
           {confirmed ? (
             <>
+              <ConfirmTracker />
               <Heading level={1}>You&apos;re confirmed 🎉</Heading>
               <Text size="lg" className="mx-auto mt-4 max-w-md">
                 Your spot on the Nearfolk waitlist is locked in. We&apos;ll email you the moment the

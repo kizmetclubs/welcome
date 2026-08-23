@@ -45,6 +45,7 @@ export function Hero({
               href={pilotHref}
               target="_blank"
               rel="noopener noreferrer"
+              data-umami-event="pilot_cta_click"
               className="font-body text-brand font-semibold underline-offset-4 hover:underline"
             >
               {secondaryCta.label}
