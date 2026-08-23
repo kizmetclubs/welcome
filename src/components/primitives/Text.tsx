@@ -29,7 +29,10 @@ export function Text({
 }: TextProps) {
   const Tag = as as React.ElementType;
   return (
-    <Tag className={cn("font-body leading-relaxed", sizes[size], tones[tone], className)} {...props}>
+    <Tag
+      className={cn("font-body leading-relaxed", sizes[size], tones[tone], className)}
+      {...props}
+    >
       {children}
     </Tag>
   );

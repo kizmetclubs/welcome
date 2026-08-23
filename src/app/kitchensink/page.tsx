@@ -58,7 +58,7 @@ export default function KitchenSinkPage() {
           <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-6">
             {swatches.map(([name, bg]) => (
               <div key={name}>
-                <div className={`h-16 rounded-card border border-muted-soft ${bg}`} />
+                <div className={`rounded-card border-muted-soft h-16 border ${bg}`} />
                 <Text size="sm" tone="muted" className="mt-2">
                   {name}
                 </Text>
@@ -124,7 +124,9 @@ export default function KitchenSinkPage() {
             </Card>
             <Card tone="cream">
               <Heading level={4}>Cream card</Heading>
-              <Text className="mt-2">A walk with conversation prompts, so it&apos;s never just weather talk.</Text>
+              <Text className="mt-2">
+                A walk with conversation prompts, so it&apos;s never just weather talk.
+              </Text>
             </Card>
           </div>
 

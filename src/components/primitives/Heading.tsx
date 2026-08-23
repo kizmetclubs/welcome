@@ -21,7 +21,7 @@ export function Heading({ level = 2, as, className, children, ...props }: Headin
   const Tag = (as ?? (`h${level}` as const)) as React.ElementType;
   return (
     <Tag
-      className={cn("font-display font-semibold text-ink text-balance", sizes[level], className)}
+      className={cn("font-display text-ink font-semibold text-balance", sizes[level], className)}
       {...props}
     >
       {children}

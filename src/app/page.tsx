@@ -1,5 +1,13 @@
 import Link from "next/link";
-import { Badge, Container, Eyebrow, Heading, LinkButton, Section, Text } from "@/components/primitives";
+import {
+  Badge,
+  Container,
+  Eyebrow,
+  Heading,
+  LinkButton,
+  Section,
+  Text,
+} from "@/components/primitives";
 
 /*
  * M0 placeholder home. This is a temporary hero so the deploy shows something on-brand;
@@ -15,9 +23,8 @@ export default function HomePage() {
             Clubs are back.
           </Heading>
           <Text size="lg" className="mx-auto mt-5 max-w-xl">
-            Small groups. Same people. Every week. Pick something you actually want to do —
-            pastry night, a walking group, a book club — and we&apos;ll handle getting everyone
-            there.
+            Small groups. Same people. Every week. Pick something you actually want to do — pastry
+            night, a walking group, a book club — and we&apos;ll handle getting everyone there.
           </Text>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -26,7 +33,7 @@ export default function HomePage() {
             </LinkButton>
             <Link
               href="#pilot"
-              className="font-body font-semibold text-brand underline-offset-4 hover:underline"
+              className="font-body text-brand font-semibold underline-offset-4 hover:underline"
             >
               Running a pilot near you? Join it →
             </Link>

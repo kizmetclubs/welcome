@@ -17,16 +17,13 @@ export const metadata: Metadata = {
     "Small groups. Same people. Every week. Nearfolk helps you join a small, recurring club near you — and we handle getting everyone there.",
   openGraph: {
     title: "Nearfolk — Clubs are back",
-    description:
-      "Small groups. Same people. Every week. Join the waitlist for Nearfolk.",
+    description: "Small groups. Same people. Every week. Join the waitlist for Nearfolk.",
     type: "website",
     url: siteUrl,
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" data-theme={activeTheme} className={cn(fontVariables)}>
       <body>{children}</body>

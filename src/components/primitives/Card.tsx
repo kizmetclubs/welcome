@@ -15,7 +15,7 @@ export function Card({ tone = "surface", className, children, ...props }: CardPr
   return (
     <div
       className={cn(
-        "rounded-card border border-muted-soft p-6 shadow-card sm:p-8",
+        "rounded-card border-muted-soft shadow-card border p-6 sm:p-8",
         tones[tone],
         className
       )}
