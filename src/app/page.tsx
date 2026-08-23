@@ -18,7 +18,7 @@ export default function HomePage() {
     <main>
       <Section tone="canvas" spacing="lg">
         <Container className="text-center">
-          <Eyebrow>An honest, early-stage project — no app yet</Eyebrow>
+          <Eyebrow>An early pilot, run entirely by hand, no app yet</Eyebrow>
           <Heading level={1} className="mx-auto mt-4 max-w-3xl">
             Clubs are back.
           </Heading>
