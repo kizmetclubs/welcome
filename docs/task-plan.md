@@ -10,15 +10,15 @@ Legend: **S** ≈ <1h · **M** ≈ half-day · **L** ≈ 1–2 days. Dependencie
 
 _Goal: a deployable Next.js app whose look is 100% token-driven, with CI and a live preview URL._
 
-- [ ] **0.1 (S)** Confirm/adopt the existing `welcome` repo; create a **GitHub org** (not personal) and move it there. Add branch protection on `main`.
-- [ ] **0.2 (M)** Scaffold Next.js (App Router) + TypeScript + Tailwind CSS v4. Add ESLint + Prettier, `tsconfig` strict.
-- [ ] **0.3 (S)** Add `.env.example` documenting every var from spec §12. Wire `.env.local` loading.
-- [ ] **0.4 (M)** **Design-token layer (Axis A)**: `src/themes/tokens.css` with `:root` + `[data-theme]` blocks seeded from the mood-board palette; wire Tailwind v4 to resolve utilities to these variables. ⟵ 0.2
-- [ ] **0.5 (S)** `src/themes/registry.ts` + `nearfolk.ts`: theme config (font families, motif pack, OG image). `NEXT_PUBLIC_THEME` selects the active theme via `data-theme` on `<html>`; `?theme=` override enabled in dev/preview only. ⟵ 0.4
-- [ ] **0.6 (M)** Load `--font-display` + `--font-body` via `next/font` (start with closest Google Fonts to the boards; swap to licensed files later). ⟵ 0.4
-- [ ] **0.7 (M)** **Primitive components (Axis B)**: `Container`, `Section`, `Heading`(1–4), `Text`, `Eyebrow`, `Button`(primary/secondary/ghost), `Input`, `Card`, `Badge` — token-only, zero hardcoded colors. ⟵ 0.4
-- [ ] **0.8 (S)** Prove swappability: a throwaway `/_kitchensink` page that flips `?theme=` and shows tokens + primitives re-skinning with no code change. (Delete before launch.) ⟵ 0.7
-- [ ] **0.9 (M)** **CI**: GitHub Actions — typecheck → lint → test → build. ⟵ 0.2
+- [x] **0.1 (S)** Confirm/adopt the existing `welcome` repo; create a **GitHub org** (not personal) and move it there. Add branch protection on `main`.
+- [x] **0.2 (M)** Scaffold Next.js (App Router) + TypeScript + Tailwind CSS v4. Add ESLint + Prettier, `tsconfig` strict.
+- [x] **0.3 (S)** Add `.env.example` documenting every var from spec §12. Wire `.env.local` loading.
+- [x] **0.4 (M)** **Design-token layer (Axis A)**: `src/themes/tokens.css` with `:root` + `[data-theme]` blocks seeded from the mood-board palette; wire Tailwind v4 to resolve utilities to these variables. ⟵ 0.2
+- [x] **0.5 (S)** `src/themes/registry.ts` + `nearfolk.ts`: theme config (font families, motif pack, OG image). `NEXT_PUBLIC_THEME` selects the active theme via `data-theme` on `<html>`; `?theme=` override enabled in dev/preview only. ⟵ 0.4
+- [x] **0.6 (M)** Load `--font-display` + `--font-body` via `next/font` (start with closest Google Fonts to the boards; swap to licensed files later). ⟵ 0.4
+- [x] **0.7 (M)** **Primitive components (Axis B)**: `Container`, `Section`, `Heading`(1–4), `Text`, `Eyebrow`, `Button`(primary/secondary/ghost), `Input`, `Card`, `Badge` — token-only, zero hardcoded colors. ⟵ 0.4
+- [x] **0.8 (S)** Prove swappability: a throwaway `/_kitchensink` page that flips `?theme=` and shows tokens + primitives re-skinning with no code change. (Delete before launch.) ⟵ 0.7
+- [x] **0.9 (M)** **CI**: GitHub Actions — typecheck → lint → test → build. ⟵ 0.2
 - [ ] **0.10 (S)** Connect repo to **Vercel** (Hobby); confirm auto-deploy + per-PR preview URLs. Blank deploy is green. ⟵ 0.2
 
 **M0 done when:** the preview URL is live and the kitchen-sink page re-skins entirely from a theme swap.
@@ -29,19 +29,19 @@ _Goal: a deployable Next.js app whose look is 100% token-driven, with CI and a l
 
 _Goal: the full narrative page renders from data, responsive and accessible, in placeholder design._
 
-- [ ] **1.1 (M)** **Content model (Axis C)**: typed `src/content/landing.ts` (ordered section list), `clubs.ts`, `faq.ts`. Copy re-pointed from the website-copy doc to **waitlist-primary**; keep `[bracketed]` founder TODOs visible. ⟵ 0.7
-- [ ] **1.2 (S)** `SectionRenderer.tsx` registry mapping `section.type` → component. Unknown type fails loudly in dev. ⟵ 1.1
-- [ ] **1.3 (M)** **Motifs (Axis A/C)**: `Arrow`, `Checkerboard`, `GrannySquare`, `Crane` as swappable SVG components in a "motif pack," `aria-hidden`, reduced-motion aware. ⟵ 0.7
-- [ ] **1.4 (M)** `Hero` section: headline/subhead/eyebrow, **primary CTA (waitlist)** + **secondary CTA (pilot Google Form via `PILOT_FORM_URL`)**, honest stat bar. ⟵ 1.2, 1.3
-- [ ] **1.5 (M)** `HowItWorks` section (app-framed, with "where we are today" note). ⟵ 1.2
-- [ ] **1.6 (M)** `Clubs` section from `clubs.ts` (pastry/walk/reading/crafts/Spanish cards). ⟵ 1.2
-- [ ] **1.7 (S)** `Beliefs` (manifesto lines). ⟵ 1.2
-- [ ] **1.8 (S)** `Safety` (plain-language stance: planned vs today). ⟵ 1.2
-- [ ] **1.9 (S)** `Team`/`Why` (founder story w/ placeholders). ⟵ 1.2
-- [ ] **1.10 (M)** `Faq` from `faq.ts` (accessible disclosure; distinguishes waitlist vs pilot). ⟵ 1.2
-- [ ] **1.11 (S)** `WaitlistCta` closing block (placeholder form until M2). ⟵ 1.2
-- [ ] **1.12 (S)** `Footer` (privacy link, pilot form, contact email, city note). ⟵ 1.2
-- [ ] **1.13 (M)** Responsive pass (mobile-first) + landmarks/headings/focus/reduced-motion across all sections. ⟵ 1.4–1.12
+- [x] **1.1 (M)** **Content model (Axis C)**: typed `src/content/landing.ts` (ordered section list), `clubs.ts`, `faq.ts`. Copy re-pointed from the website-copy doc to **waitlist-primary**; keep `[bracketed]` founder TODOs visible. ⟵ 0.7
+- [x] **1.2 (S)** `SectionRenderer.tsx` registry mapping `section.type` → component. Unknown type fails loudly in dev. ⟵ 1.1
+- [x] **1.3 (M)** **Motifs (Axis A/C)**: `Arrow`, `Checkerboard`, `GrannySquare`, `Crane` as swappable SVG components in a "motif pack," `aria-hidden`, reduced-motion aware. ⟵ 0.7
+- [x] **1.4 (M)** `Hero` section: headline/subhead/eyebrow, **primary CTA (waitlist)** + **secondary CTA (pilot Google Form via `PILOT_FORM_URL`)**, honest stat bar. ⟵ 1.2, 1.3
+- [x] **1.5 (M)** `HowItWorks` section (app-framed, with "where we are today" note). ⟵ 1.2
+- [x] **1.6 (M)** `Clubs` section from `clubs.ts` (pastry/walk/reading/crafts/Spanish cards). ⟵ 1.2
+- [x] **1.7 (S)** `Beliefs` (manifesto lines). ⟵ 1.2
+- [x] **1.8 (S)** `Safety` (plain-language stance: planned vs today). ⟵ 1.2
+- [x] **1.9 (S)** `Team`/`Why` (founder story w/ placeholders). ⟵ 1.2
+- [x] **1.10 (M)** `Faq` from `faq.ts` (accessible disclosure; distinguishes waitlist vs pilot). ⟵ 1.2
+- [x] **1.11 (S)** `WaitlistCta` closing block (placeholder form until M2). ⟵ 1.2
+- [x] **1.12 (S)** `Footer` (privacy link, pilot form, contact email, city note). ⟵ 1.2
+- [x] **1.13 (M)** Responsive pass (mobile-first) + landmarks/headings/focus/reduced-motion across all sections. ⟵ 1.4–1.12
 
 **M1 done when:** the whole page scrolls end-to-end on mobile, driven entirely by `content/*`.
 
