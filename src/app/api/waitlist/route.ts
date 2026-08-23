@@ -1,6 +1,8 @@
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { rateLimit } from "@/lib/ratelimit";
+import { sendConfirmationEmail } from "@/lib/resend";
+import { getSiteUrl } from "@/lib/siteUrl";
 import { getServiceClient, isWaitlistConfigured } from "@/lib/supabase";
 import { waitlistSchema } from "@/lib/validation";
 
@@ -60,11 +62,40 @@ export async function POST(req: Request) {
   }
 
   const { email, consent, city } = parsed.data;
+  const doubleOptIn = process.env.WAITLIST_DOUBLE_OPTIN === "true";
+
+  if (doubleOptIn) {
+    // Store unconfirmed with a fresh single-use token, then email a confirmation link.
+    const token = randomUUID();
+    const { error } = await supabase.from("waitlist_signups").upsert(
+      {
+        email,
+        consent,
+        city: city ?? null,
+        source: "landing",
+        confirmed: false,
+        confirm_token: token,
+      },
+      { onConflict: "email" }
+    );
+    if (error) {
+      console.error("waitlist insert error", error);
+      return NextResponse.json(
+        { ok: false, error: "Something went wrong. Please try again." },
+        { status: 500 }
+      );
+    }
+    // Best-effort: the signup is captured even if the email fails to send.
+    const result = await sendConfirmationEmail({ to: email, token, siteUrl: getSiteUrl() });
+    if (!result.sent) console.warn("confirmation email not sent:", result.reason);
+    return NextResponse.json({ ok: true, state: "confirm_sent" });
+  }
+
+  // Single opt-in: explicit consent is the lawful basis; store as confirmed immediately.
   const { error } = await supabase.from("waitlist_signups").upsert(
-    { email, consent, city: city ?? null, source: "landing" },
+    { email, consent, city: city ?? null, source: "landing", confirmed: true },
     { onConflict: "email", ignoreDuplicates: true } // duplicate signup = idempotent no-op
   );
-
   if (error) {
     console.error("waitlist insert error", error);
     return NextResponse.json(

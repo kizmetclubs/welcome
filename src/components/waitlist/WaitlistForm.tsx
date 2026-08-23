@@ -28,6 +28,7 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
   const [city, setCity] = useState("");
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
+  const [confirmSent, setConfirmSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const startedAt = useRef<number>(0);
 
@@ -63,6 +64,8 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
         }),
       });
       if (res.ok) {
+        const ok = (await res.json().catch(() => null)) as { state?: string } | null;
+        setConfirmSent(ok?.state === "confirm_sent");
         setStatus("success");
         return;
       }
@@ -83,10 +86,12 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
         className="rounded-card border-muted-soft bg-surface shadow-card border p-6 text-center"
       >
         <Text size="lg" tone="ink" className="font-display font-semibold">
-          You&apos;re on the list 🎉
+          {confirmSent ? "Almost there — check your inbox ✉️" : "You're on the list 🎉"}
         </Text>
         <Text size="sm" tone="muted" className="mt-1">
-          We&apos;ll email you the moment Nearfolk opens.
+          {confirmSent
+            ? "We sent you a link to confirm your email and lock in your spot."
+            : "We'll email you the moment Nearfolk opens."}
         </Text>
       </div>
     );
