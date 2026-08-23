@@ -5,7 +5,8 @@
 export const site = {
   wordmark: "nearfolk",
   tagline: "Small groups. Same people. Every week.",
-  waitlistAnchor: "#waitlist",
+  // Absolute so the header CTA works from any page (/privacy, /confirm), not just home.
+  waitlistAnchor: "/#waitlist",
   footer: {
     /** TODO(founders): set a real contact address once the domain lands. */
     contactEmail: "[add contact email]",
