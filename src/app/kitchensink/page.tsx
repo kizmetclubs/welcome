@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import {
   Badge,
@@ -45,10 +46,16 @@ export default function KitchenSinkPage() {
           <Text size="lg" className="mt-3 max-w-2xl">
             Flip the theme below. Every token and component re-skins with{" "}
             <strong>zero code changes</strong> — this is the swappability guarantee from the spec.
+            Your choice is remembered, so it carries over to the landing page.
           </Text>
           <div className="mt-6">
             <ThemeSwitcher />
           </div>
+          <Text size="sm" className="mt-4">
+            <Link href="/" className="text-brand font-semibold underline-offset-4 hover:underline">
+              ← Back to the landing page
+            </Link>
+          </Text>
         </Container>
       </Section>
 
