@@ -1,10 +1,16 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // Mock the server Supabase lib so no real network/DB is touched.
 const upsertMock = vi.fn();
 vi.mock("@/lib/supabase", () => ({
   isWaitlistConfigured: vi.fn(() => true),
   getServiceClient: vi.fn(() => ({ from: () => ({ upsert: upsertMock }) })),
+}));
+
+// Mock the email sender (deferred reference, matching the supabase pattern above).
+const sendEmailMock = vi.fn();
+vi.mock("@/lib/resend", () => ({
+  sendConfirmationEmail: (...args: unknown[]) => sendEmailMock(...args),
 }));
 
 import { __resetRateLimit } from "@/lib/ratelimit";
@@ -26,7 +32,12 @@ const valid = { email: "a@b.com", consent: true, city: "barcelona" };
 beforeEach(() => {
   __resetRateLimit();
   upsertMock.mockReset().mockResolvedValue({ error: null });
+  sendEmailMock.mockReset().mockResolvedValue({ sent: true });
   vi.mocked(supabase.isWaitlistConfigured).mockReturnValue(true);
+});
+
+afterEach(() => {
+  vi.unstubAllEnvs();
 });
 
 describe("POST /api/waitlist", () => {
@@ -60,6 +71,25 @@ describe("POST /api/waitlist", () => {
     const res = await post(valid, { "x-forwarded-for": "5.5.5.5" });
     expect(res.status).toBe(503);
     expect(upsertMock).not.toHaveBeenCalled();
+  });
+
+  it("single opt-in (default): stores confirmed and returns state 'joined'", async () => {
+    const res = await post(valid, { "x-forwarded-for": "8.8.8.8" });
+    expect(res.status).toBe(200);
+    await expect(res.json()).resolves.toMatchObject({ ok: true, state: "joined" });
+    expect(upsertMock.mock.calls[0][0]).toMatchObject({ confirmed: true });
+    expect(sendEmailMock).not.toHaveBeenCalled();
+  });
+
+  it("double opt-in (flag on): stores unconfirmed, emails a token, returns 'confirm_sent'", async () => {
+    vi.stubEnv("WAITLIST_DOUBLE_OPTIN", "true");
+    const res = await post({ email: "c@d.com", consent: true }, { "x-forwarded-for": "9.9.9.9" });
+    expect(res.status).toBe(200);
+    await expect(res.json()).resolves.toMatchObject({ ok: true, state: "confirm_sent" });
+    const row = upsertMock.mock.calls[0][0];
+    expect(row).toMatchObject({ email: "c@d.com", confirmed: false });
+    expect(typeof row.confirm_token).toBe("string");
+    expect(sendEmailMock).toHaveBeenCalledOnce();
   });
 
   it("rate-limits repeated attempts from the same IP (429)", async () => {
