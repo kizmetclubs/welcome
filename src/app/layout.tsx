@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { fontVariables } from "./fonts";
 import "./globals.css";
+import { ThemeInit } from "@/components/ThemeInit";
 import { cn } from "@/lib/cn";
+import { getSiteUrl } from "@/lib/siteUrl";
 import { resolveTheme } from "@/themes/registry";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const siteUrl = getSiteUrl();
 const activeTheme = resolveTheme(process.env.NEXT_PUBLIC_THEME);
 
 export const metadata: Metadata = {
@@ -25,8 +27,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-theme={activeTheme} className={cn(fontVariables)}>
-      <body>{children}</body>
+    <html lang="en" data-theme={activeTheme} className={cn(fontVariables)} suppressHydrationWarning>
+      <body>
+        <ThemeInit />
+        {children}
+      </body>
     </html>
   );
 }

@@ -18,6 +18,12 @@ export function ThemeSwitcher() {
 
   function apply(name: ThemeName) {
     document.documentElement.dataset.theme = name;
+    // Persist so the choice carries to the landing page (read by <ThemeInit> before paint).
+    try {
+      localStorage.setItem("nf-theme", name);
+    } catch {
+      // ignore (private mode / storage disabled)
+    }
     setActive(name);
   }
 
