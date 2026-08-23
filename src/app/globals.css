@@ -1,0 +1,74 @@
+@import "tailwindcss";
+@import "../themes/tokens.css";
+
+/*
+ * Map Tailwind's theme to the runtime CSS variables from tokens.css.
+ *
+ * `@theme inline` makes utilities emit `var(--nf-…)` directly, so when a [data-theme]
+ * block overrides a --nf-* variable, every `bg-brand` / `text-ink` / `font-display`
+ * utility on the page re-skins instantly — no rebuild, no code change. This is what
+ * makes the design swappable (spec §4, Axis A).
+ */
+@theme inline {
+  --color-brand: var(--nf-brand);
+  --color-brand-ink: var(--nf-brand-ink);
+  --color-accent-warm: var(--nf-accent-warm);
+  --color-accent-warm-ink: var(--nf-accent-warm-ink);
+  --color-accent-gold: var(--nf-accent-gold);
+  --color-accent-sky: var(--nf-accent-sky);
+  --color-accent-berry: var(--nf-accent-berry);
+  --color-accent-pink: var(--nf-accent-pink);
+  --color-accent-coral: var(--nf-accent-coral);
+  --color-accent-lime: var(--nf-accent-lime);
+  --color-accent-olive: var(--nf-accent-olive);
+
+  --color-canvas: var(--nf-canvas);
+  --color-surface: var(--nf-surface);
+  --color-cream: var(--nf-cream);
+  --color-muted: var(--nf-muted);
+  --color-muted-soft: var(--nf-muted-soft);
+
+  --color-ink: var(--nf-ink);
+  --color-ink-soft: var(--nf-ink-soft);
+
+  --font-display: var(--nf-font-display);
+  --font-body: var(--nf-font-body);
+
+  --radius-sm: var(--nf-radius-sm);
+  --radius-card: var(--nf-radius-card);
+  --radius-pill: var(--nf-radius-pill);
+
+  --shadow-card: var(--nf-shadow-card);
+}
+
+/* base */
+html {
+  background-color: var(--nf-canvas);
+  color: var(--nf-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--nf-font-body);
+  min-height: 100dvh;
+}
+
+/* Respect users who prefer less motion — hand-drawn animations opt out (spec §9). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* visible, on-brand focus ring for keyboard users */
+:focus-visible {
+  outline: 3px solid var(--nf-brand);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
