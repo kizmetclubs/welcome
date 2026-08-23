@@ -52,12 +52,12 @@ _Goal: the full narrative page renders from data, responsive and accessible, in 
 _Goal: a real email from the live preview lands in Supabase, with friendly success/error states._
 
 - [ ] **2.1 (M)** Create **Supabase** project in **EU/Frankfurt**. Add `supabase/migrations/0001_waitlist.sql` (table + unique email index + RLS enabled, no anon policies) per spec §6.1.
-- [ ] **2.2 (S)** `lib/supabase.ts` server client using **service-role key** (server-only; never imported by client code). ⟵ 2.1
-- [ ] **2.3 (S)** `lib/validation.ts` shared **Zod** schema (email, `consent === true`, `city ∈ enum|null`). ⟵ 0.2
-- [ ] **2.4 (M)** `WaitlistForm.tsx`: email + optional city + **consent checkbox** + honeypot; idle/loading/success/error/invalid states; `aria-live`; token-styled. ⟵ 0.7, 2.3
-- [ ] **2.5 (M)** `POST /api/waitlist`: validate → honeypot + min-time check → **rate limit** → upsert (idempotent on email) → return state. ⟵ 2.2, 2.3
-- [ ] **2.6 (S)** `lib/ratelimit.ts` (Upstash free, or Postgres-counter fallback). ⟵ 2.5
-- [ ] **2.7 (S)** Wire the Hero + closing `WaitlistCta` to the real form. ⟵ 2.4
+- [x] **2.2 (S)** `lib/supabase.ts` server client using **service-role key** (server-only; never imported by client code). ⟵ 2.1
+- [x] **2.3 (S)** `lib/validation.ts` shared **Zod** schema (email, `consent === true`, `city ∈ enum|null`). ⟵ 0.2
+- [x] **2.4 (M)** `WaitlistForm.tsx`: email + optional city + **consent checkbox** + honeypot; idle/loading/success/error/invalid states; `aria-live`; token-styled. ⟵ 0.7, 2.3
+- [x] **2.5 (M)** `POST /api/waitlist`: validate → honeypot + min-time check → **rate limit** → upsert (idempotent on email) → return state. ⟵ 2.2, 2.3
+- [x] **2.6 (S)** `lib/ratelimit.ts` (Upstash free, or Postgres-counter fallback). ⟵ 2.5
+- [x] **2.7 (S)** Wire the Hero + closing `WaitlistCta` to the real form. ⟵ 2.4
 - [ ] **2.8 (S)** Configure Supabase env vars in Vercel; verify a submit from the **preview URL** writes a row. ⟵ 2.5, 0.10
 
 **M2 done when:** a test signup on the deployed preview appears in the Supabase table and the UI confirms it.
