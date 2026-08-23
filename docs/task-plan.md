@@ -68,10 +68,10 @@ _Goal: a real email from the live preview lands in Supabase, with friendly succe
 
 _Goal: confirmation flow built and testable, defaulting off until a domain exists._
 
-- [ ] **3.1 (S)** `lib/resend.ts` + `WAITLIST_DOUBLE_OPTIN` flag (default **false**). ⟵ 2.5
-- [ ] **3.2 (M)** On insert (flag on), generate `confirm_token`, send branded confirmation email via Resend. ⟵ 3.1
-- [ ] **3.3 (M)** `/confirm?token=…` route: mark `confirmed=true, confirmed_at=now()`, clear token, show friendly confirmation page. ⟵ 3.2
-- [ ] **3.4 (S)** Form success copy adapts: "Check your inbox" (flag on) vs "You're on the list" (flag off). ⟵ 3.2
+- [x] **3.1 (S)** `lib/resend.ts` + `WAITLIST_DOUBLE_OPTIN` flag (default **false**). ⟵ 2.5
+- [x] **3.2 (M)** On insert (flag on), generate `confirm_token`, send branded confirmation email via Resend. ⟵ 3.1
+- [x] **3.3 (M)** `/confirm?token=…` route: mark `confirmed=true, confirmed_at=now()`, clear token, show friendly confirmation page. ⟵ 3.2
+- [x] **3.4 (S)** Form success copy adapts: "Check your inbox" (flag on) vs "You're on the list" (flag off). ⟵ 3.2
 
 **M3 done when:** with the flag on in a test env, a signup receives an email and confirming flips the row.
 
