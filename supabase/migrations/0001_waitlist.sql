@@ -26,3 +26,8 @@ create unique index if not exists waitlist_email_uidx on public.waitlist_signups
 -- The public anon client therefore cannot read or write this table at all.
 alter table public.waitlist_signups enable row level security;
 revoke all on public.waitlist_signups from anon, authenticated;
+
+-- Newer Supabase projects don't always auto-grant new tables to service_role, so grant it
+-- explicitly. This is the role the server route (service-role/secret key) acts as; it
+-- bypasses RLS, so no policies are needed for it — only the table privilege.
+grant all privileges on public.waitlist_signups to service_role;
