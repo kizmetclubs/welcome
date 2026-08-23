@@ -81,11 +81,11 @@ _Goal: confirmation flow built and testable, defaulting off until a domain exist
 
 _Goal: all success criteria (spec §2) met on the preview URL._
 
-- [ ] **4.1 (M)** `/privacy` route — plain-language policy stub (collect/why/retention/never-sold/deletion) + one-paragraph records-of-processing note. Link from consent checkbox + footer.
-- [ ] **4.2 (S)** Cookieless analytics (`lib/analytics.ts`, Plausible or Umami) + events from spec §8. ⟵ 4-ish
-- [ ] **4.3 (S)** SEO: metadata, `robots.ts`, `sitemap.ts`, canonical.
-- [ ] **4.4 (S)** Branded `opengraph-image.tsx` + favicon set + web manifest (icons only).
-- [ ] **4.5 (S)** Accessibility pass: axe clean, keyboard walk-through, contrast check over tokens.
+- [x] **4.1 (M)** `/privacy` route — plain-language policy stub (collect/why/retention/never-sold/deletion) + one-paragraph records-of-processing note. Link from consent checkbox + footer.
+- [x] **4.2 (S)** Cookieless analytics (`lib/analytics.ts`, Plausible or Umami) + events from spec §8. ⟵ 4-ish
+- [x] **4.3 (S)** SEO: metadata, `robots.ts`, `sitemap.ts`, canonical.
+- [x] **4.4 (S)** Branded `opengraph-image.tsx` + favicon set + web manifest (icons only).
+- [x] **4.5 (S)** Accessibility pass: axe clean, keyboard walk-through, contrast check over tokens.
 - [ ] **4.6 (M)** Tests: Zod + registry-integrity + theme-completeness (unit); `WaitlistForm` states (component); `/api/waitlist` (integration, mocked); Playwright happy-path + invalid-email (e2e). ⟵ 2.x
 - [ ] **4.7 (S)** Add Lighthouse CI + axe to Actions; gate on ≥95 / AA. ⟵ 0.9, 4.6
 - [ ] **4.8 (S)** _(Optional)_ Sentry SDK, low sample rate.
