@@ -52,7 +52,7 @@ export const landingSections: Section[] = [
   {
     type: "clubs",
     eyebrow: "What's running in the pilots",
-    heading: "Come make pastries with your neighbors.",
+    heading: "Come eat pastries with your neighbors.",
     intro: "Kept casual and cheap, in parks and public spaces around the city.",
     clubs,
     suggestion: {
