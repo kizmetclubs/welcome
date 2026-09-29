@@ -120,3 +120,17 @@ _Goal: swap in the real design and go public._
 ## Suggested first working session
 
 `M0.2 → M0.4 → M0.7 → M0.8` gets a token-driven, provably-swappable skeleton on a live Vercel preview in a single sitting — the fastest way to de-risk the "design in flux" requirement before any copy or backend work.
+
+---
+
+## M6 — Pilot-first relaunch (Sep 2026)
+
+_Goal: the page sells the in-person pilot and takes sign-ups directly; one club per city._
+
+- [x] **6.1** Rename Nearfolk → Kizmet everywhere.
+- [x] **6.2** Pilot-first content: hero, pilot details, how it works, team (Sam, Daniela, Ash, Cindy), FAQ; old "What's running" section removed.
+- [x] **6.3** City routes `/barcelona` (Arts & Crafts) and `/sanfrancisco` (Oracle & Tarot), statically generated from `content/pilot.ts`; home page picks a city.
+- [x] **6.4** Native sign-up form → `POST /api/pilot` → `pilot_signups` (migration `0002`). Short field set; city pre-filled from the route; channel captured from `?src=`/`utm_source`.
+- [x] **6.5** Email waitlist kept as a footer-level fallback for other cities.
+- [ ] **6.6** Founders: fill in dates, time block and park in `src/content/pilot.ts`; run `supabase/migrations/0002_pilot_signups.sql`; create per-channel links (`/barcelona?src=flyer-gracia`).
+
