@@ -93,7 +93,7 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
         <Text size="sm" tone="muted" className="mt-1">
           {confirmSent
             ? "We sent you a link to confirm your email and lock in your spot."
-            : "We'll email you the moment Nearfolk opens."}
+            : "We'll email you the moment Kizmet opens."}
         </Text>
       </div>
     );
@@ -162,7 +162,7 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
           className="mt-1 h-5 w-5 shrink-0 accent-[var(--nf-brand)]"
         />
         <Text size="sm" tone="muted" as="span">
-          Email me when Nearfolk opens. I can unsubscribe anytime, and my email is never sold — see
+          Email me when Kizmet opens. I can unsubscribe anytime, and my email is never sold — see
           the{" "}
           <a className="underline" href="/privacy">
             privacy note

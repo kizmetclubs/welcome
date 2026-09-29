@@ -44,7 +44,7 @@ export default async function ConfirmPage({
               <ConfirmTracker />
               <Heading level={1}>You&apos;re confirmed 🎉</Heading>
               <Text size="lg" className="mx-auto mt-4 max-w-md">
-                Your spot on the Nearfolk waitlist is locked in. We&apos;ll email you the moment the
+                Your spot on the Kizmet waitlist is locked in. We&apos;ll email you the moment the
                 app opens.
               </Text>
             </>
@@ -59,7 +59,7 @@ export default async function ConfirmPage({
           )}
           <Text className="mt-8">
             <Link href="/" className="text-brand font-semibold underline-offset-4 hover:underline">
-              ← Back to nearfolk
+              ← Back to kizmet
             </Link>
           </Text>
         </Container>

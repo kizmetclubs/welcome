@@ -3,7 +3,7 @@
  * because it frames every page rather than being one section of the landing narrative.
  */
 export const site = {
-  wordmark: "nearfolk",
+  wordmark: "kizmet",
   tagline: "Small groups. Same people. Every week.",
   // Absolute so the header CTA works from any page (/privacy, /confirm), not just home.
   waitlistAnchor: "/#waitlist",

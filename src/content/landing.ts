@@ -40,7 +40,7 @@ export const landingSections: Section[] = [
       },
       {
         title: "We keep it meeting",
-        body: "Nearfolk does the organizing — proposes the time and place, sends the nudges — so no single person gets stuck running it.",
+        body: "Kizmet does the organizing — proposes the time and place, sends the nudges — so no single person gets stuck running it.",
       },
       {
         title: "Just show up",
@@ -118,9 +118,9 @@ export const landingSections: Section[] = [
   {
     type: "waitlistCta",
     id: "waitlist",
-    heading: "Be first to know when Nearfolk opens.",
+    heading: "Be first to know when Kizmet opens.",
     body: "Small groups. Same people. Every week. Leave your email and we'll tell you the moment the app is ready.",
     submitLabel: "Join the waitlist",
-    note: "Barcelona and San Francisco for now. More cities soon. We'll only email you about Nearfolk.",
+    note: "Barcelona and San Francisco for now. More cities soon. We'll only email you about Kizmet.",
   },
 ];

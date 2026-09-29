@@ -6,7 +6,7 @@ import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Privacy",
-  description: "What Nearfolk collects on the waitlist, why, and how it's handled.",
+  description: "What Kizmet collects on the waitlist, why, and how it's handled.",
   alternates: { canonical: "/privacy" },
 };
 
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
               Last updated: {LAST_UPDATED}
             </Text>
             <Text size="lg" className="mt-6">
-              This covers the Nearfolk <strong>waitlist</strong> — the email form on this site. It
+              This covers the Kizmet <strong>waitlist</strong> — the email form on this site. It
               doesn&apos;t cover the in-person pilots (those run through a separate Google form) or
               the future app, which will have its own policy.
             </Text>
@@ -47,7 +47,7 @@ export default function PrivacyPage() {
                   Why we collect it
                 </Heading>
                 <Text className="mt-2">
-                  Only to email you when Nearfolk opens, and the optional city helps us know which
+                  Only to email you when Kizmet opens, and the optional city helps us know which
                   places have the most interest. We don&apos;t use it for anything else.
                 </Text>
               </section>
@@ -87,7 +87,7 @@ export default function PrivacyPage() {
                   Your rights
                 </Heading>
                 <Text className="mt-2">
-                  Nearfolk is being built by a team in the EU and the US, so we follow GDPR: you can
+                  Kizmet is being built by a team in the EU and the US, so we follow GDPR: you can
                   ask what we hold about you, have it corrected, or have it deleted. Just get in
                   touch.
                 </Text>

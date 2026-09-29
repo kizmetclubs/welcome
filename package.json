@@ -1,9 +1,9 @@
 {
-  "name": "nearfolk-welcome",
+  "name": "kizmet-welcome",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Nearfolk landing page — calling card + app waitlist",
+  "description": "Kizmet landing page — calling card + app waitlist",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

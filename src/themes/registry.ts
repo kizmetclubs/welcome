@@ -14,19 +14,19 @@ export interface ThemeConfig {
   /** shown in the theme switcher / design tooling */
   label: string;
   /** which motif pack to render (hand-drawn SVGs); wired up in M1 */
-  motifPack: "nearfolk" | "minimal";
+  motifPack: "kizmet" | "minimal";
 }
 
 export const THEMES: Record<ThemeName, ThemeConfig> = {
   default: {
     dataTheme: "default",
-    label: "Nearfolk (mint)",
-    motifPack: "nearfolk",
+    label: "Kizmet (mint)",
+    motifPack: "kizmet",
   },
   alt: {
     dataTheme: "alt",
     label: "Warm cream",
-    motifPack: "nearfolk",
+    motifPack: "kizmet",
   },
 };
 

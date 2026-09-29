@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 // Branded social-share image (spec §10). Generated at build; system font keeps it simple.
-export const alt = "Nearfolk — Clubs are back";
+export const alt = "Kizmet — Clubs are back";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -23,7 +23,7 @@ export default function OpengraphImage() {
       }}
     >
       <div style={{ fontSize: 40, color: "#008E83", fontWeight: 700, letterSpacing: 4 }}>
-        nearfolk
+        kizmet
       </div>
       <div style={{ fontSize: 104, fontWeight: 800, marginTop: 24, lineHeight: 1 }}>
         Clubs are back.

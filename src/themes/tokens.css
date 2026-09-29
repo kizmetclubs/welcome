@@ -1,5 +1,5 @@
 /*
- * Nearfolk design tokens — Axis A of the swappability model (see docs/technical-spec.md §4).
+ * Kizmet design tokens — Axis A of the swappability model (see docs/technical-spec.md §4).
  *
  * Every switchable design value lives here as a plain CSS custom property, scoped by
  * [data-theme]. Components NEVER contain a raw hex value — they consume these via the
