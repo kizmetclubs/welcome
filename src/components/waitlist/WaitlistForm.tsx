@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import { Button, Input, Text } from "@/components/primitives";
 import { track } from "@/lib/analytics";
@@ -164,9 +165,9 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
         <Text size="sm" tone="muted" as="span">
           Email me when Kizmet opens. I can unsubscribe anytime, and my email is never sold — see
           the{" "}
-          <a className="underline" href="/privacy">
+          <Link className="underline" href="/privacy">
             privacy note
-          </a>
+          </Link>
           .
         </Text>
       </label>
