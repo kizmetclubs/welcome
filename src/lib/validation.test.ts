@@ -12,6 +12,22 @@ describe("waitlistSchema", () => {
     if (result.success) expect(result.data.email).toBe("hello@example.com");
   });
 
+  it("keeps a free-text place for 'other', normalizing blanks to null", () => {
+    const withPlace = waitlistSchema.safeParse({
+      email: "a@b.com",
+      consent: true,
+      city: "other",
+      otherPlace: "  Madrid ",
+    });
+    expect(withPlace.success && withPlace.data.otherPlace).toBe("Madrid");
+    const blank = waitlistSchema.safeParse({ email: "a@b.com", consent: true, otherPlace: "" });
+    expect(blank.success && blank.data.otherPlace).toBe(null);
+    expect(
+      waitlistSchema.safeParse({ email: "a@b.com", consent: true, otherPlace: "x".repeat(81) })
+        .success
+    ).toBe(false);
+  });
+
   it("accepts a missing or null city", () => {
     expect(waitlistSchema.safeParse({ email: "a@b.com", consent: true }).success).toBe(true);
     expect(waitlistSchema.safeParse({ email: "a@b.com", consent: true, city: null }).success).toBe(

@@ -1,7 +1,7 @@
+import Link from "next/link";
 import { Checkerboard } from "@/components/motifs";
 import { Container, Text } from "@/components/primitives";
 import { site } from "@/content/site";
-import { resolveHref } from "@/lib/links";
 
 export function Footer() {
   return (
@@ -17,27 +17,23 @@ export function Footer() {
           </div>
 
           <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            {site.footer.links.map((link) => {
-              const href = resolveHref(link.href);
-              if (!href) return null;
-              return (
-                <a
-                  key={link.label}
-                  href={href}
-                  target={link.external ? "_blank" : undefined}
-                  rel={link.external ? "noopener noreferrer" : undefined}
-                  data-umami-event={link.external ? "pilot_cta_click" : undefined}
-                  className="font-body text-ink-soft hover:text-brand font-semibold underline-offset-4 hover:underline"
-                >
-                  {link.label}
-                </a>
-              );
-            })}
+            {site.footer.links.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="font-body text-ink-soft hover:text-brand font-semibold underline-offset-4 hover:underline"
+              >
+                {link.label}
+              </Link>
+            ))}
           </nav>
         </div>
 
         <Text size="sm" tone="muted" className="mt-8">
-          {site.footer.cityNote} · Questions? {site.footer.contactEmail}
+          {site.footer.cityNote} · Questions?{" "}
+          <a className="underline" href={`mailto:${site.footer.contactEmail}`}>
+            {site.footer.contactEmail}
+          </a>
         </Text>
       </Container>
     </footer>

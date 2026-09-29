@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import { Button, Input, Text } from "@/components/primitives";
 import { track } from "@/lib/analytics";
@@ -22,11 +23,13 @@ const CITY_OPTIONS = [
 export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
   const emailId = useId();
   const cityId = useId();
+  const otherPlaceId = useId();
   const consentId = useId();
   const statusId = useId();
 
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
+  const [otherPlace, setOtherPlace] = useState("");
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [confirmSent, setConfirmSent] = useState(false);
@@ -60,6 +63,7 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
           email,
           consent,
           city: city || null,
+          otherPlace: city === "other" ? otherPlace : null,
           startedAt: startedAt.current,
           company: honeypot ?? "",
         }),
@@ -93,7 +97,7 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
         <Text size="sm" tone="muted" className="mt-1">
           {confirmSent
             ? "We sent you a link to confirm your email and lock in your spot."
-            : "We'll email you the moment Nearfolk opens."}
+            : "We'll email you the moment Kizmet opens."}
         </Text>
       </div>
     );
@@ -128,7 +132,7 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
           aria-describedby={error ? statusId : undefined}
           required
         />
-        <Button type="submit" variant="primary" disabled={busy}>
+        <Button className="w-full sm:w-auto" type="submit" variant="primary" disabled={busy}>
           {busy ? "One sec…" : submitLabel}
         </Button>
       </div>
@@ -150,6 +154,22 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
             </option>
           ))}
         </select>
+        {city === "other" ? (
+          <div className="mt-2">
+            <label htmlFor={otherPlaceId} className="sr-only">
+              Which city or area?
+            </label>
+            <Input
+              id={otherPlaceId}
+              name="otherPlace"
+              placeholder="Which city or area? (e.g. Madrid, Oakland)"
+              maxLength={80}
+              value={otherPlace}
+              onChange={(e) => setOtherPlace(e.target.value)}
+              className="h-11 px-4 text-sm"
+            />
+          </div>
+        ) : null}
       </div>
 
       <label htmlFor={consentId} className="mt-4 flex items-start gap-3">
@@ -162,11 +182,11 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
           className="mt-1 h-5 w-5 shrink-0 accent-[var(--nf-brand)]"
         />
         <Text size="sm" tone="muted" as="span">
-          Email me when Nearfolk opens. I can unsubscribe anytime, and my email is never sold — see
+          Email me when Kizmet opens. I can unsubscribe anytime, and my email is never sold — see
           the{" "}
-          <a className="underline" href="/privacy">
+          <Link className="underline" href="/privacy">
             privacy note
-          </a>
+          </Link>
           .
         </Text>
       </label>

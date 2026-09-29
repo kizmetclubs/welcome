@@ -62,6 +62,8 @@ export async function POST(req: Request) {
   }
 
   const { email, consent, city } = parsed.data;
+  // Only keep the free-text place when the visitor actually picked "Somewhere else".
+  const otherPlace = city === "other" ? parsed.data.otherPlace : null;
   const doubleOptIn = process.env.WAITLIST_DOUBLE_OPTIN === "true";
 
   if (doubleOptIn) {
@@ -72,6 +74,7 @@ export async function POST(req: Request) {
         email,
         consent,
         city: city ?? null,
+        other_place: otherPlace,
         source: "landing",
         confirmed: false,
         confirm_token: token,
@@ -93,7 +96,14 @@ export async function POST(req: Request) {
 
   // Single opt-in: explicit consent is the lawful basis; store as confirmed immediately.
   const { error } = await supabase.from("waitlist_signups").upsert(
-    { email, consent, city: city ?? null, source: "landing", confirmed: true },
+    {
+      email,
+      consent,
+      city: city ?? null,
+      other_place: otherPlace,
+      source: "landing",
+      confirmed: true,
+    },
     { onConflict: "email", ignoreDuplicates: true } // duplicate signup = idempotent no-op
   );
   if (error) {

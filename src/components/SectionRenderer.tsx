@@ -1,10 +1,12 @@
 import type { JSX } from "react";
 import {
   Beliefs,
-  Clubs,
+  CityPicker,
   Faq,
   Hero,
   HowItWorks,
+  Pilot,
+  PilotSignup,
   Safety,
   Team,
   WaitlistCta,
@@ -18,12 +20,14 @@ import type { Section, SectionType } from "@/content/types";
  */
 const REGISTRY = {
   hero: Hero,
+  cityPicker: CityPicker,
+  pilot: Pilot,
   howItWorks: HowItWorks,
-  clubs: Clubs,
   beliefs: Beliefs,
   safety: Safety,
   team: Team,
   faq: Faq,
+  pilotSignup: PilotSignup,
   waitlistCta: WaitlistCta,
 } satisfies Record<SectionType, (props: never) => JSX.Element>;
 

@@ -1,32 +1,33 @@
 import type { FaqItem } from "./types";
 
-/**
- * FAQ (adapted from the website-copy doc), re-pointed so answers clearly distinguish the
- * app waitlist (this page's primary ask) from the in-person pilots (a separate form).
- */
+/** FAQ for the pilot. Answers stay honest about being early — no app, done by hand. */
 export const faq: FaqItem[] = [
   {
     q: "Wait, is there actually an app?",
-    a: "Not yet. Right now this is a pilot we're running entirely by hand — real people, real clubs, coordinated by email and text instead of an app. Joining the waitlist is how you'll hear the moment the app is ready.",
+    a: "Not yet. Right now Kizmet is a few of us suggesting a spot and sending the reminder. You show up, we do the rest. If the pilot proves the idea works, we build the app around it.",
   },
   {
-    q: "What's the difference between the waitlist and the pilot?",
-    a: "The waitlist is for the app we're building — leave your email and we'll tell you when it launches. The pilots are small in-person clubs happening right now in Barcelona and San Francisco, and you join those through a separate form.",
+    q: "What am I actually signing up for?",
+    a: "One small club that meets twice, on two Saturdays, in a park. We pick the day and the place. You just show up — both times, ideally. That's the whole ask.",
   },
   {
-    q: "Does this cost anything?",
-    a: "The waitlist is free. The pilots are kept genuinely cheap. The eventual app will have a paid membership, but that doesn't exist yet.",
+    q: "Does it cost anything?",
+    a: "No. The pilot is free. At most you bring your own supplies or a deck.",
   },
   {
-    q: "Do I need to already know someone in a group?",
-    a: "No. Most people show up knowing nobody. That's the point.",
+    q: "Do I need to already know someone?",
+    a: "No. Everyone's meeting for the first time. That's the point.",
   },
   {
     q: "Is this a dating app?",
     a: "No. Co-ed, built around the activity, nobody's swiping.",
   },
   {
-    q: "What happens after I join the waitlist?",
-    a: "We build the real app using what we learn from the pilots. You'll be the first to know.",
+    q: "What if it's not my thing?",
+    a: "Tell us. No guilt trip, no explanation required.",
+  },
+  {
+    q: "I'm not in Barcelona or San Francisco. Can I still join?",
+    a: "Not this round — but leave your email at the bottom of the page and we'll tell you when Kizmet comes to your city.",
   },
 ];

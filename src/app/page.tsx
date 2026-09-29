@@ -11,8 +11,7 @@ export const metadata: Metadata = {
 
 /*
  * The landing page is data-driven: the order and content come entirely from
- * src/content/landing.ts via <SectionRenderer>. To change the page, edit the content
- * (Axis C) or the theme tokens (Axis A) — not this file.
+ * src/content/landing.ts via <SectionRenderer>. City pages live at /[city].
  */
 export default function HomePage() {
   return (

@@ -1,8 +1,8 @@
-# Nearfolk — Landing Page MVP · Technical Spec
+# Kizmet — Landing Page MVP · Technical Spec
 
 _Owner: Daniela · Status: Draft v1 · Last updated: 2026-08-22_
 
-> This document is the source of truth for the first MVP of the Nearfolk landing page.
+> This document is the source of truth for the first MVP of the Kizmet landing page.
 > It is intentionally opinionated where the [High-Level Technical Plan](../../High%20Level%20Technical%20Plan%20v1.md) already decided things, and flags open questions where it hasn't.
 > Companion: [`task-plan.md`](./task-plan.md) — the ordered, checkable build list.
 
@@ -12,14 +12,14 @@ _Owner: Daniela · Status: Draft v1 · Last updated: 2026-08-22_
 
 The landing page is **two things at once**:
 
-1. **A calling card** — a single, credible, on-brand page we can send to advisors, accelerators, press, and warm intros that explains what Nearfolk is without overclaiming.
+1. **A calling card** — a single, credible, on-brand page we can send to advisors, accelerators, press, and warm intros that explains what Kizmet is without overclaiming.
 2. **A waitlist** — a place for interested people to leave their email so we can tell them when the real app launches.
 
 The waitlist is **separate from the pilot**. The in-person Barcelona/SF pilots recruit through **Google Forms** (unchanged). This page's _primary_ action is "join the app waitlist"; the pilot appears as an honest _secondary_ call-to-action that links out to the pilot Google Form.
 
 ### Goals (what success looks like)
 
-- A visitor understands, in under 30 seconds, what Nearfolk is and why it's different.
+- A visitor understands, in under 30 seconds, what Kizmet is and why it's different.
 - Joining the waitlist takes one field (email) and never feels like a form.
 - The page reads as warm, cottagecore, and honest — never "tech bro."
 - **The visual design can be swapped wholesale** (palette, fonts, motifs, section order, copy) without touching application logic — because the design is still in flux.
@@ -85,8 +85,8 @@ All color, typography, spacing, radius, shadow, and motion values live as **CSS 
 ```
 src/themes/
   tokens.css        # :root { --color-…: … }  and  [data-theme="…"] { … } overrides
-  registry.ts       # { default: nearfolkTheme, alt: … } → maps name → font config + motif set
-  nearfolk.ts       # non-CSS theme config: which font families, which motif pack, OG image
+  registry.ts       # { default: kizmetTheme, alt: … } → maps name → font config + motif set
+  kizmet.ts       # non-CSS theme config: which font families, which motif pack, OG image
 ```
 
 - Tailwind v4 is configured so utilities resolve to these variables (`bg-brand`, `text-ink`, `rounded-card` → `var(--color-brand)` …). Components **never** contain a raw hex value.
@@ -139,7 +139,7 @@ src/components/SectionRenderer.tsx  # registry: section.type → React component
 
 ## 5. Information architecture (page sections)
 
-Re-pointed from the [existing website copy](../../Nearfolk%20—%20Website%20Copy.md) toward the **app waitlist** (primary) with the **pilot** as a secondary CTA. Each is a registry section (Axis C).
+Re-pointed from the [existing website copy](../../Kizmet%20—%20Website%20Copy.md) toward the **app waitlist** (primary) with the **pilot** as a secondary CTA. Each is a registry section (Axis C).
 
 1. **Hero** — Eyebrow ("An honest, early-stage project — no app yet"), Headline ("Clubs are back."), Subheadline, **primary CTA = Join the waitlist** (email field inline or scrolls to form), secondary link = "Running a pilot near you? Join it →" (Google Form). Stat/trust bar: "Barcelona & San Francisco · Clubs capped at 10."
 2. **How it works** — the four-step / club mechanic, framed as the _app's_ promise (small, recurring, someone-else-organizes) with an honest "here's where we are today" note.
@@ -148,7 +148,7 @@ Re-pointed from the [existing website copy](../../Nearfolk%20—%20Website%20Cop
 5. **A note on safety** — plain-language safety stance (ID verification/code-of-conduct _planned_; hands-on review _today_).
 6. **Who we are / why** — founder story (placeholders preserved from copy for real details).
 7. **FAQ** — from `faq.ts` (is there an app yet, cost, dating app?, etc.), re-pointed so answers distinguish waitlist vs pilot.
-8. **Waitlist CTA (closing)** — the primary conversion block again: "Be first to know when Nearfolk opens." Email + optional city + consent.
+8. **Waitlist CTA (closing)** — the primary conversion block again: "Be first to know when Kizmet opens." Email + optional city + consent.
 9. **Footer** — links: Privacy, pilot Google Form, contact email, city note.
 
 > All copy is placeholder-friendly: the doc's `[bracketed]` bits stay as visible TODOs in `content/*` until the founders fill them.
@@ -269,7 +269,7 @@ WCAG 2.1 AA. Semantic landmarks (`header`/`main`/`footer`/`section` with heading
 │  │  ├─ waitlist/WaitlistForm.tsx
 │  │  └─ SectionRenderer.tsx
 │  ├─ content/                 # landing.ts, clubs.ts, faq.ts  (all copy lives here)
-│  ├─ themes/                  # tokens.css, registry.ts, nearfolk.ts
+│  ├─ themes/                  # tokens.css, registry.ts, kizmet.ts
 │  ├─ lib/                     # supabase.ts, resend.ts, validation.ts, analytics.ts, ratelimit.ts
 │  └─ styles/globals.css
 ├─ supabase/migrations/0001_waitlist.sql

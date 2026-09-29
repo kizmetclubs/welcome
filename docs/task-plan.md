@@ -1,4 +1,4 @@
-# Nearfolk — Landing Page MVP · Task Plan
+# Kizmet — Landing Page MVP · Task Plan
 
 _Companion to [`technical-spec.md`](./technical-spec.md). Ordered, checkable, grouped by milestone._
 
@@ -14,7 +14,7 @@ _Goal: a deployable Next.js app whose look is 100% token-driven, with CI and a l
 - [x] **0.2 (M)** Scaffold Next.js (App Router) + TypeScript + Tailwind CSS v4. Add ESLint + Prettier, `tsconfig` strict.
 - [x] **0.3 (S)** Add `.env.example` documenting every var from spec §12. Wire `.env.local` loading.
 - [x] **0.4 (M)** **Design-token layer (Axis A)**: `src/themes/tokens.css` with `:root` + `[data-theme]` blocks seeded from the mood-board palette; wire Tailwind v4 to resolve utilities to these variables. ⟵ 0.2
-- [x] **0.5 (S)** `src/themes/registry.ts` + `nearfolk.ts`: theme config (font families, motif pack, OG image). `NEXT_PUBLIC_THEME` selects the active theme via `data-theme` on `<html>`; `?theme=` override enabled in dev/preview only. ⟵ 0.4
+- [x] **0.5 (S)** `src/themes/registry.ts` + `kizmet.ts`: theme config (font families, motif pack, OG image). `NEXT_PUBLIC_THEME` selects the active theme via `data-theme` on `<html>`; `?theme=` override enabled in dev/preview only. ⟵ 0.4
 - [x] **0.6 (M)** Load `--font-display` + `--font-body` via `next/font` (start with closest Google Fonts to the boards; swap to licensed files later). ⟵ 0.4
 - [x] **0.7 (M)** **Primitive components (Axis B)**: `Container`, `Section`, `Heading`(1–4), `Text`, `Eyebrow`, `Button`(primary/secondary/ghost), `Input`, `Card`, `Badge` — token-only, zero hardcoded colors. ⟵ 0.4
 - [x] **0.8 (S)** Prove swappability: a throwaway `/_kitchensink` page that flips `?theme=` and shows tokens + primitives re-skinning with no code change. (Delete before launch.) ⟵ 0.7
@@ -99,7 +99,7 @@ _Goal: all success criteria (spec §2) met on the preview URL._
 _Goal: swap in the real design and go public._
 
 - [ ] **5.1 (M)** Receive Ash's **design-handoff** (spec §13): final tokens, fonts, motifs, OG, spacing scale.
-- [ ] **5.2 (M)** Replace placeholder theme with the real `nearfolk` theme — **tokens + themes/\* + motif pack only**; verify no section/logic file needs editing (the swappability test). ⟵ 5.1
+- [ ] **5.2 (M)** Replace placeholder theme with the real `kizmet` theme — **tokens + themes/\* + motif pack only**; verify no section/logic file needs editing (the swappability test). ⟵ 5.1
 - [ ] **5.3 (S)** Fill remaining `[bracketed]` founder copy in `content/*`.
 - [ ] **5.4 (S)** Domain `kizmetclubs.com` bought and pointed at Vercel; remaining: set `NEXT_PUBLIC_SITE_URL`, create `hello@` forward at Porkbun, verify Resend domain (SPF/DKIM/DMARC), set `RESEND_FROM`, flip `WAITLIST_DOUBLE_OPTIN` on. ⟵ 3.x
 - [ ] **5.5 (S)** Remove `/_kitchensink`, final QA on real devices, launch. ⟵ all
@@ -120,3 +120,16 @@ _Goal: swap in the real design and go public._
 ## Suggested first working session
 
 `M0.2 → M0.4 → M0.7 → M0.8` gets a token-driven, provably-swappable skeleton on a live Vercel preview in a single sitting — the fastest way to de-risk the "design in flux" requirement before any copy or backend work.
+
+---
+
+## M6 — Pilot-first relaunch (Sep 2026)
+
+_Goal: the page sells the in-person pilot and takes sign-ups directly; one club per city._
+
+- [x] **6.1** Rename Nearfolk → Kizmet everywhere.
+- [x] **6.2** Pilot-first content: hero, pilot details, how it works, team (Sam, Daniela, Ash, Cindy), FAQ; old "What's running" section removed.
+- [x] **6.3** City routes `/barcelona` (Arts & Crafts) and `/sanfrancisco` (Oracle & Tarot), statically generated from `content/pilot.ts`; home page picks a city.
+- [x] **6.4** Native sign-up form → `POST /api/pilot` → `pilot_signups` (migration `0002`). Short field set; city pre-filled from the route; channel captured from `?src=`/`utm_source`.
+- [x] **6.5** Email waitlist kept as a footer-level fallback for other cities.
+- [ ] **6.6** Founders: fill in dates, time block and park in `src/content/pilot.ts`; run `supabase/migrations/0002_pilot_signups.sql`; create per-channel links (`/barcelona?src=flyer-gracia`).

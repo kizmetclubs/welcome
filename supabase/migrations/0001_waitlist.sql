@@ -1,4 +1,4 @@
--- Nearfolk waitlist — initial schema (spec §6.1).
+-- Kizmet waitlist — initial schema (spec §6.1).
 -- Run in the Supabase project (EU / Frankfurt): SQL editor, or `supabase db push`.
 -- Data minimization (mosaic test): email + a coarse city bucket + consent + timestamps.
 -- No IP, no name, no precise location.
