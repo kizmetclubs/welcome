@@ -8,20 +8,9 @@ import {
   Section,
   Text,
 } from "@/components/primitives";
-import { resolveHref } from "@/lib/links";
 import type { HeroSection } from "@/content/types";
 
-export function Hero({
-  eyebrow,
-  headline,
-  subheadline,
-  primaryCta,
-  secondaryCta,
-  note,
-  stats,
-}: HeroSection) {
-  const pilotHref = secondaryCta ? resolveHref(secondaryCta.href) : null;
-
+export function Hero({ eyebrow, headline, subheadline, primaryCta, scribble, stats }: HeroSection) {
   return (
     <Section tone="canvas" spacing="lg">
       <Container className="text-center">
@@ -40,24 +29,12 @@ export function Hero({
             </LinkButton>
             <Arrow className="text-brand pointer-events-none absolute -top-8 -right-14 hidden h-10 w-20 sm:block" />
           </div>
-          {secondaryCta && pilotHref ? (
-            <a
-              href={pilotHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-umami-event="pilot_cta_click"
-              className="font-body text-brand font-semibold underline-offset-4 hover:underline"
-            >
-              {secondaryCta.label}
-            </a>
+          {scribble ? (
+            <Text as="span" tone="soft" className="font-display text-xl font-semibold">
+              {scribble}
+            </Text>
           ) : null}
         </div>
-
-        {note ? (
-          <Text size="sm" tone="muted" className="mx-auto mt-6 max-w-lg">
-            {note}
-          </Text>
-        ) : null}
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
           {stats.map((stat, i) => (

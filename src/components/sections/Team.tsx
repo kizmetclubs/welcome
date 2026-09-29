@@ -22,7 +22,8 @@ export function Team({ heading, intro, members, closing }: TeamSection) {
                   {member.name}
                 </Heading>
                 <Text size="sm" tone="muted" className="mt-1">
-                  {member.location} · {member.role}
+                  {member.role}
+                  {member.location ? ` · ${member.location}` : ""}
                 </Text>
                 <Text className="mt-3">{member.detail}</Text>
               </Card>
