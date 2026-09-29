@@ -29,7 +29,7 @@ export default function OpengraphImage() {
         Clubs are back.
       </div>
       <div style={{ fontSize: 34, color: "#3f524d", marginTop: 28 }}>
-        Small groups. Same people. Every week.
+        Clubs for adults. Same people, every week.
       </div>
       <div
         style={{
@@ -42,7 +42,7 @@ export default function OpengraphImage() {
           fontWeight: 700,
         }}
       >
-        Join the waitlist
+        Join the pilot
       </div>
     </div>,
     { ...size }

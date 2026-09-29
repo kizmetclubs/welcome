@@ -17,10 +17,10 @@ export const metadata: Metadata = {
     template: "%s · Kizmet",
   },
   description:
-    "Small groups. Same people. Every week. Kizmet helps you join a small, recurring club near you — and we handle getting everyone there.",
+    "Clubs for adults. Same people, every week. A small club that meets twice, on two Saturdays, in a park. Pilots in Barcelona and San Francisco — no app, just show up.",
   openGraph: {
     title: "Kizmet — Clubs are back",
-    description: "Small groups. Same people. Every week. Join the waitlist for Kizmet.",
+    description: "Same people, every week. Join the pilot in Barcelona or San Francisco.",
     type: "website",
     url: siteUrl,
   },
