@@ -12,6 +12,13 @@ export const waitlistSchema = z.object({
     errorMap: () => ({ message: "Please tick the box so we can email you." }),
   }),
   city: z.enum(CITY_VALUES).nullish(),
+  /** Free-text place when city is "other" (which city/region to open next). */
+  otherPlace: z
+    .string()
+    .trim()
+    .max(80, "Please keep the place under 80 characters.")
+    .nullish()
+    .transform((value) => (value ? value : null)),
 });
 
 export type WaitlistInput = z.infer<typeof waitlistSchema>;

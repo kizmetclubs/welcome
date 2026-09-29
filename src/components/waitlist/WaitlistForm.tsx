@@ -23,11 +23,13 @@ const CITY_OPTIONS = [
 export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
   const emailId = useId();
   const cityId = useId();
+  const otherPlaceId = useId();
   const consentId = useId();
   const statusId = useId();
 
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
+  const [otherPlace, setOtherPlace] = useState("");
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [confirmSent, setConfirmSent] = useState(false);
@@ -61,6 +63,7 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
           email,
           consent,
           city: city || null,
+          otherPlace: city === "other" ? otherPlace : null,
           startedAt: startedAt.current,
           company: honeypot ?? "",
         }),
@@ -129,7 +132,7 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
           aria-describedby={error ? statusId : undefined}
           required
         />
-        <Button type="submit" variant="primary" disabled={busy}>
+        <Button className="w-full sm:w-auto" type="submit" variant="primary" disabled={busy}>
           {busy ? "One sec…" : submitLabel}
         </Button>
       </div>
@@ -151,6 +154,22 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
             </option>
           ))}
         </select>
+        {city === "other" ? (
+          <div className="mt-2">
+            <label htmlFor={otherPlaceId} className="sr-only">
+              Which city or area?
+            </label>
+            <Input
+              id={otherPlaceId}
+              name="otherPlace"
+              placeholder="Which city or area? (e.g. Madrid, Oakland)"
+              maxLength={80}
+              value={otherPlace}
+              onChange={(e) => setOtherPlace(e.target.value)}
+              className="h-11 px-4 text-sm"
+            />
+          </div>
+        ) : null}
       </div>
 
       <label htmlFor={consentId} className="mt-4 flex items-start gap-3">
