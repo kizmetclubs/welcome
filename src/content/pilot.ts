@@ -37,7 +37,7 @@ export const pilots: Record<CitySlug, CityPilot> = {
     place: "[park, neighborhood]",
     cap: "Under 10 people",
     cost: "Free — bring a deck if you have one",
-    status: "Starts shortly after Barcelona",
+    status: "Starts in November",
     stat: "Roughly 1 in 3 US adults say they're lonely.",
   },
 };
