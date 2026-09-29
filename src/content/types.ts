@@ -1,26 +1,18 @@
 /**
  * Content model — Axis C of the swappability system (spec §4).
  *
- * The page is DATA, not markup: landing.ts exports an ordered list of these sections and
+ * The page is DATA, not markup: landing.ts builds an ordered list of these sections and
  * <SectionRenderer> maps each `type` to a component. Reordering, adding, or removing a
- * whole section is a one-line edit here; rewriting copy never touches a component.
+ * whole section is a one-line edit; rewriting copy never touches a component.
  */
+
+export type CitySlug = "barcelona" | "sanfrancisco";
 
 export interface CtaLink {
   label: string;
-  /** In-page anchor (e.g. "#waitlist") or an external URL. */
+  /** In-page anchor (e.g. "#signup") or a path/URL. */
   href: string;
-  /** Set for external links (pilot form) so the renderer opens a new tab. */
   external?: boolean;
-}
-
-export interface Club {
-  emoji: string;
-  name: string;
-  blurb: string;
-  /** Placeholder until the pilot schedule is locked. */
-  when: string;
-  where: string;
 }
 
 export interface FaqItem {
@@ -30,15 +22,36 @@ export interface FaqItem {
 
 export interface TeamMember {
   name: string;
-  location: string;
   role: string;
-  /** May contain [bracketed] TODOs for the founders to fill in. */
+  location?: string;
   detail: string;
 }
 
 export interface Step {
   title: string;
   body: string;
+}
+
+/** One city's pilot. Dates/venue are [bracketed] placeholders until locked. */
+export interface CityPilot {
+  slug: CitySlug;
+  name: string;
+  club: {
+    name: string;
+    emoji: string;
+    blurb: string;
+    /** Badge color for the city chip. */
+    tone: "gold" | "sky" | "lime" | "pink";
+  };
+  dates: string[];
+  time: string;
+  place: string;
+  cap: string;
+  cost: string;
+  /** Short launch note ("first, in November"). */
+  status: string;
+  /** City-appropriate loneliness stat from the pilot doc (never mixed across borders). */
+  stat: string;
 }
 
 /* ── section variants (discriminated union on `type`) ─────────────────────── */
@@ -49,10 +62,25 @@ export interface HeroSection {
   headline: string;
   subheadline: string;
   primaryCta: CtaLink;
-  /** Rendered only when its href resolves (pilot form URL may be unset). */
-  secondaryCta?: CtaLink;
-  note?: string;
+  /** Handwritten accent line beside the CTA. */
+  scribble?: string;
   stats: string[];
+}
+
+export interface CityPickerSection {
+  type: "cityPicker";
+  heading: string;
+  intro?: string;
+  cities: CityPilot[];
+}
+
+export interface PilotSection {
+  type: "pilot";
+  id?: string;
+  eyebrow?: string;
+  heading: string;
+  intro: string;
+  pilot: CityPilot;
 }
 
 export interface HowItWorksSection {
@@ -62,15 +90,6 @@ export interface HowItWorksSection {
   intro?: string;
   steps: Step[];
   note?: string;
-}
-
-export interface ClubsSection {
-  type: "clubs";
-  eyebrow?: string;
-  heading: string;
-  intro?: string;
-  clubs: Club[];
-  suggestion?: CtaLink;
 }
 
 export interface BeliefsSection {
@@ -99,9 +118,18 @@ export interface FaqSection {
   items: FaqItem[];
 }
 
+export interface PilotSignupSection {
+  type: "pilotSignup";
+  id: string;
+  heading: string;
+  body?: string;
+  /** Pre-selected city (from the route); the visitor can still change it. */
+  city?: CitySlug;
+  note?: string;
+}
+
 export interface WaitlistCtaSection {
   type: "waitlistCta";
-  /** Anchor target for the hero's primary CTA. */
   id: string;
   heading: string;
   body?: string;
@@ -111,12 +139,14 @@ export interface WaitlistCtaSection {
 
 export type Section =
   | HeroSection
+  | CityPickerSection
+  | PilotSection
   | HowItWorksSection
-  | ClubsSection
   | BeliefsSection
   | SafetySection
   | TeamSection
   | FaqSection
+  | PilotSignupSection
   | WaitlistCtaSection;
 
 export type SectionType = Section["type"];

@@ -1,126 +1,181 @@
-import { clubs } from "./clubs";
 import { faq } from "./faq";
-import type { Section } from "./types";
+import { CITY_SLUGS, pilots } from "./pilot";
+import type { CitySlug, Section } from "./types";
 
 /**
- * The landing page, as data. Order here IS the page order. Copy hews to the website-copy
- * doc, re-pointed so the app waitlist is the primary ask and the in-person pilot is an
- * honest secondary. [bracketed] bits are TODOs for the founders to fill in.
+ * The landing page, as data. `buildSections(city)` returns the ordered section list for a
+ * city page (/barcelona, /sanfrancisco); with no city it returns the home page, which lets
+ * the visitor pick one. Copy hews to the pilot planning doc, lowercase to match the mock.
  */
-export const landingSections: Section[] = [
-  {
-    type: "hero",
-    eyebrow: "An early pilot, run entirely by hand, no app yet",
-    headline: "Clubs are back.",
-    subheadline:
-      "Small groups. Same people. Every week. Pick something you actually want to do — pastry night, a walking group, a book club — and we'll handle getting everyone there.",
-    primaryCta: { label: "Join the waitlist", href: "#waitlist" },
-    secondaryCta: {
-      label: "Running a pilot near you? Join it →",
-      href: "PILOT_FORM",
-      external: true,
+
+const howItWorks: Section = {
+  type: "howItWorks",
+  eyebrow: "How it works",
+  heading: "You show up. We do the rest.",
+  intro:
+    "Kizmet is small, recurring clubs that meet in person, on a schedule we handle for you. Right now that's just us — no app yet, just a few of us suggesting a spot and sending the reminder.",
+  steps: [
+    {
+      title: "Sign up",
+      body: "Tell us your city and your neighborhood. Takes about a minute.",
     },
-    note: "The waitlist is for the app we're building. The clubs below are real pilots happening right now — you can join one of those today through a separate form.",
-    stats: ["Barcelona & San Francisco", "Pilot open now", "Clubs capped at 10"],
-  },
-  {
-    type: "howItWorks",
-    eyebrow: "How it works",
-    heading: "You get the club. You don't get the admin.",
-    intro:
-      "This is the app we're building. Right now we run it by hand in small pilots, so we're sure the format works before we automate any of it.",
-    steps: [
-      {
-        title: "Find a club near you",
-        body: "Something you'd actually show up for — pastry night, a walk, a book club — close to home.",
-      },
-      {
-        title: "Join a small group",
-        body: "Capped at 10, the same people each week. You'll know whether it's brand new or already going before you commit.",
-      },
-      {
-        title: "We keep it meeting",
-        body: "Kizmet does the organizing — proposes the time and place, sends the nudges — so no single person gets stuck running it.",
-      },
-      {
-        title: "Just show up",
-        body: "That's the whole point. The club keeps happening without anyone having to carry it.",
-      },
-    ],
-    note: "For now, that organizing is genuinely just us — texting and emailing to make sure everyone shows up.",
-  },
-  {
-    type: "clubs",
-    eyebrow: "What's running in the pilots",
-    heading: "Come eat pastries with your neighbors.",
-    intro: "Kept casual and cheap, in parks and public spaces around the city.",
-    clubs,
-    suggestion: {
-      label: "Something else you'd actually show up for? Tell us →",
-      href: "PILOT_FORM",
-      external: true,
+    {
+      title: "Get placed",
+      body: "We place you in a group by hand and send the details: when, where, and who's running it.",
     },
-  },
-  {
-    type: "beliefs",
-    heading: "What we believe",
-    beliefs: [
-      "Small groups, not big rooms.",
-      "The same people, more than once.",
-      "Someone else does the planning, not you — that's us, for now, by hand.",
-      "Co-ed, built around the activity. Not a dating app.",
-      "Honest about being early. No app yet, no big promises — just real clubs meeting this week.",
-    ],
-  },
-  {
-    type: "safety",
-    heading: "A note on safety",
-    body: [
-      "Right now, since this is a small, hands-on pilot, we're personally reviewing everyone who signs up before placing them in a group. As this grows into a real app, that becomes proper ID verification and a formal code of conduct for every member — but for now it's genuinely just us, paying attention to who's signing up.",
-      "If a club isn't the right fit, tell us and we'll sort it out. Easy, no guilt trip.",
-    ],
-  },
-  {
-    type: "team",
-    heading: "Why we're doing this",
-    intro: [
-      "[First pass — replace the specifics with the real story.] I've spent most of my career in public health, which means I read the loneliness statistics for years before they meant much to me personally. Then [insert the real moment] and it stopped being a line in a report and started being my actual Tuesdays.",
-      "Daniela and Ash had their own versions of hitting the same wall. [Add the real story here if there is one.] Three people who each ran into the same problem separately, and figured that was annoying enough to do something about together.",
-    ],
-    members: [
+    {
+      title: "Show up twice",
+      body: "Each club meets twice, on two Saturdays. That's the whole ask.",
+    },
+    {
+      title: "Tell us how it went",
+      body: "A short form after the second session. Two minutes, tops.",
+    },
+  ],
+};
+
+const beliefs: Section = {
+  type: "beliefs",
+  heading: "What we believe",
+  beliefs: [
+    "Small groups, not big rooms.",
+    "The same people, more than once.",
+    "Someone else does the planning. That's us, for now, by hand.",
+    "Co-ed, built around the activity. Not a dating app.",
+    "Honest about being early. No app, no big promises — just a real club, meeting twice.",
+  ],
+};
+
+const safety: Section = {
+  type: "safety",
+  heading: "A note on safety",
+  body: [
+    "You're meeting people you don't know yet, so we personally review everyone who signs up before placing them in a group. We're not running background checks at this stage, but we're paying attention to who's signing up.",
+    "On the day there's a welcome desk with name tags, and a quick in-person check against your sign-up. If a club isn't the right fit, tell us and we'll sort it out.",
+  ],
+};
+
+const team: Section = {
+  type: "team",
+  heading: "Why we're doing this",
+  intro: [
+    "Adult friendship doesn't happen by accident anymore. Nothing forces you into the same room with the same people the way school or a first job once did, and the apps built for this treat friendship like dating: one match, one hangout, then it's on you to keep it going. That's the part everyone struggles with.",
+    "We ran listening sessions before building anything. People wanted to meet others close by, in small groups, and to know up front whether they'd be walking into something brand new or already established. The thing that quietly killed groups wasn't a lack of interest — it was that one person ending up as the organizer, and burning out. So the hard part was never one good hangout. It's the second one.",
+    "Kizmet is our answer: a club that just meets, on a schedule someone else handles. We're testing it by hand, in a park, before we build anything else around it.",
+  ],
+  members: [
+    {
+      name: "Sam",
+      role: "Strategy & vision",
+      location: "San Francisco",
+      detail:
+        "Public health background, a decade in institutional partnerships. Read the loneliness statistics for years before they turned into his actual Tuesdays.",
+    },
+    {
+      name: "Daniela",
+      role: "Engineering",
+      location: "Barcelona",
+      detail: "Builds the thing. Right now that mostly means this page and a spreadsheet.",
+    },
+    {
+      name: "Ash",
+      role: "Design",
+      location: "Barcelona",
+      detail:
+        "Everything you're looking at. Warm, a little whimsical, nothing that reads like a tech company.",
+    },
+    {
+      name: "Cindy",
+      role: "Partnerships & marketing",
+      detail:
+        "Gets the word out and finds the local groups already gathering people, so a club has neighbors in it, not just strangers from the internet.",
+    },
+  ],
+  closing:
+    "None of us had built a company before this one. We each got tired of the same problem separately, and figured four of us complaining about it together was more useful than one of us complaining alone.",
+};
+
+const faqSection: Section = { type: "faq", heading: "Questions", items: faq };
+
+const waitlist: Section = {
+  type: "waitlistCta",
+  id: "waitlist",
+  heading: "Not in Barcelona or San Francisco?",
+  body: "Leave your email and we'll tell you when Kizmet comes to your city.",
+  submitLabel: "Keep me posted",
+  note: "We'll only email you about Kizmet. Unsubscribe anytime.",
+};
+
+export function buildSections(city?: CitySlug): Section[] {
+  if (city) {
+    const pilot = pilots[city];
+    return [
       {
-        name: "[Your name]",
-        location: "San Francisco",
-        role: "Public health",
-        detail: "About a decade in institutional partnerships before this. [One real detail.]",
+        type: "hero",
+        eyebrow: `${pilot.name} · ${pilot.status}`,
+        headline: `${pilot.club.emoji} ${pilot.club.name}`,
+        subheadline: `One small club, ${pilot.cap.toLowerCase()}, that meets twice, on two Saturdays, in ${pilot.name}. We pick the day and the place. You just show up.`,
+        primaryCta: { label: "Join the pilot", href: "#signup" },
+        scribble: "Be my best friend.",
+        stats: [pilot.dates.join(" & "), pilot.place, pilot.cost],
       },
       {
-        name: "Daniela",
-        location: "Barcelona",
-        role: "Engineering",
-        detail: "[Her background, one real detail.]",
+        type: "pilot",
+        id: "details",
+        eyebrow: "The pilot",
+        heading: `What's happening in ${pilot.name}`,
+        intro: pilot.stat,
+        pilot,
       },
+      howItWorks,
       {
-        name: "Ash",
-        location: "Barcelona",
-        role: "Design",
-        detail: "[Her background, one real detail.]",
+        type: "pilotSignup",
+        id: "signup",
+        heading: "Want in?",
+        body: "Six quick questions. We'll place you by hand and send the details.",
+        city,
+        note: "We personally review every sign-up. No cost, no app, no pressure.",
       },
-    ],
-    closing:
-      "None of us had built a company before this one. We each got tired of the same problem separately, and figured three of us complaining about it together was more useful than one of us complaining alone.",
-  },
-  {
-    type: "faq",
-    heading: "Questions",
-    items: faq,
-  },
-  {
-    type: "waitlistCta",
-    id: "waitlist",
-    heading: "Be first to know when Kizmet opens.",
-    body: "Small groups. Same people. Every week. Leave your email and we'll tell you the moment the app is ready.",
-    submitLabel: "Join the waitlist",
-    note: "Barcelona and San Francisco for now. More cities soon. We'll only email you about Kizmet.",
-  },
-];
+      beliefs,
+      safety,
+      team,
+      faqSection,
+      waitlist,
+    ];
+  }
+
+  return [
+    {
+      type: "hero",
+      eyebrow: "An early pilot, run entirely by hand, no app yet",
+      headline: "Clubs are back.",
+      subheadline:
+        "Small groups. Same people. Two Saturdays in a park. Pick your city, tell us your neighborhood, and we'll handle getting everyone there.",
+      primaryCta: { label: "Join the pilot", href: "#signup" },
+      scribble: "Be my best friend.",
+      stats: ["Barcelona & San Francisco", "Capped under 10", "Free"],
+    },
+    {
+      type: "cityPicker",
+      heading: "One club per city, to start.",
+      intro: "Barcelona goes first, in November. San Francisco follows shortly after.",
+      cities: CITY_SLUGS.map((slug) => pilots[slug]),
+    },
+    howItWorks,
+    {
+      type: "pilotSignup",
+      id: "signup",
+      heading: "Want in?",
+      body: "Six quick questions. Pick your city, and we'll place you by hand.",
+      note: "We personally review every sign-up. No cost, no app, no pressure.",
+    },
+    beliefs,
+    safety,
+    team,
+    faqSection,
+    waitlist,
+  ];
+}
+
+/** Home page sections (kept as a constant for tests and the registry guard). */
+export const landingSections: Section[] = buildSections();
