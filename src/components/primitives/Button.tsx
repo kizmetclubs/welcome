@@ -4,7 +4,7 @@ type Variant = "primary" | "secondary" | "ghost";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-pill font-body font-bold " +
+  "inline-flex items-center justify-center gap-2 rounded-pill font-body font-bold cursor-pointer " +
   "transition-transform duration-150 ease-out will-change-transform " +
   "hover:-translate-y-0.5 active:translate-y-0 disabled:pointer-events-none disabled:opacity-60";
 

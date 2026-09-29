@@ -163,7 +163,7 @@ export function PilotSignupForm({ city: initialCity }: { city?: CitySlug }) {
             type="tel"
             inputMode="tel"
             autoComplete="tel"
-            placeholder="+34 …"
+            placeholder={city === "barcelona" ? "+34 …" : "+1 …"}
             value={whatsapp}
             onChange={(e) => setWhatsapp(e.target.value)}
             required

@@ -133,4 +133,3 @@ _Goal: the page sells the in-person pilot and takes sign-ups directly; one club 
 - [x] **6.4** Native sign-up form → `POST /api/pilot` → `pilot_signups` (migration `0002`). Short field set; city pre-filled from the route; channel captured from `?src=`/`utm_source`.
 - [x] **6.5** Email waitlist kept as a footer-level fallback for other cities.
 - [ ] **6.6** Founders: fill in dates, time block and park in `src/content/pilot.ts`; run `supabase/migrations/0002_pilot_signups.sql`; create per-channel links (`/barcelona?src=flyer-gracia`).
-

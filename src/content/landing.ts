@@ -51,7 +51,7 @@ const safety: Section = {
   heading: "A note on safety",
   body: [
     "You're meeting people you don't know yet, so we personally review everyone who signs up before placing them in a group. We're not running background checks at this stage, but we're paying attention to who's signing up.",
-    "On the day there's a welcome desk with name tags, and a quick in-person check against your sign-up. If a club isn't the right fit, tell us and we'll sort it out.",
+    "On the day of the pilot, we will be there to welcome you with name tags, and a quick in-person check against your sign-up. If something isn't the right, just talk to us and we'll sort it out together.",
   ],
 };
 
@@ -69,7 +69,7 @@ const team: Section = {
       role: "Strategy & vision",
       location: "San Francisco",
       detail:
-        "Public health background, a decade in institutional partnerships. Read the loneliness statistics for years before they turned into his actual Tuesdays.",
+        "Public health background, a decade in institutional partnerships. Read the loneliness statistics for years before building Kizmet.",
     },
     {
       name: "Daniela",
@@ -81,8 +81,7 @@ const team: Section = {
       name: "Ash",
       role: "Design",
       location: "Barcelona",
-      detail:
-        "Everything you're looking at. Warm, a little whimsical, nothing that reads like a tech company.",
+      detail: "Everything you're looking at. Warm, a little whimsical, friendship-forward.",
     },
     {
       name: "Cindy",
@@ -92,7 +91,7 @@ const team: Section = {
     },
   ],
   closing:
-    "None of us had built a company before this one. We each got tired of the same problem separately, and figured four of us complaining about it together was more useful than one of us complaining alone.",
+    "None of us have built a company before this one. We're learning as we go, and we want to build something with the community, not just for the community.",
 };
 
 const faqSection: Section = { type: "faq", heading: "Questions", items: faq };
@@ -102,7 +101,7 @@ const waitlist: Section = {
   id: "waitlist",
   heading: "Not in Barcelona or San Francisco?",
   body: "Leave your email and we'll tell you when Kizmet comes to your city.",
-  submitLabel: "Keep me posted",
+  submitLabel: "Join",
   note: "We'll only email you about Kizmet. Unsubscribe anytime.",
 };
 
@@ -158,7 +157,8 @@ export function buildSections(city?: CitySlug): Section[] {
     {
       type: "cityPicker",
       heading: "One club per city, to start.",
-      intro: "Barcelona goes first, in November. San Francisco follows shortly after.",
+      intro:
+        "Barcelona and San Francisco pilots will start in November. After that, we'll work together with the community to build out more clubs based on feedback from these pilots.",
       cities: CITY_SLUGS.map((slug) => pilots[slug]),
     },
     howItWorks,
