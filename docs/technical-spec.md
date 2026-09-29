@@ -296,7 +296,7 @@ WCAG 2.1 AA. Semantic landmarks (`header`/`main`/`footer`/`section` with heading
 | `NEXT_PUBLIC_ANALYTICS_*`   | public          | Plausible/Umami domain/script                  |
 | `UPSTASH_REDIS_*`           | server          | rate limiting (optional)                       |
 
-**Domain**: none yet ⇒ everything runs on the free `*.vercel.app` URL. When Sam's naming survey lands, buy the domain, point Vercel at it, and set up SPF/DKIM/DMARC so double opt-in can be enabled. Nothing else blocks on the domain.
+**Domain**: `kizmetclubs.com` (Porkbun), pointed at Vercel (apex A/ALIAS record + `www` CNAME). Set `NEXT_PUBLIC_SITE_URL=https://kizmetclubs.com` as a Config (non-sensitive) variable and redeploy. Inbound mail (`hello@kizmetclubs.com`) uses Porkbun email forwarding (root MX `fwd1/fwd2.porkbun.com`). For double opt-in, verify the domain in Resend and add its SPF/DKIM records at Porkbun, then set `RESEND_FROM` and flip the flag.
 
 **i18n (deferred but designed-for)**: Barcelona is bilingual. Because all copy is in typed `content/*` files and rows carry a `locale`, adding Spanish later = add a locale dimension to content + a language switch; no structural rework.
 
@@ -329,18 +329,18 @@ Until then, we build against the mood-board placeholders above and a `default` t
 
 ## 15. Risks & open questions
 
-| #        | Item                                         | Disposition                                                                                                 |
-| :------- | :------------------------------------------- | :---------------------------------------------------------------------------------------------------------- |
-| 1        | **Copy is pilot-shaped**                     | Re-pointed to waitlist-primary; founders fill `[bracketed]` story TODOs in `content/*`.                     |
-| 2        | **No domain**                                | Build/deploy on `vercel.app`; double opt-in stays flagged off; single opt-in (consent) used until then.     |
-| 3        | **Low-contrast brand colors on mint**        | Token placeholders + CI contrast gate; final pairings come from Ash (§13).                                  |
-| 4        | **Deliverability without a verified sender** | Double opt-in behind a flag; enable after domain + SPF/DKIM/DMARC.                                          |
-| 5        | **Pilot ↔ waitlist confusion for visitors**  | Distinct CTAs + FAQ answers that spell out the difference.                                                  |
-| 6        | **Bus factor of one**                        | Everything in a GitHub org (not personal), README onboards a future dev, this spec is the contract.         |
-| 7        | **Legal entity / GDPR formalities**          | Privacy policy + processing note before real signups; hour with Sam's lawyer contact (per tech plan).       |
-| ~~OQ-A~~ | ~~Plausible vs Umami?~~                      | **Decided: Umami** (free hosted tier, cookieless). `lib/analytics.ts` still wraps it so it stays swappable. |
-| ~~OQ-B~~ | ~~Server Action vs `/api/waitlist` route?~~  | **Decided: `/api/waitlist` route handler** (explicit rate-limit + easier testing).                          |
-| OQ-C     | Sentry now or later?                         | **Decided: later.** Parked; wire the SDK post-MVP.                                                          |
+| #        | Item                                         | Disposition                                                                                                        |
+| :------- | :------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+| 1        | **Copy is pilot-shaped**                     | Re-pointed to waitlist-primary; founders fill `[bracketed]` story TODOs in `content/*`.                            |
+| 2        | **Domain**                                   | `kizmetclubs.com` purchased and connected to Vercel; double opt-in stays flagged off until Resend DNS is verified. |
+| 3        | **Low-contrast brand colors on mint**        | Token placeholders + CI contrast gate; final pairings come from Ash (§13).                                         |
+| 4        | **Deliverability without a verified sender** | Double opt-in behind a flag; enable after domain + SPF/DKIM/DMARC.                                                 |
+| 5        | **Pilot ↔ waitlist confusion for visitors**  | Distinct CTAs + FAQ answers that spell out the difference.                                                         |
+| 6        | **Bus factor of one**                        | Everything in a GitHub org (not personal), README onboards a future dev, this spec is the contract.                |
+| 7        | **Legal entity / GDPR formalities**          | Privacy policy + processing note before real signups; hour with Sam's lawyer contact (per tech plan).              |
+| ~~OQ-A~~ | ~~Plausible vs Umami?~~                      | **Decided: Umami** (free hosted tier, cookieless). `lib/analytics.ts` still wraps it so it stays swappable.        |
+| ~~OQ-B~~ | ~~Server Action vs `/api/waitlist` route?~~  | **Decided: `/api/waitlist` route handler** (explicit rate-limit + easier testing).                                 |
+| OQ-C     | Sentry now or later?                         | **Decided: later.** Parked; wire the SDK post-MVP.                                                                 |
 
 ---
 

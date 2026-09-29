@@ -101,7 +101,7 @@ _Goal: swap in the real design and go public._
 - [ ] **5.1 (M)** Receive Ash's **design-handoff** (spec §13): final tokens, fonts, motifs, OG, spacing scale.
 - [ ] **5.2 (M)** Replace placeholder theme with the real `nearfolk` theme — **tokens + themes/\* + motif pack only**; verify no section/logic file needs editing (the swappability test). ⟵ 5.1
 - [ ] **5.3 (S)** Fill remaining `[bracketed]` founder copy in `content/*`.
-- [ ] **5.4 (S)** _(When domain lands)_ Buy domain, point Vercel, set SPF/DKIM/DMARC, verify Resend sender, flip `WAITLIST_DOUBLE_OPTIN` on. ⟵ 3.x
+- [ ] **5.4 (S)** Domain `kizmetclubs.com` bought and pointed at Vercel; remaining: set `NEXT_PUBLIC_SITE_URL`, create `hello@` forward at Porkbun, verify Resend domain (SPF/DKIM/DMARC), set `RESEND_FROM`, flip `WAITLIST_DOUBLE_OPTIN` on. ⟵ 3.x
 - [ ] **5.5 (S)** Remove `/_kitchensink`, final QA on real devices, launch. ⟵ all
 
 **M5 done when:** the real design is live on the real domain with confirmed signups flowing.
