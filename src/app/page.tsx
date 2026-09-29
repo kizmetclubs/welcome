@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { SectionRenderer } from "@/components/SectionRenderer";
 import { SiteHeader } from "@/components/SiteHeader";
 import { landingSections } from "@/content/landing";
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -21,6 +22,7 @@ export default function HomePage() {
         <SectionRenderer sections={landingSections} />
       </main>
       <Footer />
+      <Analytics />
     </>
   );
 }
