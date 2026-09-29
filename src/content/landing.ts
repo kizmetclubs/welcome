@@ -51,7 +51,7 @@ const safety: Section = {
   heading: "A note on safety",
   body: [
     "You're meeting people you don't know yet, so we personally review everyone who signs up before placing them in a group. We're not running background checks at this stage, but we're paying attention to who's signing up.",
-    "On the day of the pilot, we will be there to welcome you with name tags, and a quick in-person check against your sign-up. If something isn't the right, just talk to us and we'll sort it out together.",
+    "On the day of the pilot, we will be there to welcome you with name tags, and a quick in-person check against your sign-up. If something isn't right, just talk to us and we'll sort it out together.",
   ],
 };
 
