@@ -1,6 +1,6 @@
 /**
  * Resolve the canonical site URL, robustly. Order of preference:
- *   1. NEXT_PUBLIC_SITE_URL (explicit; wins once a real domain is set)
+ *   1. NEXT_PUBLIC_SITE_URL (explicit; https://kizmetclubs.com in production)
  *   2. VERCEL_PROJECT_PRODUCTION_URL / VERCEL_URL (auto-provided by Vercel builds)
  *   3. http://localhost:3000 (local dev)
  *

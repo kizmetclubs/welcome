@@ -8,8 +8,8 @@ export const site = {
   // Absolute so the header CTA works from any page (/privacy, /confirm), not just home.
   waitlistAnchor: "/#waitlist",
   footer: {
-    /** TODO(founders): set a real contact address once the domain lands. */
-    contactEmail: "[add contact email]",
+    /** Forwarded via Porkbun email forwarding on kizmetclubs.com. */
+    contactEmail: "hello@kizmetclubs.com",
     cityNote: "Barcelona and San Francisco for now. More cities soon.",
     links: [
       { label: "Privacy", href: "/privacy", external: false },
