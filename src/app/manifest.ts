@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Small groups. Same people. Every week.",
     start_url: "/",
     display: "browser",
-    background_color: "#E0F5F0",
-    theme_color: "#008E83",
+    background_color: "#FBF4E6",
+    theme_color: "#FBF4E6",
     icons: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml" }],
   };
 }
