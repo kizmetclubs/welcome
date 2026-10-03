@@ -17,15 +17,15 @@ const howItWorks: Section = {
   steps: [
     {
       title: "Sign up",
-      body: "Tell us your city and your neighborhood. Takes about a minute.",
+      body: "Join a small club around what you already love doing.",
     },
     {
       title: "Get placed",
-      body: "We place you in a group by hand and send the details: when, where, and who's running it.",
+      body: "We pick the time and place for your neighborhood ",
     },
     {
       title: "Show up twice",
-      body: "Each club meets twice, on two Saturdays. That's the whole ask.",
+      body: "Same people. No organizer burnout.",
     },
     {
       title: "Tell us how it went",
@@ -59,9 +59,9 @@ const team: Section = {
   type: "team",
   heading: "Why we're doing this",
   intro: [
-    "Adult friendship doesn't happen by accident anymore. Nothing forces you into the same room with the same people the way school or a first job once did, and the apps built for this treat friendship like dating: one match, one hangout, then it's on you to keep it going. That's the part everyone struggles with.",
-    "We ran listening sessions before building anything. People wanted to meet others close by, in small groups, and to know up front whether they'd be walking into something brand new or already established. The thing that quietly killed groups wasn't a lack of interest — it was that one person ending up as the organizer, and burning out. So the hard part was never one good hangout. It's the second one.",
-    "Kizmet is our answer: a club that just meets, on a schedule someone else handles. We're testing it by hand, in a park, before we build anything else around it.",
+    "Adult friendship doesn't happen by accident anymore. Nothing forces you into the same room with the same people the way school or a first job once did, and the apps built for this treat friendship like dating: one match, one hangout, then it's on you to keep it going. That's the part everyone struggles with. Now making friends somehow involves calendar coordination, WhatsApp logistics and saying \"we should do something!\" for six months.",
+    "Before writing a line of code, we ran listening sessions with hundreds of neighbors. The pattern was clear: people didn't lack interest in making friends—they were just exhausted by the coordination. The thing that quietly killed groups wasn't a lack of chemistry; it was one person ending up as the default organizer and getting burnt out. Having one good hangout is easy. Making sure the second one actually happens is the hard part.",
+    "Kizmet is our simple answer: recurring small clubs where someone else handles the schedule, the spot, and the reminders. No organizer burnout, no endless group chats. We're testing it completely by hand, in a park near you, before we build anything else.",
   ],
   members: [
     {
@@ -85,7 +85,8 @@ const team: Section = {
     },
     {
       name: "Cindy",
-      role: "Partnerships & marketing",
+      role: "Partnerships & Community",
+      location: "Barcelona",
       detail:
         "Gets the word out and finds the local groups already gathering people, so a club has neighbors in it, not just strangers from the internet.",
     },
@@ -150,11 +151,12 @@ export function buildSections(city?: CitySlug): Section[] {
       eyebrow: "An early pilot, run entirely by hand, no app yet",
       headline: "Clubs are back.",
       subheadline:
-        "Small groups. Same people. Two Saturdays in a park. Pick your city, tell us your neighborhood, and we'll handle getting everyone there.",
-      primaryCta: { label: "Join the pilot", href: "#signup" },
-      scribble: "Be my best friend.",
+        "Small, recurring clubs for adults who want more things to do with people nearby.",
+      primaryCta: { label: "I'm in", href: "#signup" },
+      scribble: "Find your club.",
       stats: ["Barcelona & San Francisco", "Capped under 10", "Free"],
     },
+    howItWorks,
     {
       type: "cityPicker",
       heading: "One club per city, to start.",
@@ -162,7 +164,6 @@ export function buildSections(city?: CitySlug): Section[] {
         "Barcelona and San Francisco pilots will start in November. After that, we'll work together with the community to build out more clubs based on feedback from these pilots.",
       cities: CITY_SLUGS.map((slug) => pilots[slug]),
     },
-    howItWorks,
     {
       type: "pilotSignup",
       id: "signup",
