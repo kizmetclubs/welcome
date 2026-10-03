@@ -1,50 +1,93 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
-// Branded social-share image (spec §10). Generated at build; system font keeps it simple.
-export const alt = "Kizmet — Clubs are back";
+// Social-share image in the Kizmet look: the signature coral/pink checkerboard with the
+// wordmark on a white card. The checker is drawn as tiles because the image renderer
+// doesn't support conic gradients.
+export const alt = "kizmet — clubs for adults. Same people, every week.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpengraphImage() {
+const TILE = 70;
+const COLS = Math.ceil(size.width / TILE);
+const ROWS = Math.ceil(size.height / TILE);
+
+export default async function OpengraphImage() {
+  const serif = await readFile(
+    join(
+      process.cwd(),
+      "node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff"
+    )
+  );
+
   return new ImageResponse(
     <div
       style={{
         width: "100%",
         height: "100%",
         display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#E0F5F0",
-        color: "#1c2b28",
-        fontFamily: "sans-serif",
-        padding: 80,
-        textAlign: "center",
+        position: "relative",
+        background: "#F8CEFF",
       }}
     >
-      <div style={{ fontSize: 40, color: "#008E83", fontWeight: 700, letterSpacing: 4 }}>
-        kizmet
-      </div>
-      <div style={{ fontSize: 104, fontWeight: 800, marginTop: 24, lineHeight: 1 }}>
-        Clubs are back.
-      </div>
-      <div style={{ fontSize: 34, color: "#3f524d", marginTop: 28 }}>
-        Clubs for adults. Same people, every week.
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          flexWrap: "wrap",
+          width: COLS * TILE,
+        }}
+      >
+        {Array.from({ length: COLS * ROWS }, (_, i) => (
+          <div
+            key={i}
+            style={{
+              width: TILE,
+              height: TILE,
+              background: (i % COLS) % 2 === Math.floor(i / COLS) % 2 ? "#FC793C" : "#F8CEFF",
+            }}
+          />
+        ))}
       </div>
       <div
         style={{
-          marginTop: 40,
-          fontSize: 26,
-          color: "#fff",
-          background: "#CD500D",
-          padding: "12px 28px",
-          borderRadius: 999,
-          fontWeight: 700,
+          position: "absolute",
+          left: 216,
+          top: 136,
+          width: 800,
+          height: 390,
+          borderRadius: 24,
+          background: "#2A2420",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          left: 200,
+          top: 120,
+          width: 800,
+          height: 390,
+          borderRadius: 24,
+          background: "#FFFFFF",
+          border: "2px solid #2A2420",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "#2A2420",
         }}
       >
-        Join the pilot
+        <div style={{ fontFamily: "Instrument Serif", fontSize: 190, lineHeight: 1 }}>kizmet</div>
+        <div style={{ fontSize: 34, marginTop: 18 }}>
+          Clubs for adults. Same people, every week.
+        </div>
       </div>
     </div>,
-    { ...size }
+    {
+      ...size,
+      fonts: [{ name: "Instrument Serif", data: serif, style: "normal", weight: 400 }],
+    }
   );
 }

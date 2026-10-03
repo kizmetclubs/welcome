@@ -1,32 +1,52 @@
 import { PilotSignupForm } from "@/components/pilot/PilotSignupForm";
-import { Container, Heading, Section, Text } from "@/components/primitives";
 import type { PilotSignupSection } from "@/content/types";
 
-export function PilotSignup({ id, heading, body, city, note }: PilotSignupSection) {
+/** The mustard sign-up band, entered through a scalloped edge. */
+export function PilotSignup({ id, heading, body, city, note, aside }: PilotSignupSection) {
   return (
-    <Section tone="cream" spacing="lg" id={id} aria-labelledby={`${id}-heading`}>
-      <Container>
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
-          <div>
-            <Heading level={2} id={`${id}-heading`}>
+    <>
+      <div
+        className="scallop"
+        aria-hidden="true"
+        style={
+          {
+            backgroundColor: "var(--surface-base)",
+            "--scallop": "var(--kz-mustard-400)",
+          } as React.CSSProperties
+        }
+      />
+      <section id={id} className="bg-mustard" aria-labelledby={`${id}-heading`}>
+        <div
+          className="in"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,320px),1fr))",
+            gap: 48,
+            alignItems: "start",
+          }}
+        >
+          <div className="stack" style={{ gap: 16, maxWidth: 400 }}>
+            <h2 className="h2" id={`${id}-heading`}>
               {heading}
-            </Heading>
-            {body ? (
-              <Text size="lg" className="mt-4">
-                {body}
-              </Text>
-            ) : null}
-            {note ? (
-              <Text size="sm" tone="muted" className="mt-6">
-                {note}
-              </Text>
+            </h2>
+            {body ? <p className="lead">{body}</p> : null}
+            {note ? <p className="small">{note}</p> : null}
+            {aside ? (
+              <p className="small" style={{ marginTop: 8 }}>
+                {aside}{" "}
+                <span
+                  className="e"
+                  aria-hidden="true"
+                  style={{ fontSize: 20, verticalAlign: "-.15em" }}
+                >
+                  j
+                </span>
+              </p>
             ) : null}
           </div>
-          <div className="rounded-card border-muted-soft bg-surface shadow-card border p-6 sm:p-8">
-            <PilotSignupForm city={city} />
-          </div>
+          <PilotSignupForm city={city} />
         </div>
-      </Container>
-    </Section>
+      </section>
+    </>
   );
 }

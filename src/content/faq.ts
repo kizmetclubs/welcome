@@ -16,11 +16,11 @@ export const faq: FaqItem[] = [
   },
   {
     q: "Do I need to already know someone?",
-    a: "No. Everyone's meeting for the first time. That's the point.",
+    a: "Absolutely not. That's the point, everyone's meeting for the first time.",
   },
   {
     q: "Is this a dating app?",
-    a: "No. Co-ed, built around the activity, nobody's swiping.",
+    a: "No. Co-ed, built around the activity, nobody's swiping. No romantic chemistry algorithm. \n\nYou join because you want to make pastries, go for a walk, read a book, or try something you’ve been meaning to do with people nearby. If you happen to meet the love of your life along the way, that’s between you and the universe.",
   },
   {
     q: "What if it's not my thing?",

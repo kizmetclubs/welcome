@@ -1,4 +1,5 @@
 import type { JSX } from "react";
+import { RiseObserver } from "@/components/RiseObserver";
 import {
   Beliefs,
   CityPicker,
@@ -14,9 +15,9 @@ import {
 import type { Section, SectionType } from "@/content/types";
 
 /**
- * The registry — Axis C of the swappability model. Maps each section `type` to its
- * component. `satisfies` guarantees at compile time that EVERY section variant has a
- * renderer, so adding a section type without wiring it up is a build error.
+ * Maps each section `type` to its component. `satisfies` guarantees at compile time that
+ * EVERY section variant has a renderer, so adding a section type without wiring it up is a
+ * build error. Also mounts the scroll observer that plays the cards' settle-in animation.
  */
 const REGISTRY = {
   hero: Hero,
@@ -45,6 +46,7 @@ export function SectionRenderer({ sections }: { sections: Section[] }) {
         }
         return <Component key={`${section.type}-${i}`} {...section} />;
       })}
+      <RiseObserver />
     </>
   );
 }

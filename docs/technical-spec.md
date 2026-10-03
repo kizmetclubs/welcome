@@ -76,6 +76,8 @@ Locked in line with the High-Level Technical Plan — this repo is the **seed of
 
 ## 4. The design-swappability architecture (the important part)
 
+> **Superseded (Oct 2026).** The placeholder theme system described below (`src/themes`, `data-theme`, the token-only primitives and the `/kitchensink` switcher) was retired once Ash's design system landed. The look now lives in two files: `src/styles/tokens.css` (the design-system tokens, ported verbatim) and `src/styles/site.css` (the landing-page artifact's classes). Fonts are self-hosted in `src/app/fonts.ts`. The content model (Axis C: `src/content/*` + `SectionRenderer`) is unchanged and still how copy and section order are edited. The rest of this section is kept for history.
+
 The design is in flux, so **nothing visual is hardcoded**. Swappability is achieved on **three independent axes**, so Ash can change any one without breaking the others:
 
 ### Axis A — Design tokens (the _look_)

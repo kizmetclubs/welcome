@@ -1,42 +1,47 @@
-import { Card, Container, Heading, Section, Text } from "@/components/primitives";
 import type { TeamSection } from "@/content/types";
+
+/** EmojiFont smiley + fill per avatar, cycling through the three faces (j, k, l). */
+const AVATARS = [
+  { face: "j", tone: "bg-mustard" },
+  { face: "k", tone: "bg-teal" },
+  { face: "l", tone: "bg-pink" },
+  { face: "j", tone: "bg-chartreuse" },
+];
 
 export function Team({ heading, intro, members, closing }: TeamSection) {
   return (
-    <Section tone="canvas" spacing="md">
-      <Container>
-        <Heading level={2}>{heading}</Heading>
-        <div className="mt-4 max-w-2xl space-y-4">
+    <section>
+      <div className="in stack" style={{ gap: 40 }}>
+        <div className="stack nar" style={{ gap: 18 }}>
+          <h2 className="h2">{heading}</h2>
           {intro.map((paragraph) => (
-            <Text key={paragraph.slice(0, 24)} size="lg">
-              {paragraph}
-            </Text>
+            <p key={paragraph.slice(0, 24)}>{paragraph}</p>
           ))}
         </div>
-
-        <ul className="mt-10 grid gap-5 sm:grid-cols-3">
-          {members.map((member) => (
-            <li key={member.name}>
-              <Card tone="cream" className="h-full">
-                <Heading level={4} as="h3">
-                  {member.name}
-                </Heading>
-                <Text size="sm" tone="muted" className="mt-1">
+        <ul className="g4" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+          {members.map((member, i) => {
+            const avatar = AVATARS[i % AVATARS.length];
+            return (
+              <li
+                key={member.name}
+                className="card stack wig rise"
+                style={{ padding: 24, gap: 10 }}
+              >
+                <span className={`av e ${avatar.tone}`} aria-hidden="true">
+                  {avatar.face}
+                </span>
+                <h3 className="h4">{member.name}</h3>
+                <span className="eye">
                   {member.role}
                   {member.location ? ` · ${member.location}` : ""}
-                </Text>
-                <Text className="mt-3">{member.detail}</Text>
-              </Card>
-            </li>
-          ))}
+                </span>
+                <p className="small muted">{member.detail}</p>
+              </li>
+            );
+          })}
         </ul>
-
-        {closing ? (
-          <Text size="lg" className="mt-8 max-w-2xl">
-            {closing}
-          </Text>
-        ) : null}
-      </Container>
-    </Section>
+        {closing ? <p className="muted nar">{closing}</p> : null}
+      </div>
+    </section>
   );
 }

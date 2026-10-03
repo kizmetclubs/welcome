@@ -1,49 +1,61 @@
-import { Arrow } from "@/components/motifs";
-import {
-  Badge,
-  Container,
-  Eyebrow,
-  Heading,
-  LinkButton,
-  Section,
-  Text,
-} from "@/components/primitives";
+import { Ribbon } from "@/components/Ribbon";
 import type { HeroSection } from "@/content/types";
 
+const STAT_TONES = ["bg-teal", "bg-mustard", "bg-pink"];
+
+/**
+ * The signature hero: a coral/pink checkerboard plate with the copy on a white card (text
+ * never sits on the checker), one corner sparkle, and the animated ribbon underneath.
+ */
 export function Hero({ eyebrow, headline, subheadline, primaryCta, scribble, stats }: HeroSection) {
   return (
-    <Section tone="canvas" spacing="lg">
-      <Container className="text-center">
-        <Eyebrow>{eyebrow}</Eyebrow>
-        <Heading level={1} className="mx-auto mt-4 max-w-3xl">
-          {headline}
-        </Heading>
-        <Text size="lg" className="mx-auto mt-5 max-w-xl">
-          {subheadline}
-        </Text>
-
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <div className="relative">
-            <LinkButton href={primaryCta.href} variant="primary" size="lg">
-              {primaryCta.label}
-            </LinkButton>
-            <Arrow className="text-brand pointer-events-none absolute -top-8 -right-14 hidden h-10 w-20 sm:block" />
+    <>
+      <section style={{ padding: "56px 0 96px" }}>
+        <div className="in">
+          <div className="ck plate">
+            <div
+              className="card stack"
+              style={{
+                position: "relative",
+                maxWidth: 760,
+                margin: "0 auto",
+                padding: "clamp(32px,6vw,64px) clamp(24px,5vw,56px)",
+                gap: 24,
+                alignItems: "center",
+                textAlign: "center",
+                boxShadow: "none",
+              }}
+            >
+              <span className="e tw sparkle" aria-hidden="true">
+                M
+              </span>
+              <span className="pill stk bg-chartreuse">{eyebrow}</span>
+              <h1 className="h1">{headline}</h1>
+              <p className="lead" style={{ maxWidth: 520 }}>
+                {subheadline}
+              </p>
+              <div className="row" style={{ gap: 20, justifyContent: "center" }}>
+                <a className="btn coral lg" href={primaryCta.href}>
+                  {primaryCta.label}
+                </a>
+                {scribble ? (
+                  <a href={primaryCta.href} style={{ fontWeight: 700 }}>
+                    {scribble}
+                  </a>
+                ) : null}
+              </div>
+              <div className="row" style={{ gap: 8, justifyContent: "center" }}>
+                {stats.map((stat, i) => (
+                  <span key={stat} className={`pill stk ${STAT_TONES[i % STAT_TONES.length]}`}>
+                    {stat}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
-          {scribble ? (
-            <Text as="span" tone="soft" className="font-display text-xl font-semibold">
-              {scribble}
-            </Text>
-          ) : null}
         </div>
-
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-          {stats.map((stat, i) => (
-            <Badge key={stat} tone={i === 0 ? "brand" : "neutral"}>
-              {stat}
-            </Badge>
-          ))}
-        </div>
-      </Container>
-    </Section>
+      </section>
+      <Ribbon tone="chartreuse" />
+    </>
   );
 }

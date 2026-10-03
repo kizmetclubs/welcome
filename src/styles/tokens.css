@@ -1,0 +1,443 @@
+/* Kizmet design tokens — ported verbatim from Ash's design system (Kizmet-DesignSystem/tokens).
+   Font families point at the self-hosted faces loaded in src/app/fonts.ts. Do not use raw hex in components. */
+
+/* kizmet — colour. Palette: Sunday Spread. Four club colours (mustard, sea teal,
+   tomato, chartreuse) on sun cream with espresso ink; coral + candy pink are the
+   signature picnic-blanket checkerboard. Components read the semantic layer,
+   so dark mode is a single remap. */
+
+:root {
+  /* ── Sunday Spread base ── */
+  --kz-mustard-400: #edb422; /* food */
+  --kz-teal-400: #45c9d2; /* outdoors */
+  --kz-teal-200: #bdebee;
+  --kz-teal-800: #17656b; /* text-safe colour: 6.9:1 on cream; takes white text */
+  --kz-tomato-400: #ec6a5c; /* reading */
+  --kz-chartreuse-400: #cdd126; /* language */
+  --kz-coral-400: #fc793c; /* signature checker A */
+  --kz-coral-700: #c2410c; /* danger / error text: 4.9:1 on cream */
+  --kz-pink-200: #f8ceff; /* signature checker B */
+  --kz-cream-100: #fbf4e6; /* base */
+  --kz-cream-200: #f3e8d2; /* sunken */
+  --kz-espresso-900: #2a2420; /* ink: 14.6:1 on cream */
+  --kz-espresso-700: #3d352f;
+  --kz-espresso-600: #6b5e55; /* muted text: 5.9:1 on cream */
+  --kz-white: #ffffff;
+
+  /* ── Semantic: surfaces ── */
+  --surface-base: var(--kz-cream-100);
+  --surface-raised: var(--kz-white);
+  --surface-sunken: var(--kz-cream-200);
+  --surface-inverse: var(--kz-espresso-900);
+  --surface-scrim: rgba(42, 36, 32, 0.6);
+
+  /* ── Semantic: text ── */
+  --text-primary: var(--kz-espresso-900);
+  --text-muted: var(--kz-espresso-600);
+  --text-inverse: var(--kz-cream-100);
+  --text-on-accent: var(--kz-espresso-900); /* every fill takes espresso, except teal-800 */
+  --text-link: var(--kz-espresso-900); /* links = espresso + underline */
+  --text-danger: var(--kz-coral-700);
+
+  /* ── Semantic: actions ── */
+  --action-primary: var(--kz-espresso-900); /* the screen's dark "All" pill */
+  --action-primary-hover: var(--kz-espresso-700);
+  --text-on-action: var(--kz-cream-100);
+
+  /* ── Semantic: accents ── */
+  --accent-primary: var(--kz-coral-400);
+  --accent-primary-hover: var(--kz-tomato-400);
+  --accent-secondary: var(--kz-teal-400);
+  --accent-chartreuse: var(--kz-chartreuse-400);
+  --accent-cool: var(--kz-teal-400);
+  --accent-highlight: var(--kz-mustard-400);
+  --accent-soft: var(--kz-pink-200);
+
+  /* ── Semantic: signature checkerboard ── */
+  --signature-a: var(--kz-coral-400);
+  --signature-b: var(--kz-pink-200);
+
+  /* ── Semantic: lines & depth ── */
+  --border-ink: var(--kz-espresso-900);
+  --border-soft: #e3d6c0;
+  --shadow-color: var(--kz-espresso-900);
+  --focus-ring: var(--kz-teal-400);
+}
+
+:root[data-theme="dark"],
+.kz-dark {
+  --surface-base: var(--kz-espresso-900);
+  --surface-raised: var(--kz-espresso-700);
+  --surface-sunken: #1e1916;
+  --surface-inverse: var(--kz-cream-100);
+  --surface-scrim: rgba(14, 11, 9, 0.72);
+  --text-primary: var(--kz-cream-100);
+  --text-muted: #cfc2b4;
+  --text-inverse: var(--kz-espresso-900);
+  --text-link: var(--kz-cream-100);
+  --text-danger: #ff9a7a;
+  --action-primary: var(--kz-cream-100);
+  --action-primary-hover: #ffffff;
+  --text-on-action: var(--kz-espresso-900);
+  --border-ink: var(--kz-cream-100);
+  --border-soft: #5a4e46;
+  --shadow-color: #120e0c;
+  --focus-ring: var(--kz-teal-400);
+}
+
+/* kizmet — type. Instrument Serif for H1–H3 and the wordmark; 42dot Sans for H4–H6, body,
+   UI and numbers; Pixel Arial 14 for captions and metadata; EmojiFont is the only dingbat face. */
+
+:root {
+  --font-display: var(--ff-display), "Instrument Serif", "Times New Roman", serif;
+  --font-sans: var(--ff-sans), "42dot Sans", -apple-system, "Segoe UI", sans-serif;
+  --font-numeric:
+    var(--ff-sans), "42dot Sans", -apple-system, sans-serif; /* weight 800, tabular-nums */
+  --font-mono-code: var(--ff-pixel), "Pixel Arial 14", ui-monospace, monospace;
+  --font-dingbat-emoji: var(--ff-emoji), "EmojiFont";
+
+  /* Sizes */
+  --text-hero: 128px;
+  --text-display: 96px;
+  --text-h1: 64px;
+  --text-h2: 44px;
+  --text-h3: 32px;
+  --text-h4: 24px;
+  --text-h5: 20px;
+  --text-h6: 16px;
+  --text-lead: 19px;
+  --text-p: 16px;
+  --text-small: 14px;
+  --text-caption: 14px; /* Pixel Arial 14 is crisp at 14px */
+
+  /* Line-heights */
+  --leading-solid: 100%;
+  --leading-tight: 1.05;
+  --leading-body: 1.55;
+
+  /* Tracking */
+  --track-tight: -0.03em;
+  --track-head: -0.02em;
+  --track-caption: -0.01em;
+  --track-caps: 0.06em;
+}
+
+.kz-hero {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-hero);
+  line-height: var(--leading-solid);
+  letter-spacing: var(--track-tight);
+  margin: 0;
+}
+.kz-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-display);
+  line-height: var(--leading-solid);
+  letter-spacing: var(--track-tight);
+  margin: 0;
+}
+.kz-h1,
+.kz-h2,
+.kz-h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: var(--track-head);
+  line-height: 1;
+  margin: 0;
+}
+.kz-h1 {
+  font-size: var(--text-h1);
+}
+.kz-h2 {
+  font-size: var(--text-h2);
+}
+.kz-h3 {
+  font-size: var(--text-h3);
+  line-height: var(--leading-tight);
+}
+.kz-h4,
+.kz-h5,
+.kz-h6 {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.kz-h4 {
+  font-size: var(--text-h4);
+  line-height: 1.1;
+}
+.kz-h5 {
+  font-size: var(--text-h5);
+  line-height: 1.15;
+}
+.kz-h6 {
+  font-size: var(--text-h6);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: var(--track-caps);
+}
+.kz-lead {
+  font-family: var(--font-sans);
+  font-size: var(--text-lead);
+  line-height: 1.45;
+  margin: 0;
+}
+.kz-p {
+  font-family: var(--font-sans);
+  font-size: var(--text-p);
+  line-height: var(--leading-body);
+  margin: 0;
+}
+.kz-small {
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  line-height: 1.45;
+  color: var(--text-muted);
+  margin: 0;
+}
+.kz-caption {
+  font-family: var(--font-mono-code);
+  font-weight: 400;
+  font-size: var(--text-caption);
+  line-height: var(--leading-solid);
+  letter-spacing: var(--track-caption);
+}
+.kz-num {
+  font-family: var(--font-numeric);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* kizmet — layout, shape and depth. Soft corners, pill controls, and an
+   offset ink "sticker" shadow instead of blurred elevation. */
+
+:root {
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 20px;
+  --space-5: 32px;
+  --space-6: 40px;
+  --space-7: 64px;
+  --space-8: 96px;
+  --space-9: 152px;
+
+  /* Radii */
+  --radius-xs: 6px; /* checkbox */
+  --radius-sm: 8px; /* tooltip, swatch */
+  --radius-md: 14px; /* inputs, cards, toasts */
+  --radius-lg: 20px; /* dialogs, plates */
+  --radius-card: 16px; /* cards */
+  --radius-pill: 999px; /* buttons, chips, tabs, switches */
+
+  /* Borders — 1px ink hairline everywhere; depth comes from the exaggerated offset shadows */
+  --border-width: 1px;
+  --border-width-chunky: 1px; /* legacy alias */
+  --border-control: 1px solid var(--border-ink);
+  --border-card: 1px solid var(--border-ink);
+
+  /* Sticker shadows — big, hard, always espresso. No blur. */
+  --shadow-sticker-sm: 6px 6px 0 var(--shadow-color);
+  --shadow-sticker: 10px 10px 0 var(--shadow-color);
+  --shadow-sticker-lg: 16px 16px 0 var(--shadow-color);
+  --shadow-none: none;
+
+  /* Sticker tilt — celebrations and sticker badges only */
+  --tilt-left: -2deg; /* @kind other */
+  --tilt-right: 2deg; /* @kind other */
+
+  /* Motion — quick, with a little bounce */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1); /* @kind other */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */
+  --duration-fast: 120ms; /* @kind other */
+  --duration-base: 200ms; /* @kind other */
+}
+
+a {
+  color: var(--text-link);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+}
+a:hover {
+  color: var(--text-link);
+  text-decoration-color: var(--accent-primary);
+  text-decoration-thickness: 3px;
+}
+
+/* kizmet — checkerboards. Coral/candy pink is the kizmet signature (hero areas,
+   RSVPs, onboarding, celebrations). Every club category owns a fill + checker pair;
+   club cards wear their category checker as a band. */
+:root {
+  --checker-size-xs: 4px;
+  --checker-size-sm: 8px;
+  --checker-size-md: 16px;
+  --checker-size-lg: 32px;
+  --checker-size-xl: 64px;
+
+  /* Category system */
+  --cat-kizmet-fill: var(--kz-pink-200);
+  --cat-kizmet-check-a: var(--signature-a);
+  --cat-kizmet-check-b: var(--signature-b);
+  --cat-food-fill: var(--kz-mustard-400);
+  --cat-food-check-a: var(--kz-mustard-400);
+  --cat-food-check-b: var(--kz-espresso-900);
+  --cat-outdoors-fill: var(--kz-teal-400);
+  --cat-outdoors-check-a: var(--kz-teal-400);
+  --cat-outdoors-check-b: var(--kz-cream-100);
+  --cat-reading-fill: var(--kz-tomato-400);
+  --cat-reading-check-a: var(--kz-tomato-400);
+  --cat-reading-check-b: var(--kz-cream-100);
+  --cat-language-fill: var(--kz-chartreuse-400);
+  --cat-language-check-a: var(--kz-chartreuse-400);
+  --cat-language-check-b: var(--kz-teal-400);
+  --cat-games-fill: var(--kz-teal-200);
+  --cat-games-check-a: var(--kz-teal-800);
+  --cat-games-check-b: var(--kz-chartreuse-400);
+}
+.kz-checker,
+.kz-checker--signature,
+.kz-checker--coral-pink {
+  background-image: repeating-conic-gradient(var(--signature-a) 0 25%, var(--signature-b) 0 50%);
+}
+.kz-checker--coral-cream {
+  background-image: repeating-conic-gradient(var(--signature-a) 0 25%, var(--kz-cream-100) 0 50%);
+}
+.kz-checker--food {
+  background-image: repeating-conic-gradient(
+    var(--cat-food-check-a) 0 25%,
+    var(--cat-food-check-b) 0 50%
+  );
+}
+.kz-checker--outdoors {
+  background-image: repeating-conic-gradient(
+    var(--cat-outdoors-check-a) 0 25%,
+    var(--cat-outdoors-check-b) 0 50%
+  );
+}
+.kz-checker--reading {
+  background-image: repeating-conic-gradient(
+    var(--cat-reading-check-a) 0 25%,
+    var(--cat-reading-check-b) 0 50%
+  );
+}
+.kz-checker--language {
+  background-image: repeating-conic-gradient(
+    var(--cat-language-check-a) 0 25%,
+    var(--cat-language-check-b) 0 50%
+  );
+}
+.kz-checker--games {
+  background-image: repeating-conic-gradient(
+    var(--cat-games-check-a) 0 25%,
+    var(--cat-games-check-b) 0 50%
+  );
+}
+.kz-checker {
+  background-position: 0 0;
+  background-size: calc(var(--checker-size-md) * 2) calc(var(--checker-size-md) * 2);
+}
+.kz-checker--xs {
+  background-size: calc(var(--checker-size-xs) * 2) calc(var(--checker-size-xs) * 2);
+}
+.kz-checker--sm {
+  background-size: calc(var(--checker-size-sm) * 2) calc(var(--checker-size-sm) * 2);
+}
+.kz-checker--lg {
+  background-size: calc(var(--checker-size-lg) * 2) calc(var(--checker-size-lg) * 2);
+}
+.kz-checker--xl {
+  background-size: calc(var(--checker-size-xl) * 2) calc(var(--checker-size-xl) * 2);
+}
+.kz-checker-band {
+  width: 100%;
+  height: calc(var(--checker-size-md) * 2);
+}
+.kz-checker-band.kz-checker--xs {
+  height: calc(var(--checker-size-xs) * 2);
+}
+.kz-checker-band.kz-checker--sm {
+  height: calc(var(--checker-size-sm) * 2);
+}
+.kz-checker-band.kz-checker--lg {
+  height: calc(var(--checker-size-lg) * 2);
+}
+
+/* kizmet — dingbat motion. Sparkles and hearts twinkle, float and pop; smileys bob.
+   Use one sparkle per view, in a corner. Respects reduced-motion. */
+@keyframes kz-twinkle {
+  0%,
+  100% {
+    transform: scale(1) rotate(var(--kz-r, 0deg));
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.62) rotate(calc(var(--kz-r, 0deg) + 24deg));
+    opacity: 0.55;
+  }
+}
+@keyframes kz-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(calc(var(--kz-r, 0deg) - 6deg));
+  }
+  50% {
+    transform: translateY(-12px) rotate(calc(var(--kz-r, 0deg) + 6deg));
+  }
+}
+@keyframes kz-pop {
+  0% {
+    transform: scale(0) rotate(-30deg);
+    opacity: 0;
+  }
+  55% {
+    transform: scale(1.3) rotate(10deg);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(0.92) rotate(-4deg);
+  }
+  100% {
+    transform: scale(1) rotate(var(--kz-r, 0deg));
+    opacity: 1;
+  }
+}
+@keyframes kz-spin {
+  to {
+    transform: rotate(calc(var(--kz-r, 0deg) + 360deg));
+  }
+}
+@keyframes kz-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(calc(var(--kz-r, 0deg) - 5deg));
+  }
+  50% {
+    transform: translateY(-4px) rotate(calc(var(--kz-r, 0deg) + 5deg));
+  }
+}
+@keyframes kz-beat {
+  0%,
+  100% {
+    transform: scale(1) rotate(var(--kz-r, 0deg));
+  }
+  15% {
+    transform: scale(1.25) rotate(var(--kz-r, 0deg));
+  }
+  30% {
+    transform: scale(0.95) rotate(var(--kz-r, 0deg));
+  }
+  45% {
+    transform: scale(1.12) rotate(var(--kz-r, 0deg));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kz-anim {
+    animation: none !important;
+  }
+}

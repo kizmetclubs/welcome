@@ -1,28 +1,39 @@
-import { GrannySquare } from "@/components/motifs";
-import { Container, Heading, Section } from "@/components/primitives";
+import { Ribbon } from "@/components/Ribbon";
 import type { BeliefsSection } from "@/content/types";
 
+const BULLET_TONES = ["bg-pink", "bg-mustard", "bg-chartreuse", "bg-coral", "bg-teal"];
+
+// Odd tiles wiggle the other way (.r). Built here, not inline, so the class-sorting
+// formatter can't strip the separating space.
+const tileClass = (i: number) =>
+  ["tile", "wig", "rise", i % 2 ? "r" : ""].filter(Boolean).join(" ");
+
+/** The teal beliefs band: signature checker strip above, reversed coral ribbon below. */
 export function Beliefs({ heading, beliefs }: BeliefsSection) {
   return (
-    <Section tone="brand" spacing="md">
-      <Container>
-        <div className="flex items-center gap-4">
-          <GrannySquare className="text-brand-ink/80 h-10 w-10" />
-          <Heading level={2} className="text-brand-ink">
-            {heading}
-          </Heading>
+    <>
+      <div className="band s b24" aria-hidden="true" />
+      <section className="bg-teal">
+        <div className="in stack" style={{ gap: 32 }}>
+          <h2 className="h2">{heading}</h2>
+          <ul className="g2" style={{ gap: 14, listStyle: "none", margin: 0, padding: 0 }}>
+            {beliefs.map((belief, i) => (
+              <li
+                key={belief}
+                className={tileClass(i)}
+                style={{ "--d": `${i * 80}ms` } as React.CSSProperties}
+              >
+                <span
+                  className={`bullet ${BULLET_TONES[i % BULLET_TONES.length]}`}
+                  aria-hidden="true"
+                />
+                {belief}
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-          {beliefs.map((belief) => (
-            <li
-              key={belief}
-              className="rounded-card bg-brand-ink/10 font-display text-brand-ink p-5 text-lg font-semibold"
-            >
-              {belief}
-            </li>
-          ))}
-        </ul>
-      </Container>
-    </Section>
+      </section>
+      <Ribbon tone="coral" reverse />
+    </>
   );
 }

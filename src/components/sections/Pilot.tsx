@@ -1,8 +1,14 @@
-import { Badge, Card, Container, Eyebrow, Heading, Section, Text } from "@/components/primitives";
-import type { PilotSection } from "@/content/types";
+import type { ClubTone, PilotSection } from "@/content/types";
 
-/** A city's pilot: the club card plus when / where / how many / cost. */
+const BAND: Record<ClubTone, string> = { mustard: "food", teal: "out" };
+
+/**
+ * City page: the same two-card layout as the home page's city cards — each card wears the
+ * club's checker band, then a sticker pill, then its content. Left is the club, right is
+ * the when / where / cost details, with a button down to the sign-up form.
+ */
 export function Pilot({ id, eyebrow, heading, intro, pilot }: PilotSection) {
+  const tone = pilot.club.tone;
   const facts = [
     { label: "When", value: pilot.dates.join(" and ") },
     { label: "Time", value: pilot.time },
@@ -12,44 +18,56 @@ export function Pilot({ id, eyebrow, heading, intro, pilot }: PilotSection) {
   ];
 
   return (
-    <Section tone="surface" spacing="md" id={id}>
-      <Container size="wide">
-        {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-        <Heading level={2} className="mt-2 max-w-2xl">
-          {heading}
-        </Heading>
-        <Text size="lg" className="mt-4 max-w-2xl">
-          {intro}
-        </Text>
-
-        <div className="mt-10 grid gap-5 lg:grid-cols-[1.2fr_1fr]">
-          <Card tone="cream">
-            <Badge tone={pilot.club.tone}>{pilot.name}</Badge>
-            <span className="mt-4 block text-5xl" aria-hidden="true">
-              {pilot.club.emoji}
+    <section id={id} className="sec-white bb-soft">
+      <div className="in stack" style={{ gap: 40 }}>
+        <div className="stack nar" style={{ gap: 16 }}>
+          {eyebrow ? (
+            <span className="pill stk bg-pink" style={{ alignSelf: "flex-start" }}>
+              {eyebrow}
             </span>
-            <Heading level={2} as="h3" className="mt-2">
-              {pilot.club.name}
-            </Heading>
-            <Text size="lg" className="mt-3">
-              {pilot.club.blurb}
-            </Text>
-          </Card>
-
-          <Card>
-            <dl className="divide-muted-soft divide-y">
-              {facts.map((fact) => (
-                <div key={fact.label} className="flex items-baseline justify-between gap-4 py-3">
-                  <dt className="font-body text-muted text-sm font-semibold tracking-wider uppercase">
-                    {fact.label}
-                  </dt>
-                  <dd className="font-body text-ink text-right font-semibold">{fact.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </Card>
+          ) : null}
+          <h2 className="h2">{heading}</h2>
+          <p className="muted">{intro}</p>
         </div>
-      </Container>
-    </Section>
+        <div className="g2">
+          <article className="card wig rise" style={{ overflow: "hidden" }}>
+            <div className={`band ${BAND[tone]} b24 top0`} />
+            <div className="stack" style={{ padding: 28, gap: 12 }}>
+              <span className={`pill stk bg-${tone}`} style={{ alignSelf: "flex-start" }}>
+                {pilot.name} · {pilot.status}
+              </span>
+              <h3 className="h3">{pilot.club.name}</h3>
+              <p className="muted">{pilot.club.blurb}</p>
+              <a
+                className={`btn sm ${tone}`}
+                href="#signup"
+                style={{ alignSelf: "flex-start", marginTop: 6 }}
+              >
+                Join the pilot →
+              </a>
+            </div>
+          </article>
+          <article
+            className="card wig r rise"
+            style={{ overflow: "hidden", "--d": "120ms", "--r": "3deg" } as React.CSSProperties}
+          >
+            <div className={`band ${BAND[tone]} b24 top0`} />
+            <div className="stack" style={{ padding: 28, gap: 12 }}>
+              <span className={`pill stk bg-${tone}`} style={{ alignSelf: "flex-start" }}>
+                The details
+              </span>
+              <dl className="facts">
+                {facts.map((fact) => (
+                  <div key={fact.label}>
+                    <dt className="eye">{fact.label}</dt>
+                    <dd>{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
   );
 }

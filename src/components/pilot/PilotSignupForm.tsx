@@ -2,11 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
-import { Button, Input, Text } from "@/components/primitives";
 import { pilots } from "@/content/pilot";
 import type { CitySlug } from "@/content/types";
 import { track } from "@/lib/analytics";
-import { cn } from "@/lib/cn";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -15,25 +13,14 @@ const CITY_OPTIONS: { value: CitySlug; label: string }[] = [
   { value: "sanfrancisco", label: "San Francisco" },
 ];
 
-const selectClass =
-  "rounded-pill border-muted-soft bg-surface font-body text-ink focus:border-brand h-12 w-full border-2 px-5 text-base focus:outline-none";
-
 /**
  * Pilot sign-up (pilot doc, "short" field set). Posts to /api/pilot. The city pre-fills
  * from the route (`city` prop) but stays editable; the recruitment channel is captured
  * automatically from ?src= / utm_source on the URL.
  */
 export function PilotSignupForm({ city: initialCity }: { city?: CitySlug }) {
-  const ids = {
-    name: useId(),
-    email: useId(),
-    whatsapp: useId(),
-    city: useId(),
-    hood: useId(),
-    dates: useId(),
-    consent: useId(),
-    status: useId(),
-  };
+  const datesId = useId();
+  const statusId = useId();
 
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
@@ -96,53 +83,37 @@ export function PilotSignupForm({ city: initialCity }: { city?: CitySlug }) {
     }
   }
 
-  if (status === "success") {
-    return (
-      <div
-        role="status"
-        aria-live="polite"
-        className="rounded-card border-muted-soft bg-surface shadow-card border p-6 text-center"
-      >
-        <p className="font-display text-ink text-2xl font-semibold">You&apos;re in 🎉</p>
-        <Text className="mt-3">
-          Well, nearly — we place everyone by hand. Keep an eye on your inbox and WhatsApp for the
-          details{pilot ? ` for ${pilot.club.name}` : ""}.
-        </Text>
-      </div>
-    );
-  }
-
   const busy = status === "submitting";
-  const field = "block";
-  const label = "font-body text-ink mb-1.5 block text-sm font-bold";
+  const done = status === "success";
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="grid gap-4">
-      {/* honeypot — visually hidden, off keyboard + AT */}
-      <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden">
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className="card stack"
+      style={{ padding: 32, gap: 20, boxShadow: "var(--shadow-sticker-lg)" }}
+    >
+      {/* honeypot — hidden from people, keyboards and assistive tech */}
+      <div aria-hidden="true" className="hp">
         <label htmlFor="company">Company</label>
         <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className={field}>
-          <label htmlFor={ids.name} className={label}>
-            First name
-          </label>
-          <Input
-            id={ids.name}
+      <div className="g2" style={{ gap: 20 }}>
+        <label className="f">
+          First name
+          <input
+            className="inp"
             autoComplete="given-name"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-        </div>
-        <div className={field}>
-          <label htmlFor={ids.email} className={label}>
-            Email
-          </label>
-          <Input
-            id={ids.email}
+        </label>
+        <label className="f">
+          Email
+          <input
+            className="inp"
             type="email"
             inputMode="email"
             autoComplete="email"
@@ -150,119 +121,99 @@ export function PilotSignupForm({ city: initialCity }: { city?: CitySlug }) {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
+        </label>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className={field}>
-          <label htmlFor={ids.whatsapp} className={label}>
-            WhatsApp number
-          </label>
-          <Input
-            id={ids.whatsapp}
+      <div className="g2" style={{ gap: 20 }}>
+        <label className="f">
+          WhatsApp number
+          <input
+            className="inp"
             type="tel"
             inputMode="tel"
             autoComplete="tel"
-            placeholder={city === "barcelona" ? "+34 …" : "+1 …"}
+            placeholder={city === "sanfrancisco" ? "+1 …" : "+34 …"}
             value={whatsapp}
             onChange={(e) => setWhatsapp(e.target.value)}
             required
           />
-        </div>
-        <div className={field}>
-          <label htmlFor={ids.city} className={label}>
-            City
-          </label>
+        </label>
+        <label className="f">
+          City
           <select
-            id={ids.city}
+            className="inp"
             value={city}
             onChange={(e) => setCity(e.target.value as CitySlug | "")}
-            className={selectClass}
             required
           >
-            <option value="" disabled>
-              Pick one
-            </option>
+            <option value="">Pick one</option>
             {CITY_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
             ))}
           </select>
-        </div>
+        </label>
       </div>
 
-      <div className={field}>
-        <label htmlFor={ids.hood} className={label}>
-          Neighborhood
-        </label>
-        <Input
-          id={ids.hood}
+      <label className="f">
+        Neighborhood
+        <input
+          className="inp"
           placeholder={city === "sanfrancisco" ? "e.g. the Mission" : "e.g. Gràcia"}
           value={neighborhood}
           onChange={(e) => setNeighborhood(e.target.value)}
           required
         />
-      </div>
+      </label>
 
-      <fieldset>
-        <legend className={label}>
+      <div className="stack" style={{ gap: 8 }}>
+        <span className="flabel" id={datesId}>
           Can you make both Saturdays?{pilot ? ` (${pilot.dates.join(" & ")})` : ""}
-        </legend>
-        <div className="flex gap-2">
+        </span>
+        <div className="seg" role="group" aria-labelledby={datesId}>
           {(["yes", "no"] as const).map((value) => (
-            <label
+            <button
               key={value}
-              className={cn(
-                "rounded-pill border-muted-soft font-body flex-1 cursor-pointer border-2 py-2.5 text-center text-base font-bold",
-                bothDates === value ? "border-brand bg-brand text-brand-ink" : "bg-surface text-ink"
-              )}
+              type="button"
+              aria-pressed={bothDates === value}
+              onClick={() => setBothDates(value)}
             >
-              <input
-                type="radio"
-                name="bothDates"
-                value={value}
-                checked={bothDates === value}
-                onChange={() => setBothDates(value)}
-                className="sr-only"
-              />
               {value === "yes" ? "Yes" : "No"}
-            </label>
+            </button>
           ))}
         </div>
-      </fieldset>
+      </div>
 
-      <label htmlFor={ids.consent} className="flex items-start gap-3">
-        <input
-          id={ids.consent}
-          type="checkbox"
-          checked={consent}
-          onChange={(e) => setConsent(e.target.checked)}
-          className="mt-1 h-5 w-5 shrink-0 accent-[var(--nf-brand)]"
-        />
-        <Text size="sm" tone="muted" as="span">
+      <label className="chk">
+        <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
+        <span>
           Kizmet can contact me by email or WhatsApp about the pilot. My details are never sold —
-          see the{" "}
-          <Link className="underline" href="/privacy">
-            privacy note
-          </Link>
-          .
-        </Text>
+          see the <Link href="/privacy">privacy note</Link>.
+        </span>
       </label>
 
       {error ? (
-        <p
-          id={ids.status}
-          role="alert"
-          className="font-body text-accent-berry text-sm font-semibold"
-        >
+        <p id={statusId} role="alert" className="small danger">
           {error}
         </p>
       ) : null}
 
-      <Button type="submit" size="lg" disabled={busy} className="mt-2 w-full sm:w-auto">
+      <button className="btn coral lg full" type="submit" disabled={busy || done}>
         {busy ? "One sec…" : "Join the pilot"}
-      </Button>
+      </button>
+
+      {done ? (
+        <div className="row okbox" role="status" aria-live="polite">
+          <span className="e" aria-hidden="true" style={{ fontSize: 24 }}>
+            k
+          </span>
+          <span>
+            <b>You&apos;re in.</b> Well, nearly — we place everyone by hand. Keep an eye on your
+            inbox and WhatsApp for the details{pilot ? ` for ${pilot.club.name}` : ""}.
+          </span>
+        </div>
+      ) : null}
     </form>
   );
 }
