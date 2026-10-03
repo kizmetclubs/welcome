@@ -2,11 +2,12 @@ import type { SafetySection } from "@/content/types";
 
 /**
  * A pop-out note: the same white sticker card as the waitlist ("Not in Barcelona or San
- * Francisco?"), on the cream page so it reads as an aside rather than floating text.
+ * Francisco?"), so it reads as an aside rather than floating text. The section stays
+ * white so it doesn't blend into the cream section that follows.
  */
 export function Safety({ heading, body }: SafetySection) {
   return (
-    <section className="bb-soft">
+    <section className="sec-white bb-soft">
       <div className="in">
         <div
           className="card stack"
