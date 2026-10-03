@@ -16,16 +16,14 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@fontsource-variable/fredoka": "5.3.0",
-    "@fontsource-variable/nunito": "5.3.0",
+    "@fontsource-variable/42dot-sans": "5.3.0",
+    "@fontsource/instrument-serif": "5.3.0",
     "@supabase/supabase-js": "^2.47.0",
     "@vercel/analytics": "^2.0.1",
-    "clsx": "^2.1.1",
     "next": "^15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "resend": "^4.0.0",
-    "tailwind-merge": "^2.6.0",
     "zod": "^3.24.0"
   },
   "devDependencies": {
