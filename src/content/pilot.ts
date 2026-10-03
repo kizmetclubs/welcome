@@ -11,10 +11,9 @@ export const pilots: Record<CitySlug, CityPilot> = {
     name: "Barcelona",
     club: {
       name: "Arts & Crafts Club",
-      emoji: "🎨",
       blurb:
         "Bring your own supplies and make something in the park, or just show up and get inspired. Extra supplies available.",
-      tone: "lime",
+      tone: "mustard",
     },
     dates: ["[Saturday, date 1]", "[Saturday, date 2]"],
     time: "[time block]",
@@ -29,10 +28,9 @@ export const pilots: Record<CitySlug, CityPilot> = {
     name: "San Francisco",
     club: {
       name: "Oracle & Tarot Club",
-      emoji: "🔮",
       blurb:
         "Bring a deck, or borrow one. Pull cards, swap readings, and practice interpreting the cards with new friends.",
-      tone: "sky",
+      tone: "teal",
     },
     dates: ["[Saturday, date 1]", "[Saturday, date 2]"],
     time: "[time block]",

@@ -1,12 +1,13 @@
 /**
- * Content model — Axis C of the swappability system (spec §4).
- *
- * The page is DATA, not markup: landing.ts builds an ordered list of these sections and
- * <SectionRenderer> maps each `type` to a component. Reordering, adding, or removing a
- * whole section is a one-line edit; rewriting copy never touches a component.
+ * Content model. The page is DATA, not markup: landing.ts builds an ordered list of these
+ * sections and <SectionRenderer> maps each `type` to a component. Reordering, adding, or
+ * removing a whole section is a one-line edit; rewriting copy never touches a component.
  */
 
 export type CitySlug = "barcelona" | "sanfrancisco";
+
+/** Accent used for a club's checker band, pill and button (design system category fills). */
+export type ClubTone = "mustard" | "teal";
 
 export interface CtaLink {
   label: string;
@@ -38,17 +39,15 @@ export interface CityPilot {
   name: string;
   club: {
     name: string;
-    emoji: string;
     blurb: string;
-    /** Badge color for the city chip. */
-    tone: "gold" | "sky" | "lime" | "pink";
+    tone: ClubTone;
   };
   dates: string[];
   time: string;
   place: string;
   cap: string;
   cost: string;
-  /** Short launch note ("first, in November"). */
+  /** Short launch note ("Starts in November"). */
   status: string;
   /** City-appropriate loneliness stat from the pilot doc (never mixed across borders). */
   stat: string;
@@ -62,7 +61,7 @@ export interface HeroSection {
   headline: string;
   subheadline: string;
   primaryCta: CtaLink;
-  /** Handwritten accent line beside the CTA. */
+  /** Text link beside the CTA ("Be my best friend."). */
   scribble?: string;
   stats: string[];
 }
@@ -126,6 +125,8 @@ export interface PilotSignupSection {
   /** Pre-selected city (from the route); the visitor can still change it. */
   city?: CitySlug;
   note?: string;
+  /** Reassuring aside shown with a smiley ("Everyone's new the first time."). */
+  aside?: string;
 }
 
 export interface WaitlistCtaSection {

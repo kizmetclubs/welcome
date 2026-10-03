@@ -5,7 +5,7 @@ import type { CitySlug, Section } from "./types";
 /**
  * The landing page, as data. `buildSections(city)` returns the ordered section list for a
  * city page (/barcelona, /sanfrancisco); with no city it returns the home page, which lets
- * the visitor pick one. Copy hews to the pilot planning doc, lowercase to match the mock.
+ * the visitor pick one. Copy hews to the pilot planning doc.
  */
 
 const howItWorks: Section = {
@@ -112,7 +112,7 @@ export function buildSections(city?: CitySlug): Section[] {
       {
         type: "hero",
         eyebrow: `${pilot.name} · ${pilot.status}`,
-        headline: `${pilot.club.emoji} ${pilot.club.name}`,
+        headline: pilot.club.name,
         subheadline: `One small club, ${pilot.cap.toLowerCase()}, that meets twice, on two Saturdays, in ${pilot.name}. We pick the day and the place. You just show up.`,
         primaryCta: { label: "Join the pilot", href: "#signup" },
         scribble: "Be my best friend.",
@@ -134,6 +134,7 @@ export function buildSections(city?: CitySlug): Section[] {
         body: "Six quick questions. We'll place you by hand and send the details.",
         city,
         note: "We personally review every sign-up. No cost, no app, no pressure.",
+        aside: "Everyone's new the first time.",
       },
       beliefs,
       safety,
@@ -168,6 +169,7 @@ export function buildSections(city?: CitySlug): Section[] {
       heading: "Want in?",
       body: "Six quick questions. Pick your city, and we'll place you by hand.",
       note: "We personally review every sign-up. No cost, no app, no pressure.",
+      aside: "Everyone's new the first time.",
     },
     beliefs,
     safety,
