@@ -133,3 +133,16 @@ _Goal: the page sells the in-person pilot and takes sign-ups directly; one club 
 - [x] **6.4** Native sign-up form → `POST /api/pilot` → `pilot_signups` (migration `0002`). Short field set; city pre-filled from the route; channel captured from `?src=`/`utm_source`.
 - [x] **6.5** Email waitlist kept as a footer-level fallback for other cities.
 - [ ] **6.6** Founders: fill in dates, time block and park in `src/content/pilot.ts`; run `supabase/migrations/0002_pilot_signups.sql`; create per-channel links (`/barcelona?src=flyer-gracia`).
+
+---
+
+## M7 — Design system redesign (Oct 2026)
+
+_Goal: the site matches Ash's design system and landing-page artifact exactly._
+
+- [x] **7.1** Port the design-system tokens verbatim (`src/styles/tokens.css`): Sunday Spread palette, semantic layer, type scale, radii, sticker shadows, checkerboards, dingbat motion.
+- [x] **7.2** Self-host the four faces via `next/font/local`: Instrument Serif, 42dot Sans (fontsource), Pixel Arial 14 and EmojiFont (`src/app/fonts/`).
+- [x] **7.3** Rebuild every section, both forms, header and footer to the landing-page artifact (`src/styles/site.css` mirrors its class names): checker hero, animated EmojiFont ribbon, scalloped edges, mustard sign-up band, teal beliefs band, settle-in and wiggle motion.
+- [x] **7.4** Restyle `/barcelona`, `/sanfrancisco`, `/privacy`, `/confirm`, the OG image, favicon and manifest.
+- [x] **7.5** Retire the old theme system: `src/themes`, the `/kitchensink` switcher, the Tailwind-token primitives and motifs, `NEXT_PUBLIC_THEME`.
+- [ ] **7.6** Pending from design: team handwriting font (`--font-hand`) and doodles — not faked.
