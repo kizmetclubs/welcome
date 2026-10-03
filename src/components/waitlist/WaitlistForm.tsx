@@ -8,14 +8,22 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const CITY_OPTIONS = [
+  { value: "", label: "Pick one" },
+  { value: "barcelona", label: "Barcelona" },
+  { value: "san_francisco", label: "San Francisco" },
+  { value: "other", label: "Somewhere else" },
+] as const;
+
 /**
  * Email waitlist for people outside the pilot cities. Posts to /api/waitlist, which
- * validates, rate-limits and upserts into Supabase. The optional free-text place is stored
- * as `other_place` (city bucket "other") so we can see which cities to open next.
+ * validates, rate-limits and upserts into Supabase. Picking "Somewhere else" reveals a
+ * free-text field, stored as `other_place`, so we can see which cities to open next.
  */
 export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
   const [email, setEmail] = useState("");
-  const [place, setPlace] = useState("");
+  const [city, setCity] = useState("");
+  const [otherPlace, setOtherPlace] = useState("");
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [confirmSent, setConfirmSent] = useState(false);
@@ -35,7 +43,6 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
 
     setError(null);
     setStatus("submitting");
-    const otherPlace = place.trim();
     try {
       const res = await fetch("/api/waitlist", {
         method: "POST",
@@ -43,8 +50,8 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
         body: JSON.stringify({
           email,
           consent,
-          city: otherPlace ? "other" : null,
-          otherPlace: otherPlace || null,
+          city: city || null,
+          otherPlace: city === "other" ? otherPlace : null,
           startedAt: startedAt.current,
           company: honeypot ?? "",
         }),
@@ -102,20 +109,33 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
 
       <label className="f">
         Where are you? (optional)
-        <input
-          className="inp"
-          placeholder="City"
-          maxLength={80}
-          value={place}
-          onChange={(e) => setPlace(e.target.value)}
-        />
+        <select className="inp" value={city} onChange={(e) => setCity(e.target.value)}>
+          {CITY_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
       </label>
+
+      {city === "other" ? (
+        <label className="f">
+          Which city or area?
+          <input
+            className="inp"
+            placeholder="e.g. Madrid, Oakland"
+            maxLength={80}
+            value={otherPlace}
+            onChange={(e) => setOtherPlace(e.target.value)}
+          />
+        </label>
+      ) : null}
 
       <label className="chk">
         <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
         <span>
-          Email me when Kizmet opens near me. I can unsubscribe any time, and my email is never
-          sold. See the <Link href="/privacy">privacy note</Link>.
+          Email me when Kizmet opens. I can unsubscribe anytime, and my email is never sold — see
+          the <Link href="/privacy">privacy note</Link>.
         </span>
       </label>
 
@@ -128,8 +148,8 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
       {done ? (
         <p className="small" role="status" aria-live="polite" style={{ fontWeight: 700 }}>
           {confirmSent
-            ? "Almost there. Check your inbox to confirm."
-            : "Got it. We'll be in touch."}{" "}
+            ? "Almost there — check your inbox to confirm."
+            : "You're on the list. We'll email you the moment Kizmet opens."}{" "}
           <span className="e" aria-hidden="true" style={{ fontSize: 18, verticalAlign: "-.15em" }}>
             k
           </span>

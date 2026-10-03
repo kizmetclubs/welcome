@@ -188,8 +188,8 @@ export function PilotSignupForm({ city: initialCity }: { city?: CitySlug }) {
       <label className="chk">
         <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
         <span>
-          Kizmet can contact me by email or WhatsApp about the pilot. My details are never sold. See
-          the <Link href="/privacy">privacy note</Link>.
+          Kizmet can contact me by email or WhatsApp about the pilot. My details are never sold —
+          see the <Link href="/privacy">privacy note</Link>.
         </span>
       </label>
 
