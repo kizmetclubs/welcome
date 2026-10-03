@@ -5,21 +5,33 @@ import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Privacy",
-  description: "What Kizmet collects on the waitlist, why, and how it's handled.",
+  description:
+    "What Kizmet collects when you sign up for a pilot or the waitlist, why, and how it's handled.",
   alternates: { canonical: "/privacy" },
 };
 
-// Plain-language privacy note (spec §7). Written before we collect any real signup.
-const LAST_UPDATED = "23 August 2026";
+// Plain-language privacy note. Keep this in step with what the two forms actually collect
+// (src/lib/validation.ts) — update LAST_UPDATED whenever it changes.
+const LAST_UPDATED = "3 October 2026";
 
 const ITEMS: { heading: string; body: React.ReactNode }[] = [
   {
     heading: "What we collect",
     body: (
       <>
-        Your email address, an optional city (Barcelona, San Francisco, or &ldquo;somewhere
-        else&rdquo;), and the fact that you ticked the consent box. That&apos;s it — no name, no
-        precise location, no tracking of who you are.
+        <strong>If you sign up for a pilot:</strong> your first name, email address, WhatsApp
+        number, city, neighborhood, whether you can make both Saturdays, and the fact that you
+        ticked the consent box. If you arrived through one of our links or QR codes, we also note
+        which one, so we can tell which flyers and posts actually reach people.
+        <br />
+        <br />
+        <strong>If you join the email waitlist:</strong> your email address, an optional city (and
+        the place you type if you pick &ldquo;Somewhere else&rdquo;), and the fact that you ticked
+        the consent box.
+        <br />
+        <br />
+        That&apos;s it. No last name, no street address, no date of birth, no ID, and nothing pulled
+        in from other accounts.
       </>
     ),
   },
@@ -27,8 +39,21 @@ const ITEMS: { heading: string; body: React.ReactNode }[] = [
     heading: "Why we collect it",
     body: (
       <>
-        Only to email you when Kizmet opens, and the optional city helps us know which places have
-        the most interest. We don&apos;t use it for anything else.
+        For the pilot: to place you in a small club near you, send you the details, and reach you
+        about your sessions by email or WhatsApp. Your neighborhood is only used to group people who
+        live close to each other. For the waitlist: only to email you when Kizmet opens, and to see
+        which cities have the most interest. We don&apos;t use any of it for anything else.
+      </>
+    ),
+  },
+  {
+    heading: "Who sees it",
+    body: (
+      <>
+        Only the four of us running Kizmet. Because a club is people meeting in person, the others
+        in your group will learn your first name. If your club coordinates in a WhatsApp group,
+        members of that group can see your number, as in any WhatsApp group — tell us if you&apos;d
+        rather be contacted another way.
       </>
     ),
   },
@@ -36,22 +61,32 @@ const ITEMS: { heading: string; body: React.ReactNode }[] = [
     heading: "Where it lives",
     body: (
       <>
-        In a database hosted in the EU (Frankfurt). We don&apos;t use cookies that need a banner,
-        and if we add analytics they&apos;re cookieless and never tied to your identity. No
-        third-party advertising trackers, ever.
+        In a database hosted in the EU (Frankfurt). The site uses no cookies that need a banner. We
+        count page visits with cookieless analytics that aren&apos;t tied to your identity. No
+        advertising trackers, ever.
+      </>
+    ),
+  },
+  {
+    heading: "How long we keep it",
+    body: (
+      <>
+        Pilot sign-ups are kept for the pilot and the follow-up afterwards, then deleted or stripped
+        of anything that identifies you. Waitlist emails are kept until Kizmet opens in your city or
+        you ask us to remove you, whichever comes first.
       </>
     ),
   },
   {
     heading: "We never sell it",
-    body: <>Your email is never sold, rented, or shared for marketing. Full stop.</>,
+    body: <>Your details are never sold, rented, or shared for marketing. Full stop.</>,
   },
   {
-    heading: "Leaving the list",
+    heading: "Leaving, or deleting your data",
     body: (
       <>
-        Want off the list, or want your data deleted? Email us and we&apos;ll remove you — no
-        questions, no hoops. Every email we send will also include an unsubscribe link.
+        Want out of a pilot, off the waitlist, or your data deleted? Email us and we&apos;ll remove
+        you — no questions, no hoops. Every email we send will also include an unsubscribe link.
       </>
     ),
   },
@@ -90,9 +125,9 @@ export default function PrivacyPage() {
                 Privacy, in plain language
               </h1>
               <p className="lead">
-                This covers the Kizmet <strong>waitlist</strong> — the email form on this site. It
-                doesn&apos;t cover the in-person pilots (those run through a separate Google form)
-                or the future app, which will have its own policy.
+                This covers the two forms on this site: the <strong>pilot sign-up</strong> and the{" "}
+                <strong>email waitlist</strong>. It doesn&apos;t cover the future app, which will
+                have its own policy.
               </p>
               <div className="card stack" style={{ padding: 32, gap: 28, marginTop: 22 }}>
                 {ITEMS.map((item) => (
