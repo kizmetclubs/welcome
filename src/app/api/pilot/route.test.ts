@@ -6,6 +6,7 @@ vi.mock("@/lib/supabase", () => ({
   getServiceClient: vi.fn(() => ({ from: () => ({ upsert: upsertMock }) })),
 }));
 
+import { pilots } from "@/content/pilot";
 import { __resetRateLimit } from "@/lib/ratelimit";
 import * as supabase from "@/lib/supabase";
 import { POST } from "./route";
@@ -46,7 +47,7 @@ describe("POST /api/pilot", () => {
       first_name: "Ana",
       email: "ana@example.com",
       city: "barcelona",
-      club: "Arts & Crafts Club",
+      club: pilots.barcelona.club.name,
       both_dates: true,
       source: "flyer-gracia",
     });

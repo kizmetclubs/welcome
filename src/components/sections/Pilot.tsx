@@ -18,7 +18,7 @@ export function Pilot({ id, eyebrow, heading, intro, pilot }: PilotSection) {
   ];
 
   return (
-    <section id={id} className="sec-white bb-soft">
+    <section id={id} className="sec-white">
       <div className="in stack" style={{ gap: 40 }}>
         <div className="stack nar" style={{ gap: 16 }}>
           {eyebrow ? (

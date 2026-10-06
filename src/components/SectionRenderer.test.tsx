@@ -5,7 +5,8 @@ import { REGISTERED_SECTION_TYPES } from "./SectionRenderer";
 
 /**
  * Axis C guard: every section used in the content (home + each city page) must have a
- * registered renderer, and the hero must point at a real sign-up section.
+ * registered renderer, and the hero CTA must point at a real section on the same page
+ * (home → the club cards, city pages → the sign-up form).
  */
 const pages = [
   { name: "home", sections: landingSections },
@@ -22,12 +23,11 @@ describe("SectionRenderer registry", () => {
       expect(unrenderable, "content uses section types with no renderer").toEqual([]);
     });
 
-    it(`${page.name}: hero CTA targets the pilot sign-up section`, () => {
+    it(`${page.name}: hero CTA targets a section on the same page`, () => {
       const hero = page.sections.find((s) => s.type === "hero");
-      const signup = page.sections.find((s) => s.type === "pilotSignup");
-      expect(hero?.type === "hero" && hero.primaryCta.href).toBe(
-        signup?.type === "pilotSignup" ? `#${signup.id}` : undefined
-      );
+      const ids = page.sections.map((s) => s.id).filter(Boolean);
+      expect(hero?.type).toBe("hero");
+      expect(ids).toContain(hero?.type === "hero" && hero.primaryCta.href.replace(/^#/, ""));
     });
   }
 

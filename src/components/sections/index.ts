@@ -1,10 +1,11 @@
 export { Beliefs } from "./Beliefs";
 export { CityPicker } from "./CityPicker";
+export { ClosingCta } from "./ClosingCta";
 export { Faq } from "./Faq";
 export { Hero } from "./Hero";
-export { HowItWorks } from "./HowItWorks";
 export { Pilot } from "./Pilot";
 export { PilotSignup } from "./PilotSignup";
 export { Safety } from "./Safety";
+export { Story } from "./Story";
 export { Team } from "./Team";
 export { WaitlistCta } from "./WaitlistCta";

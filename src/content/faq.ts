@@ -1,33 +1,65 @@
 import type { FaqItem } from "./types";
 
-/** FAQ for the pilot. Answers stay honest about being early — no app, done by hand. */
+/** FAQ for the pilot. Each answer is a list of paragraphs; runs can carry links. */
 export const faq: FaqItem[] = [
   {
-    q: "Wait, is there actually an app?",
-    a: "Not yet. Right now Kizmet is a few of us suggesting a spot and sending the reminder. You show up, we do the rest. If the pilot proves the idea works, we build the app around it.",
+    q: "What am I actually signing up for?",
+    a: [
+      "A small club that meets a few times with the same people. You'll see all the dates upfront, so pick a club you can make every time. The whole idea is to keep showing up.",
+    ],
   },
   {
-    q: "What am I actually signing up for?",
-    a: "One small club that meets twice, on two Saturdays, in a park. We pick the day and the place. You just show up — both times, ideally. That's the whole ask.",
+    q: "Do I need to know anyone?",
+    a: ["Absolutely not. That's kind of the point."],
+  },
+  {
+    q: "What if I don't like everyone?",
+    a: [
+      "Congratulations, you're a person.",
+      "You probably won't become best friends with everyone, and that's okay. Come do something fun, keep showing up, and see who you click with.",
+    ],
+  },
+  {
+    q: "Is this a dating thing?",
+    a: [
+      "Nope. Kizmet is about meeting people through things you actually want to do.",
+      "If you happen to meet the love of your life along the way, that's between you and the universe.",
+    ],
   },
   {
     q: "Does it cost anything?",
-    a: "No. The pilot is free. At most you bring your own supplies or a deck.",
+    a: [
+      "Nope. This first round is free.",
+      "Depending on the club, we might ask you to bring something you already have, like a tarot deck or craft supplies.",
+    ],
   },
   {
-    q: "Do I need to already know someone?",
-    a: "Absolutely not. That's the point, everyone's meeting for the first time.",
-  },
-  {
-    q: "Is this a dating app?",
-    a: "No. Co-ed, built around the activity, nobody's swiping. No romantic chemistry algorithm. \n\nYou join because you want to make pastries, go for a walk, read a book, or try something you’ve been meaning to do with people nearby. If you happen to meet the love of your life along the way, that’s between you and the universe.",
+    q: "What if the club I want is full?",
+    a: [
+      "We're keeping these first clubs small, so we may have more sign-ups than spots. If that happens, we'll add you to the waitlist and make sure you hear about the next round.",
+    ],
   },
   {
     q: "What if it's not my thing?",
-    a: "Tell us. No guilt trip, no explanation required.",
+    a: [
+      "Tell us! This is our first pilot, and knowing what you didn't like is useful too.",
+      "No awkward breakup speech required.",
+    ],
   },
   {
     q: "I'm not in Barcelona or San Francisco. Can I still join?",
-    a: "Not this round — but leave your email at the bottom of the page and we'll tell you when Kizmet comes to your city.",
+    a: [
+      [
+        "These are our first two cities, but definitely not our last. ",
+        { text: "Leave us your email", href: "#waitlist" },
+        " and we'll let you know when Kizmet gets closer to you.",
+      ],
+    ],
+  },
+  {
+    q: "What happens after the pilot?",
+    a: [
+      "We learn from it and keep going. We'll use what we learn from these first clubs to make the next round better, then grow Kizmet from there, with more cities and more clubs shaped by the people who join them.",
+    ],
   },
 ];

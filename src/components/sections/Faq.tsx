@@ -1,4 +1,21 @@
-import type { FaqSection } from "@/content/types";
+import type { FaqSection, RichText } from "@/content/types";
+
+function Rich({ text }: { text: RichText }) {
+  if (typeof text === "string") return <>{text}</>;
+  return (
+    <>
+      {text.map((run, i) =>
+        typeof run === "string" ? (
+          run
+        ) : (
+          <a key={i} href={run.href}>
+            {run.text}
+          </a>
+        )
+      )}
+    </>
+  );
+}
 
 /**
  * Native <details>/<summary>: accessible disclosure with zero JS. The coral "+" toggle
@@ -6,7 +23,7 @@ import type { FaqSection } from "@/content/types";
  */
 export function Faq({ heading, items }: FaqSection) {
   return (
-    <section className="sec-white bt-soft">
+    <section className="sec-white">
       <div className="in">
         <div className="stack nar" style={{ gap: 28, margin: "0 auto" }}>
           <h2 className="h2">{heading}</h2>
@@ -14,7 +31,11 @@ export function Faq({ heading, items }: FaqSection) {
             {items.map((item) => (
               <details key={item.q}>
                 <summary>{item.q}</summary>
-                <p>{item.a}</p>
+                {item.a.map((paragraph, i) => (
+                  <p key={i}>
+                    <Rich text={paragraph} />
+                  </p>
+                ))}
               </details>
             ))}
           </div>
