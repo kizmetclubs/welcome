@@ -85,9 +85,9 @@ const story: Section = {
   },
   now: {
     label: "Now",
-    before: "Adult life is… less helpful. You meet someone you genuinely like, say",
+    before: "Adult life is...less helpful. You meet someone you genuinely like, say",
     bubble: "we should do this again!",
-    after: "…and then spend six months trying to find a Tuesday that works.",
+    after: "...and then spend six months trying to find a Tuesday that works.",
   },
   quoteIntro: "When we started talking to people about this, we kept hearing the same thing:",
   quote: '"People want more community, but they don\'t want another thing to organize."',
