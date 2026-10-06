@@ -43,7 +43,7 @@ export function Pilot({ id, eyebrow, heading, intro, pilot }: PilotSection) {
                 href="#signup"
                 style={{ alignSelf: "flex-start", marginTop: 6 }}
               >
-                Join the pilot →
+                I&apos;m in
               </a>
             </div>
           </article>

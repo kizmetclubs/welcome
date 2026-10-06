@@ -199,7 +199,7 @@ export function buildSections(city?: CitySlug): Section[] {
         eyebrow: `${pilot.name} · ${pilot.status}`,
         headline: pilot.club.name,
         subheadline: `One small club, ${pilot.cap.toLowerCase()}, that meets twice, on two Saturdays, in ${pilot.name}. We pick the day and the place. You just show up.`,
-        primaryCta: { label: "Join the pilot", href: "#signup" },
+        primaryCta: { label: "I'm in", href: "#signup" },
         scribble: { label: "Be my best friend.", href: "#signup" },
         stats: [pilot.dates.join(" & "), pilot.place, pilot.cost],
       },
