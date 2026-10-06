@@ -131,7 +131,7 @@ src/content/faq.ts
 src/components/SectionRenderer.tsx  # registry: section.type → React component
 ```
 
-- `landing.ts` exports an ordered array like `[{ type: 'hero', … }, { type: 'howItWorks', … }, …]`. `SectionRenderer` maps each `type` to a component.
+- `landing.ts` exports an ordered array like `[{ type: 'hero', … }, { type: 'cityPicker', … }, …]`. `SectionRenderer` maps each `type` to a component and draws each section's `edgeBefore` (ribbon, scallop or checker band) above it.
 - **Reordering, adding, or removing a whole section is a one-line data edit.** Rewriting copy never touches a component.
 - Motifs (hand-drawn arrow, checkerboard, granny-square, crane) are **swappable SVG components** referenced by key from the theme's "motif pack," so a visual-language change swaps assets, not layout.
 
@@ -266,7 +266,7 @@ WCAG 2.1 AA. Semantic landmarks (`header`/`main`/`footer`/`section` with heading
 │  │  └─ robots.ts
 │  ├─ components/
 │  │  ├─ primitives/           # Button, Section, Container, Heading, Text, Input, Card, Eyebrow, Badge
-│  │  ├─ sections/             # Hero, HowItWorks, Clubs, Beliefs, Safety, Team, Faq, WaitlistCta, Footer
+│  │  ├─ sections/             # Hero, CityPicker, Pilot, PilotSignup, WaitlistCta, Beliefs, Story, Team, Safety, ClosingCta, Faq
 │  │  ├─ motifs/               # Arrow, Checkerboard, GrannySquare, Crane (swappable SVGs)
 │  │  ├─ waitlist/WaitlistForm.tsx
 │  │  └─ SectionRenderer.tsx
