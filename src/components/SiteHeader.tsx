@@ -8,7 +8,7 @@ export function SiteHeader() {
         <Link href="/" className="wordmark">
           {site.wordmark}
         </Link>
-        <a className="btn coral sm" href={site.signupAnchor}>
+        <a className="btn coral sm" href={site.ctaHref}>
           {site.ctaLabel}
         </a>
       </div>

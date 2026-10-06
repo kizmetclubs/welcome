@@ -101,7 +101,7 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <button className="btn tomato" type="submit" disabled={busy || done}>
+          <button className="btn coral" type="submit" disabled={busy || done}>
             {busy ? "One sec…" : submitLabel}
           </button>
         </div>
@@ -134,8 +134,8 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
       <label className="chk">
         <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
         <span>
-          Email me when Kizmet opens. I can unsubscribe anytime, and my email is never sold — see
-          the <Link href="/privacy">privacy note</Link>.
+          Email me when Kizmet opens near me. I can unsubscribe any time. See the{" "}
+          <Link href="/privacy">privacy note</Link>.
         </span>
       </label>
 
@@ -149,7 +149,7 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
         <p className="small" role="status" aria-live="polite" style={{ fontWeight: 700 }}>
           {confirmSent
             ? "Almost there — check your inbox to confirm."
-            : "You're on the list. We'll email you the moment Kizmet opens."}{" "}
+            : "Got it. We'll be in touch."}{" "}
           <span className="e" aria-hidden="true" style={{ fontSize: 18, verticalAlign: "-.15em" }}>
             k
           </span>

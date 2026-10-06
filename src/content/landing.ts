@@ -1,112 +1,196 @@
 import { faq } from "./faq";
 import { CITY_SLUGS, pilots } from "./pilot";
-import type { CitySlug, Section } from "./types";
+import type { CitySlug, Section, Step } from "./types";
 
 /**
  * The landing page, as data. `buildSections(city)` returns the ordered section list for a
  * city page (/barcelona, /sanfrancisco); with no city it returns the home page, which lets
- * the visitor pick one. Copy hews to the pilot planning doc.
+ * the visitor pick a club. Each section's `edgeBefore` is the ribbon, scallop or checker
+ * band drawn above it, so reordering sections means checking those edges too: adjacent
+ * grounds alternate so a scallop stays visible.
  */
 
-const howItWorks: Section = {
-  type: "howItWorks",
-  eyebrow: "How it works",
-  heading: "You show up. We do the rest.",
-  intro:
-    "Kizmet is small, recurring clubs that meet in person, on a schedule we handle for you. Right now that's just us — no app yet, just a few of us suggesting a spot and sending the reminder.",
-  steps: [
-    {
-      title: "Sign up",
-      body: "Join a small club around what you already love doing.",
-    },
-    {
-      title: "Get placed",
-      body: "We pick the time and place for your neighborhood ",
-    },
-    {
-      title: "Show up twice",
-      body: "Same people. No organizer burnout.",
-    },
-    {
-      title: "Tell us how it went",
-      body: "A short form after the second session. Two minutes, tops.",
-    },
-  ],
-};
+const steps: Step[] = [
+  { title: "Find your thing", body: "Pick a club that sounds fun and check the dates." },
+  { title: "Save your spot", body: "Tell us a little about yourself and you're in." },
+  {
+    title: "Show up & hang out",
+    body: "Same small group, a few times, so you actually get a chance to know each other.",
+  },
+  {
+    title: "Give us the scoop",
+    body: "Tell us what you loved, what you didn't, and what we could do better.",
+  },
+];
 
-const beliefs: Section = {
-  type: "beliefs",
-  heading: "What we believe",
-  beliefs: [
-    "Small groups, not big rooms.",
-    "The same people, more than once.",
-    "Someone else does the planning. That's us, for now, by hand.",
-    "Co-ed, built around the activity. Not a dating app.",
-    "Honest about being early. No app, no big promises — just a real club, meeting twice.",
-  ],
-};
-
-const safety: Section = {
-  type: "safety",
-  heading: "A note on safety",
-  body: [
-    "You're meeting people you don't know yet, so we personally review everyone who signs up before placing them in a group. We're not running background checks at this stage, but we're paying attention to who's signing up.",
-    "On the day of the pilot, we will be there to welcome you with name tags, and a quick in-person check against your sign-up. If something isn't right, just talk to us and we'll sort it out together.",
-  ],
-};
-
-const team: Section = {
-  type: "team",
-  heading: "Why we're doing this",
-  intro: [
-    "Adult friendship doesn't happen by accident anymore. Nothing forces you into the same room with the same people the way school or a first job once did, and the apps built for this treat friendship like dating: one match, one hangout, then it's on you to keep it going. That's the part everyone struggles with. Now making friends somehow involves calendar coordination, WhatsApp logistics and saying \"we should do something!\" for six months.",
-    "Before writing a line of code, we ran listening sessions with hundreds of neighbors. The pattern was clear: people didn't lack interest in making friends—they were just exhausted by the coordination. The thing that quietly killed groups wasn't a lack of chemistry; it was one person ending up as the default organizer and getting burnt out. Having one good hangout is easy. Making sure the second one actually happens is the hard part.",
-    "Kizmet is our simple answer: recurring small clubs where someone else handles the schedule, the spot, and the reminders. No organizer burnout, no endless group chats. We're testing it completely by hand, in a park near you, before we build anything else.",
-  ],
-  members: [
-    {
-      name: "Sam",
-      role: "Strategy & vision",
-      location: "San Francisco",
-      detail:
-        "Public health background, a decade in institutional partnerships. Read the loneliness statistics for years before building Kizmet.",
-    },
-    {
-      name: "Daniela",
-      role: "Engineering",
-      location: "Barcelona",
-      detail: "Builds the thing. Right now that mostly means this page and a spreadsheet.",
-    },
-    {
-      name: "Ash",
-      role: "Design",
-      location: "Barcelona",
-      detail: "Everything you're looking at. Warm, a little whimsical, friendship-forward.",
-    },
-    {
-      name: "Cindy",
-      role: "Partnerships & Community",
-      location: "Barcelona",
-      detail:
-        "Gets the word out and finds the local groups already gathering people, so a club has neighbors in it, not just strangers from the internet.",
-    },
-  ],
-  closing:
-    "None of us have built a company before this one. We're learning as we go, and we want to build something with the community, not just for the community.",
-};
-
-const faqSection: Section = { type: "faq", heading: "Questions", items: faq };
+const signup = {
+  type: "pilotSignup",
+  id: "signup",
+  edgeBefore: { kind: "scallop", from: "white", to: "mustard" },
+  heading: "Want in?",
+  body: "Pick a club that sounds fun, tell us a little about yourself, and we'll handle the rest.",
+  stepsHeading: "You show up. We do the rest.",
+  steps,
+  aside: "Free to join. Come as you are. Everyone's new the first time.",
+  submitLabel: "I'm in",
+  successMessage: { strong: "You're in.", rest: "We'll message you before November." },
+} satisfies Section;
 
 const waitlist: Section = {
   type: "waitlistCta",
   id: "waitlist",
+  edgeBefore: { kind: "checker" },
   heading: "Not in Barcelona or San Francisco?",
-  body: "Leave your email and we'll tell you when Kizmet comes to your city.",
+  body: "These are our first two cities, but definitely not our last. Leave your email and we'll let you know when Kizmet gets closer to you.",
   submitLabel: "Join",
-  note: "We'll only email you about Kizmet. Unsubscribe anytime.",
+};
+
+const beliefs: Section = {
+  type: "beliefs",
+  edgeBefore: { kind: "scallop", from: "base", to: "teal" },
+  heading: "What we believe",
+  beliefs: [
+    {
+      title: "Small groups make it easier to actually connect.",
+      body: "Enough people to meet someone new. Small enough to actually get to know them.",
+    },
+    {
+      title: "Friendship takes more than one hangout.",
+      body: "Getting people together once is a start. Seeing the same people again is where friendship has a chance to happen.",
+    },
+    {
+      title: "Friendship shouldn't feel like another thing to manage.",
+      body: "Finding a time, picking a place, sending the reminders. We think someone else can handle that part.",
+    },
+    {
+      title: "It's easier to connect when you're doing something together.",
+      body: 'A shared activity takes some of the pressure off and gives everyone a reason to be there besides "I\'m here to make friends."',
+    },
+    {
+      title: "Technology should help us spend more time together, not more time online.",
+      body: "We want to use technology to make real-life connection easier, and then get out of the way.",
+    },
+  ],
+};
+
+const story: Section = {
+  type: "story",
+  edgeBefore: { kind: "ribbon", tone: "coral", reverse: true },
+  eyebrow: "Why we're doing this",
+  heading: "Making friends shouldn't require a project manager.",
+  then: {
+    label: "Back then",
+    body: "A lot of our friendships started just because we kept seeing the same people. School made that easy. Sometimes work did too. Eventually the small talk turned into inside jokes and, somewhere along the way:",
+    punch: "oh, we're friends.",
+  },
+  now: {
+    label: "Now",
+    before: "Adult life is...less helpful. You meet someone you genuinely like, say",
+    bubble: "we should do this again!",
+    after: "...and then spend six months trying to find a Tuesday that works.",
+  },
+  quoteIntro: "When we started talking to people about this, we kept hearing the same thing:",
+  quote: '"People want more community, but they don\'t want another thing to organize."',
+  problem:
+    "And that's the tricky part. Seeing the same people regularly is how you actually get to know them, but making that happen takes work. Someone has to…",
+  chores: ["Pick the dates", "Find the places", "Send the reminders", "Become The Organizer™"],
+  choresSticker: "We've got these",
+  answerHeading: "That's where Kizmet comes in.",
+  answerBody:
+    "We make small clubs around things people like doing, bring the same group together regularly, and handle the coordination.",
+  closing: {
+    before: "We handle the logistics. ",
+    highlight: "You just keep showing up.",
+    after: " Let friendship do its thing.",
+  },
+};
+
+const team: Section = {
+  type: "team",
+  heading: "The people behind it",
+  members: [
+    {
+      name: "Sam",
+      role: "Strategy & ops",
+      location: "sanfrancisco",
+      detail:
+        "A decade in public health partnerships. Read the loneliness stats for years, then decided to do something about them.",
+      photo: "/team/sam.webp",
+    },
+    {
+      name: "Daniela",
+      role: "Engineering",
+      location: "barcelona",
+      detail: "Builds the thing. Right now that mostly means this page and a spreadsheet.",
+      photo: "/team/daniela.webp",
+    },
+    {
+      name: "Ash",
+      role: "Design",
+      location: "barcelona",
+      detail: "Everything you're looking at. Warm, a little whimsical, friendship-forward.",
+      photo: "/team/ash.webp",
+    },
+    {
+      name: "Cindy",
+      role: "Partnerships & marketing",
+      location: "barcelona",
+      detail:
+        "Finds the groups already gathering people, so your club starts with neighbors, not strangers.",
+      photo: "/team/cindy.webp",
+    },
+  ],
+  closing: {
+    heading: "We're figuring this out as we go, on purpose.",
+    body: "We want to build Kizmet alongside the people actually using it: try things, learn what works, change what doesn't, and let the community shape where this goes.",
+  },
+};
+
+const safety: Section = {
+  type: "safety",
+  edgeBefore: { kind: "checker" },
+  heading: "A note on safety",
+  body: [
+    "Meeting new people can feel a little vulnerable, and we want everyone to feel comfortable showing up.",
+    "For this pilot, everyone signs up in advance and we review sign-ups before putting groups together. We're not conducting background checks, so this isn't a formal screening process, but these aren't open, drop-in events either.",
+    "We'll also be there in person to welcome everyone and check people in.",
+    "We expect everyone who joins a Kizmet club to be kind, respectful, and mindful of other people's boundaries. Harassment, discrimination, unwanted advances, or behavior that makes someone feel unsafe isn't welcome here.",
+    "If something happens that makes you uncomfortable, please come talk to us. We'll take it seriously.",
+  ],
+};
+
+const closingCta: Section = {
+  type: "closingCta",
+  edgeBefore: { kind: "scallop", from: "white", to: "chartreuse" },
+  heading: "This is just the beginning.",
+  body: [
+    "We're starting Kizmet with a few small clubs in San Francisco and Barcelona. It's our first pilot, a chance to try the idea in real life, learn what works, and make it better before we grow.",
+    "For now, we're running these first clubs ourselves and learning as we go. What happens here will help us figure out what Kizmet looks like next.",
+  ],
+  kicker: "Come be part of the first round.",
+  cta: { label: "I'm in", href: "#signup" },
+};
+
+const faqSection: Section = {
+  type: "faq",
+  edgeBefore: { kind: "checker" },
+  heading: "Questions",
+  items: faq,
 };
 
 export function buildSections(city?: CitySlug): Section[] {
+  // Shared by home and city pages, in this order, after each page's own opening sections.
+  const rest = (signupCity?: CitySlug): Section[] => [
+    { ...signup, city: signupCity },
+    waitlist,
+    beliefs,
+    story,
+    team,
+    safety,
+    closingCta,
+    faqSection,
+  ];
+
   if (city) {
     const pilot = pilots[city];
     return [
@@ -115,68 +199,46 @@ export function buildSections(city?: CitySlug): Section[] {
         eyebrow: `${pilot.name} · ${pilot.status}`,
         headline: pilot.club.name,
         subheadline: `One small club, ${pilot.cap.toLowerCase()}, that meets twice, on two Saturdays, in ${pilot.name}. We pick the day and the place. You just show up.`,
-        primaryCta: { label: "Join the pilot", href: "#signup" },
-        scribble: "Be my best friend.",
+        primaryCta: { label: "I'm in", href: "#signup" },
+        scribble: { label: "Be my best friend.", href: "#signup" },
         stats: [pilot.dates.join(" & "), pilot.place, pilot.cost],
       },
       {
         type: "pilot",
         id: "details",
+        edgeBefore: { kind: "ribbon", tone: "chartreuse" },
         eyebrow: "The pilot",
         heading: `What's happening in ${pilot.name}`,
         intro: pilot.stat,
         pilot,
       },
-      howItWorks,
-      {
-        type: "pilotSignup",
-        id: "signup",
-        heading: "Want in?",
-        body: "Six quick questions. We'll place you by hand and send the details.",
-        city,
-        note: "We personally review every sign-up. No cost, no app, no pressure.",
-        aside: "Everyone's new the first time.",
-      },
-      beliefs,
-      safety,
-      team,
-      faqSection,
-      waitlist,
+      ...rest(city),
     ];
   }
 
   return [
     {
       type: "hero",
-      eyebrow: "An early pilot, run entirely by hand, no app yet",
       headline: "Clubs are back.",
       subheadline:
-        "Small, recurring clubs for adults who want more things to do with people nearby.",
-      primaryCta: { label: "I'm in", href: "#signup" },
-      scribble: "Find your club.",
-      stats: ["Barcelona & San Francisco", "Capped under 10", "Free"],
+        "Small, recurring clubs for adults who want more fun things to do with people nearby.",
+      primaryCta: { label: "Find your club →", href: "#clubs" },
+      scribble: { label: "Be my best friend.", href: "#signup" },
+      stats: ["Barcelona + San Francisco", "10 people max", "Free to join"],
     },
-    howItWorks,
     {
       type: "cityPicker",
-      heading: "One club per city, to start.",
+      id: "clubs",
+      edgeBefore: { kind: "ribbon", tone: "chartreuse" },
+      eyebrow: "First up: Barcelona + San Francisco",
+      heading: "One club in each city, starting this November.",
       intro:
-        "Barcelona and San Francisco pilots will start in November. After that, we'll work together with the community to build out more clubs based on feedback from these pilots.",
+        "We're keeping the first round small, then we'll take what we learn and grow from there.",
       cities: CITY_SLUGS.map((slug) => pilots[slug]),
+      footnote:
+        "Every club is capped at 10 neighbors. Members are matched by neighborhood and individually reviewed before every group launches. No random algorithm, no huge crowds, just a small group of adults living near you.",
     },
-    {
-      type: "pilotSignup",
-      id: "signup",
-      heading: "Want in?",
-      body: "Six quick questions. Pick your city, and we'll place you by hand.",
-      note: "We personally review every sign-up. No cost, no app, no pressure.",
-      aside: "Everyone's new the first time.",
-    },
-    beliefs,
-    safety,
-    team,
-    faqSection,
-    waitlist,
+    ...rest(),
   ];
 }
 

@@ -5,9 +5,9 @@
 export const site = {
   wordmark: "kizmet",
   tagline: "Clubs for adults. Same people, every week.",
-  ctaLabel: "Join the pilot",
+  ctaLabel: "Find your club",
   // Absolute so the header CTA works from any page (/privacy, /confirm), not just home.
-  signupAnchor: "/#signup",
+  ctaHref: "/#clubs",
   footer: {
     /** Forwarded via Porkbun email forwarding on kizmetclubs.com. */
     contactEmail: "hello@kizmetclubs.com",

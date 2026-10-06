@@ -1,7 +1,10 @@
 /*
- * Kizmet landing page styles — ported from Ash's landing-page artifact
- * (Kizmet-LandingPage.html). Class names and values match the artifact so the two can be
- * compared side by side; only the tokens in tokens.css carry raw colour values.
+ * Kizmet landing page styles — ported from Ash's landing-page artifact (v4). Class names
+ * and values match the artifact so the two can be compared side by side; only the tokens in
+ * tokens.css carry raw colour values.
+ *
+ * Rule of thumb: only things you can click cast the hard offset shadow (.btn, the FAQ "+",
+ * the pressed segmented button). The exceptions are the hero plate and .callout containers.
  */
 
 * {
@@ -52,11 +55,6 @@ section {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 28px;
 }
-.g4 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
-  gap: 24px;
-}
 
 /* type */
 .eye {
@@ -85,9 +83,24 @@ section {
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 32px;
-  line-height: 1;
+  line-height: 1.05;
   letter-spacing: -0.02em;
   margin: 0;
+}
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(30px, 4.4vw, 44px);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-wrap: balance;
+}
+.eyebrow {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
+  color: var(--kz-espresso-900);
 }
 .h4 {
   font-weight: 800;
@@ -122,16 +135,13 @@ p {
   background: var(--kz-white);
   border: 1px solid var(--border-ink);
   border-radius: 16px;
-  box-shadow: var(--shadow-sticker);
+}
+/* sign-up form and waitlist card: the only containers that cast a shadow */
+.callout {
+  box-shadow: var(--shadow-sticker-lg);
 }
 .sec-white {
   background: var(--kz-white);
-}
-.bb-soft {
-  border-bottom: 1px solid var(--border-soft);
-}
-.bt-soft {
-  border-top: 1px solid var(--border-soft);
 }
 
 /* buttons */
@@ -179,10 +189,6 @@ p {
   background: var(--kz-teal-400);
   color: var(--kz-espresso-900);
 }
-.btn.tomato {
-  background: var(--kz-tomato-400);
-  color: var(--kz-espresso-900);
-}
 .btn.sm {
   font-size: 14px;
   padding: 10px 18px;
@@ -196,21 +202,59 @@ p {
   justify-content: center;
 }
 
-/* pills, dots, dingbats */
+/* pills (labels: fill only, never styled like a button), city tags, dingbats */
 .pill {
   font: 600 13px/1 var(--font-sans);
   padding: 7px 12px;
   border-radius: 999px;
-  border: 1px solid var(--border-ink);
+  border: none;
   background: var(--kz-white);
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 .stk {
-  border: 1px solid var(--border-ink);
-  box-shadow: var(--shadow-sticker-sm);
+  border: none;
+  box-shadow: none;
   font-weight: 800;
+}
+.btn,
+.pill {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.city {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  align-items: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--kz-espresso-900);
+}
+.city.sm {
+  font-size: 14px;
+}
+.city-av {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  display: block;
+}
+.city.sm .city-av {
+  width: 28px;
+  height: 28px;
+  flex-basis: 28px;
+}
+.city-mono {
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: var(--kz-coral-400);
+  font: 400 16px/1 var(--font-display);
+}
+.city.sm .city-mono {
+  font-size: 14px;
 }
 .e {
   font-family: var(--font-dingbat-emoji);
@@ -224,9 +268,6 @@ p {
 }
 .bg-teal {
   background: var(--kz-teal-400);
-}
-.bg-tomato {
-  background: var(--kz-tomato-400);
 }
 .bg-chartreuse {
   background: var(--kz-chartreuse-400);
@@ -366,13 +407,13 @@ select.inp {
   box-shadow: 0 0 0 5px var(--focus-ring);
   outline: none;
 }
+/* confirmations are inline status text, not toasts */
 .okbox {
-  gap: 10px;
-  padding: 14px 18px;
-  border: 1px solid var(--border-ink);
-  border-radius: 14px;
-  background: var(--kz-white);
-  box-shadow: var(--shadow-sticker-sm);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 4px;
 }
 /* honeypot: off-screen, off keyboard, off assistive tech */
 .hp {
@@ -382,22 +423,21 @@ select.inp {
   overflow: hidden;
 }
 
-/* steps, tiles, avatars */
+/* steps, tiles, polaroids */
 .num {
   flex: 0 0 36px;
   height: 36px;
   border-radius: 99px;
-  border: 1px solid var(--border-ink);
+  border: none;
+  background: var(--kz-white);
   display: grid;
   place-items: center;
   font: 800 15px/1 var(--font-numeric);
   font-variant-numeric: tabular-nums;
 }
 .step {
-  background: var(--kz-white);
   border: 1px solid var(--border-ink);
   border-radius: 16px;
-  box-shadow: var(--shadow-sticker);
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -409,7 +449,9 @@ select.inp {
   height: 48px;
   flex: 0 0 48px;
   font-size: 22px;
-  box-shadow: var(--shadow-sticker-sm);
+}
+.step.wig:hover {
+  transform: rotate(0) translateY(-3px) !important;
 }
 .tile {
   background: var(--kz-white);
@@ -420,7 +462,6 @@ select.inp {
   font-size: 17px;
   line-height: 1.35;
   color: var(--kz-espresso-900);
-  box-shadow: var(--shadow-sticker);
   display: flex;
   gap: 14px;
   align-items: flex-start;
@@ -428,18 +469,48 @@ select.inp {
 .tile .bullet {
   flex: 0 0 14px;
   height: 14px;
-  margin-top: 4px;
+  margin-top: 5px;
   border-radius: 99px;
   border: 1px solid var(--border-ink);
 }
-.av {
-  width: 44px;
-  height: 44px;
-  border-radius: 99px;
+.polaroid {
+  margin: 0 0 8px;
+  background: var(--kz-white);
   border: 1px solid var(--border-ink);
-  display: grid;
-  place-items: center;
-  font-size: 28px;
+  padding: 12px 12px 0;
+  transform: rotate(var(--rot));
+  position: relative;
+}
+.polaroid .ph {
+  position: relative;
+  aspect-ratio: 1/1;
+  background: var(--kz-cream-200);
+  border: 1px solid var(--border-soft);
+  overflow: hidden;
+}
+.polaroid .ph img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.polaroid figcaption {
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: 1;
+  padding: 16px 4px 18px;
+  text-align: center;
+}
+.polaroid .tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 84px;
+  height: 24px;
+  transform: translateX(-50%) rotate(-4deg);
+  opacity: 0.85;
+  z-index: 1;
 }
 
 /* facts list (city pages) */
@@ -505,8 +576,10 @@ summary::after {
 details[open] summary::after {
   transform: rotate(45deg);
 }
+details p + p {
+  margin-top: -10px;
+}
 details p {
-  white-space: break-spaces;
   padding: 0 0 22px;
   max-width: 620px;
   color: var(--text-muted);
@@ -533,6 +606,9 @@ details p {
 }
 .wig.r:hover {
   transform: rotate(2deg) translateY(-2px);
+}
+.wig.polaroid:hover {
+  transform: rotate(calc(var(--rot) * -1)) translateY(-3px);
 }
 @keyframes kz-settle {
   0% {
@@ -649,4 +725,41 @@ details p {
   .wig:hover {
     transform: none;
   }
+}
+
+/* story: speech bubble, struck-through chores, "we've got these" sticker, highlighter */
+.bubble {
+  align-self: flex-start;
+  background: var(--kz-white);
+  border: 1px solid var(--border-ink);
+  border-radius: 18px 18px 18px 4px;
+  padding: 10px 16px;
+  font-weight: 700;
+}
+.chore {
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-weight: 800;
+  font-size: 17px;
+}
+.chore s {
+  text-decoration-thickness: 2px;
+}
+.sticker {
+  align-self: flex-end;
+  white-space: nowrap;
+  transform: rotate(-6deg);
+  background: var(--kz-espresso-900);
+  color: var(--kz-cream-100);
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 800;
+  font-size: 15px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.hl {
+  color: inherit;
+  background: linear-gradient(transparent 58%, var(--kz-chartreuse-400) 58%);
 }

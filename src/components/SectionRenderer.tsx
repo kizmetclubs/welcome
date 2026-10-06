@@ -1,14 +1,16 @@
-import type { JSX } from "react";
+import { Fragment, type JSX } from "react";
 import { RiseObserver } from "@/components/RiseObserver";
+import { SectionEdge } from "@/components/SectionEdge";
 import {
   Beliefs,
   CityPicker,
+  ClosingCta,
   Faq,
   Hero,
-  HowItWorks,
   Pilot,
   PilotSignup,
   Safety,
+  Story,
   Team,
   WaitlistCta,
 } from "@/components/sections";
@@ -17,19 +19,22 @@ import type { Section, SectionType } from "@/content/types";
 /**
  * Maps each section `type` to its component. `satisfies` guarantees at compile time that
  * EVERY section variant has a renderer, so adding a section type without wiring it up is a
- * build error. Also mounts the scroll observer that plays the cards' settle-in animation.
+ * build error. Each section's `edgeBefore` (ribbon, scallop or checker band) is drawn here,
+ * so edges follow the content order. Also mounts the scroll observer that plays the cards'
+ * settle-in animation.
  */
 const REGISTRY = {
   hero: Hero,
   cityPicker: CityPicker,
   pilot: Pilot,
-  howItWorks: HowItWorks,
-  beliefs: Beliefs,
-  safety: Safety,
-  team: Team,
-  faq: Faq,
   pilotSignup: PilotSignup,
   waitlistCta: WaitlistCta,
+  beliefs: Beliefs,
+  story: Story,
+  team: Team,
+  safety: Safety,
+  closingCta: ClosingCta,
+  faq: Faq,
 } satisfies Record<SectionType, (props: never) => JSX.Element>;
 
 export function SectionRenderer({ sections }: { sections: Section[] }) {
@@ -44,7 +49,12 @@ export function SectionRenderer({ sections }: { sections: Section[] }) {
           }
           return null;
         }
-        return <Component key={`${section.type}-${i}`} {...section} />;
+        return (
+          <Fragment key={`${section.type}-${i}`}>
+            <SectionEdge edge={section.edgeBefore} />
+            <Component {...section} />
+          </Fragment>
+        );
       })}
       <RiseObserver />
     </>

@@ -18,7 +18,7 @@ export function Pilot({ id, eyebrow, heading, intro, pilot }: PilotSection) {
   ];
 
   return (
-    <section id={id} className="sec-white bb-soft">
+    <section id={id} className="sec-white">
       <div className="in stack" style={{ gap: 40 }}>
         <div className="stack nar" style={{ gap: 16 }}>
           {eyebrow ? (
@@ -43,7 +43,7 @@ export function Pilot({ id, eyebrow, heading, intro, pilot }: PilotSection) {
                 href="#signup"
                 style={{ alignSelf: "flex-start", marginTop: 6 }}
               >
-                Join the pilot →
+                I&apos;m in
               </a>
             </div>
           </article>

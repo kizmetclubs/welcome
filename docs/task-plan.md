@@ -146,3 +146,15 @@ _Goal: the site matches Ash's design system and landing-page artifact exactly._
 - [x] **7.4** Restyle `/barcelona`, `/sanfrancisco`, `/privacy`, `/confirm`, the OG image, favicon and manifest.
 - [x] **7.5** Retire the old theme system: `src/themes`, the `/kitchensink` switcher, the Tailwind-token primitives and motifs, `NEXT_PUBLIC_THEME`.
 - [ ] **7.6** Pending from design: team handwriting font (`--font-hand`) and doodles — not faked.
+
+---
+
+## M8 — Landing page v4 (Oct 2026)
+
+_Goal: the new section order and design-system rules from the v4 handoff._
+
+- [x] **8.1** Design-system rules in `site.css`: only clickable things (and the hero plate and `.callout` containers) cast a shadow; pills are fill-only; new `.h3`, `.display`, `.eyebrow`, `.city` tag, `.polaroid`; inline status confirmations; no plain-line section borders.
+- [x] **8.2** Section edges are data: `edgeBefore` (ribbon / scallop / checker) on each section, drawn by `SectionRenderer` via `SectionEdge`.
+- [x] **8.3** New order: hero → clubs → sign-up (with the how-it-works steps) → waitlist → beliefs → story → team → safety → closing CTA → FAQ. City pages keep their hero + pilot sections, then the same shared sections. `HowItWorks` removed.
+- [x] **8.4** New `Story` and `ClosingCta` sections; team polaroids with photos (`public/team`); city tags with avatars (`public/cities`); FAQ answers as paragraphs with links.
+- [ ] **8.5** Open from the handoff: footer tagline ("every week" vs "a few times"); session count in the form ("both Saturdays"); an original SF city mark (monogram tile until then). City page buttons now say "I'm in".

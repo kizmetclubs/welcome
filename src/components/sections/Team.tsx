@@ -1,46 +1,91 @@
+import Image from "next/image";
+import { CityTag } from "@/components/CityTag";
+import { pilots } from "@/content/pilot";
 import type { TeamSection } from "@/content/types";
 
-/** EmojiFont smiley + fill per avatar, cycling through the three faces (j, k, l). */
-const AVATARS = [
-  { face: "j", tone: "bg-mustard" },
-  { face: "k", tone: "bg-teal" },
-  { face: "l", tone: "bg-pink" },
-  { face: "j", tone: "bg-chartreuse" },
+/** Polaroid tilt and tape colour per member. */
+const POLAROIDS = [
+  { tilt: -2.5, tape: "var(--kz-mustard-400)" },
+  { tilt: 2, tape: "var(--kz-teal-400)" },
+  { tilt: -1.5, tape: "var(--kz-pink-200)" },
+  { tilt: 2.5, tape: "var(--kz-chartreuse-400)" },
 ];
 
-export function Team({ heading, intro, members, closing }: TeamSection) {
+// Odd polaroids wiggle the other way (.r). Built here, not inline, so the class-sorting
+// formatter can't strip the separating space.
+const polaroidClass = (i: number) =>
+  ["polaroid", "wig", i % 2 ? "r" : ""].filter(Boolean).join(" ");
+
+/**
+ * "The people behind it": taped polaroids with role, a line each and a city tag. Follows
+ * the story section on the same cream ground, so it sits closer to it than a new section.
+ */
+export function Team({ heading, members, closing }: TeamSection) {
   return (
-    <section>
-      <div className="in stack" style={{ gap: 40 }}>
-        <div className="stack nar" style={{ gap: 18 }}>
-          <h2 className="h2">{heading}</h2>
-          {intro.map((paragraph) => (
-            <p key={paragraph.slice(0, 24)}>{paragraph}</p>
-          ))}
-        </div>
-        <ul className="g4" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+    <section style={{ paddingTop: 72 }}>
+      <div className="in stack" style={{ gap: 48 }}>
+        <h3 className="h3">{heading}</h3>
+        <ul
+          style={{
+            listStyle: "none",
+            margin: 0,
+            padding: 0,
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,220px),1fr))",
+            gap: "48px 28px",
+            alignItems: "start",
+          }}
+        >
           {members.map((member, i) => {
-            const avatar = AVATARS[i % AVATARS.length];
+            const look = POLAROIDS[i % POLAROIDS.length];
             return (
               <li
                 key={member.name}
-                className="card stack wig rise"
-                style={{ padding: 24, gap: 10 }}
+                className="stack rise"
+                style={
+                  {
+                    gap: 22,
+                    "--d": `${i * 100}ms`,
+                    "--r": `${look.tilt}deg`,
+                  } as React.CSSProperties
+                }
               >
-                <span className={`av e ${avatar.tone}`} aria-hidden="true">
-                  {avatar.face}
-                </span>
-                <h3 className="h4">{member.name}</h3>
-                <span className="eye">
-                  {member.role}
-                  {member.location ? ` · ${member.location}` : ""}
-                </span>
-                <p className="small muted">{member.detail}</p>
+                <figure
+                  className={polaroidClass(i)}
+                  style={{ "--rot": `${look.tilt}deg` } as React.CSSProperties}
+                >
+                  <span className="tape" style={{ background: look.tape }} aria-hidden="true" />
+                  <div className="ph">
+                    {member.photo ? (
+                      <Image
+                        src={member.photo}
+                        alt=""
+                        fill
+                        sizes="(max-width: 600px) 100vw, 240px"
+                      />
+                    ) : null}
+                  </div>
+                  <figcaption>{member.name}</figcaption>
+                </figure>
+                <div className="stack" style={{ gap: 8, padding: "0 4px" }}>
+                  <b style={{ fontSize: 17, lineHeight: 1.25 }}>{member.role}</b>
+                  <p className="small muted" style={{ lineHeight: 1.5 }}>
+                    {member.detail}
+                  </p>
+                  <div style={{ marginTop: 12 }}>
+                    <CityTag city={pilots[member.location]} size="sm" />
+                  </div>
+                </div>
               </li>
             );
           })}
         </ul>
-        {closing ? <p className="muted nar">{closing}</p> : null}
+        {closing ? (
+          <div className="stack nar" style={{ gap: 10 }}>
+            <h4 className="h4">{closing.heading}</h4>
+            <p className="muted">{closing.body}</p>
+          </div>
+        ) : null}
       </div>
     </section>
   );

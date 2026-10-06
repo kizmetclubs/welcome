@@ -18,7 +18,15 @@ const CITY_OPTIONS: { value: CitySlug; label: string }[] = [
  * from the route (`city` prop) but stays editable; the recruitment channel is captured
  * automatically from ?src= / utm_source on the URL.
  */
-export function PilotSignupForm({ city: initialCity }: { city?: CitySlug }) {
+export function PilotSignupForm({
+  city: initialCity,
+  submitLabel,
+  successMessage,
+}: {
+  city?: CitySlug;
+  submitLabel: string;
+  successMessage: { strong: string; rest: string };
+}) {
   const datesId = useId();
   const statusId = useId();
 
@@ -90,8 +98,8 @@ export function PilotSignupForm({ city: initialCity }: { city?: CitySlug }) {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="card stack"
-      style={{ padding: 32, gap: 20, boxShadow: "var(--shadow-sticker-lg)" }}
+      className="card callout stack"
+      style={{ padding: 32, gap: 20 }}
     >
       {/* honeypot — hidden from people, keyboards and assistive tech */}
       <div aria-hidden="true" className="hp">
@@ -188,8 +196,8 @@ export function PilotSignupForm({ city: initialCity }: { city?: CitySlug }) {
       <label className="chk">
         <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
         <span>
-          Kizmet can contact me by email or WhatsApp about the pilot. My details are never sold —
-          see the <Link href="/privacy">privacy note</Link>.
+          Kizmet can contact me by email or WhatsApp about the pilot. My details are never sold. See
+          the <Link href="/privacy">privacy note</Link>.
         </span>
       </label>
 
@@ -200,17 +208,16 @@ export function PilotSignupForm({ city: initialCity }: { city?: CitySlug }) {
       ) : null}
 
       <button className="btn coral lg full" type="submit" disabled={busy || done}>
-        {busy ? "One sec…" : "Join the pilot"}
+        {busy ? "One sec…" : submitLabel}
       </button>
 
       {done ? (
-        <div className="row okbox" role="status" aria-live="polite">
+        <div className="okbox" role="status" aria-live="polite">
           <span className="e" aria-hidden="true" style={{ fontSize: 24 }}>
             k
           </span>
           <span>
-            <b>You&apos;re in.</b> Well, nearly — we place everyone by hand. Keep an eye on your
-            inbox and WhatsApp for the details{pilot ? ` for ${pilot.club.name}` : ""}.
+            <b>{successMessage.strong}</b> {successMessage.rest}
           </span>
         </div>
       ) : null}
