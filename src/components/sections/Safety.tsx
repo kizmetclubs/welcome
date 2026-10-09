@@ -1,6 +1,6 @@
 import type { SafetySection } from "@/content/types";
 
-/** A plain white section: a centred column of text, entered through the checker band. */
+/** A plain white section: a centered column of text, entered through the checker band. */
 export function Safety({ heading, body }: SafetySection) {
   return (
     <section className="sec-white">

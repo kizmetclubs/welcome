@@ -30,7 +30,7 @@ export const pilots: Record<CitySlug, CityPilot> = {
     club: {
       name: "Oracle & tarot club",
       blurb:
-        "Bring a deck or borrow one. Pull cards, swap readings, and practise interpreting the cards with new friends.",
+        "Bring a deck or borrow one. Pull cards, swap readings, and practice interpreting the cards with new friends.",
       tone: "teal",
     },
     dates: ["[Saturday, date 1]", "[Saturday, date 2]"],

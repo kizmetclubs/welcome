@@ -10,7 +10,7 @@ const cardClass = (i: number) =>
   ["card", "wig", "rise", i % 2 ? "r" : ""].filter(Boolean).join(" ");
 
 /**
- * Home page: one card per city. Each card carries one colour family, its club's: the
+ * Home page: one card per city. Each card carries one color family, its club's: the
  * checker band and the button. The city is a tag above the title, not a pill.
  */
 export function CityPicker({ id, eyebrow, heading, intro, cities, footnote }: CityPickerSection) {

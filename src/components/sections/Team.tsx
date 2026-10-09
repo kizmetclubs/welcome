@@ -3,7 +3,7 @@ import { CityTag } from "@/components/CityTag";
 import { pilots } from "@/content/pilot";
 import type { TeamSection } from "@/content/types";
 
-/** Polaroid tilt and tape colour per member. */
+/** Polaroid tilt and tape color per member. */
 const POLAROIDS = [
   { tilt: -2.5, tape: "var(--kz-mustard-400)" },
   { tilt: 2, tape: "var(--kz-teal-400)" },
