@@ -26,28 +26,68 @@ const steps: Step[] = [
 const signup = {
   type: "pilotSignup",
   id: "signup",
-  edgeBefore: { kind: "scallop", from: "white", to: "mustard" },
+  edgeBefore: { kind: "scallop", from: "base", to: "mustard" },
   heading: "Want in?",
   body: "Pick a club that sounds fun, tell us a little about yourself, and we'll handle the rest.",
   stepsHeading: "You show up. We do the rest.",
   steps,
   aside: "Free to join. Come as you are. Everyone's new the first time.",
   submitLabel: "I'm in",
-  successMessage: { strong: "You're in.", rest: "We'll message you before November." },
+  success: {
+    heading: "You're in, {name}!",
+    body: "We got your sign-up. We'll look it over by hand and message you by email or WhatsApp before November with the dates, the meeting spot and what to bring.",
+    note: "Nothing from us by November? Check your spam folder, or write to hello@kizmetclubs.com.",
+  },
 } satisfies Section;
 
-const waitlist: Section = {
-  type: "waitlistCta",
-  id: "waitlist",
+const appWaitlistLink = {
+  label: "Can't make the pilot? Get notified when the app launches →",
+  href: "#waitlist",
+};
+
+const nowNext: Section = {
+  type: "nowNext",
+  id: "how",
   edgeBefore: { kind: "checker" },
-  heading: "Not in Barcelona or San Francisco?",
-  body: "These are our first two cities, but definitely not our last. Leave your email and we'll let you know when Kizmet gets closer to you.",
-  submitLabel: "Join",
+  eyebrow: "How it works",
+  heading: "Pilot first. App next.",
+  intro:
+    "Kizmet will be an app that organizes your club for you. Before we build it, we're running the first clubs ourselves to learn what actually works.",
+  now: {
+    label: "Now: the pilot",
+    heading: "This November, we organize everything by hand.",
+    body: "No app to download yet. The four of us are the app for now.",
+    points: [
+      "We pick the dates and find the spot",
+      "We send the reminders",
+      "We're there in person to welcome you",
+    ],
+    cta: { label: "I'm in", href: "#signup" },
+  },
+  next: {
+    label: "Next: the app",
+    heading: "After the pilots, the app takes over.",
+    body: "We'll turn what we learn into the Kizmet app, so clubs can keep meeting in more cities without anyone having to become The Organizer™.",
+  },
+  waitlist: {
+    id: "waitlist",
+    heading: "Can't make the pilot?",
+    body: "Get an email when the Kizmet app launches. That's the only email we'll send.",
+    submitLabel: "Notify me",
+    success: {
+      heading: "You're on the list!",
+      body: "We'll email you as soon as the Kizmet app launches. Until then, we won't fill your inbox.",
+    },
+    confirmSent: {
+      heading: "Almost there!",
+      body: "Check your inbox and click the link to confirm, and you're on the list for the app launch.",
+    },
+  },
 };
 
 const beliefs: Section = {
   type: "beliefs",
-  edgeBefore: { kind: "scallop", from: "base", to: "teal" },
+  edgeBefore: { kind: "scallop", from: "mustard", to: "teal" },
   heading: "What we believe",
   beliefs: [
     {
@@ -75,6 +115,7 @@ const beliefs: Section = {
 
 const story: Section = {
   type: "story",
+  id: "about",
   edgeBefore: { kind: "ribbon", tone: "coral", reverse: true },
   eyebrow: "Why we're doing this",
   heading: "Making friends shouldn't require a project manager.",
@@ -148,6 +189,7 @@ const team: Section = {
 
 const safety: Section = {
   type: "safety",
+  id: "safety",
   edgeBefore: { kind: "checker" },
   heading: "A note on safety",
   body: [
@@ -173,6 +215,7 @@ const closingCta: Section = {
 
 const faqSection: Section = {
   type: "faq",
+  id: "faq",
   edgeBefore: { kind: "checker" },
   heading: "Questions",
   items: faq,
@@ -181,8 +224,8 @@ const faqSection: Section = {
 export function buildSections(city?: CitySlug): Section[] {
   // Shared by home and city pages, in this order, after each page's own opening sections.
   const rest = (signupCity?: CitySlug): Section[] => [
+    nowNext,
     { ...signup, city: signupCity },
-    waitlist,
     beliefs,
     story,
     team,
@@ -202,6 +245,7 @@ export function buildSections(city?: CitySlug): Section[] {
         primaryCta: { label: "I'm in", href: "#signup" },
         scribble: { label: "Be my best friend.", href: "#signup" },
         stats: [pilot.dates.join(" & "), pilot.place, pilot.cost],
+        footLink: appWaitlistLink,
       },
       {
         type: "pilot",
@@ -225,6 +269,7 @@ export function buildSections(city?: CitySlug): Section[] {
       primaryCta: { label: "Find your club →", href: "#clubs" },
       scribble: { label: "Be my best friend.", href: "#signup" },
       stats: ["Barcelona + San Francisco", "10 people max", "Free to join"],
+      footLink: appWaitlistLink,
     },
     {
       type: "cityPicker",

@@ -21,9 +21,9 @@ function Rich({ text }: { text: RichText }) {
  * Native <details>/<summary>: accessible disclosure with zero JS. The coral "+" toggle
  * that rotates to "×" is drawn in CSS (site.css, summary::after).
  */
-export function Faq({ heading, items }: FaqSection) {
+export function Faq({ id, heading, items }: FaqSection) {
   return (
-    <section className="sec-white">
+    <section id={id} className="sec-white">
       <div className="in">
         <div className="stack nar" style={{ gap: 28, margin: "0 auto" }}>
           <h2 className="h2">{heading}</h2>

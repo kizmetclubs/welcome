@@ -91,6 +91,8 @@ export interface HeroSection extends SectionBase {
   /** Text link beside the CTA ("Be my best friend."). */
   scribble?: CtaLink;
   stats: string[];
+  /** Small link under the stats, e.g. to the app waitlist. */
+  footLink?: CtaLink;
 }
 
 export interface CityPickerSection extends SectionBase {
@@ -122,16 +124,41 @@ export interface PilotSignupSection extends SectionBase {
   /** Reassuring aside shown with a smiley ("Everyone's new the first time."). */
   aside?: string;
   submitLabel: string;
-  successMessage: { strong: string; rest: string };
+  /** Replaces the form once it's sent. */
+  success: SuccessMessage;
 }
 
-export interface WaitlistCtaSection extends SectionBase {
-  type: "waitlistCta";
+/** Shown in place of a form after it's submitted. */
+export interface SuccessMessage {
+  heading: string;
+  body: string;
+  /** Small print under the message, e.g. what to do if nothing arrives. */
+  note?: string;
+}
+
+export interface WaitlistContent {
   id: string;
   heading: string;
   body?: string;
   submitLabel: string;
-  note?: string;
+  success: SuccessMessage;
+  /** Shown instead of `success` when double opt-in sends a confirmation email. */
+  confirmSent: SuccessMessage;
+}
+
+/**
+ * "Pilot now, app next": what we do by hand for the pilot, what the app will do after it,
+ * and the app waitlist for people who can't make the pilot.
+ */
+export interface NowNextSection extends SectionBase {
+  type: "nowNext";
+  id: string;
+  eyebrow?: string;
+  heading: string;
+  intro?: string;
+  now: { label: string; heading: string; body: string; points: string[]; cta: CtaLink };
+  next: { label: string; heading: string; body: string };
+  waitlist: WaitlistContent;
 }
 
 export interface Belief {
@@ -193,7 +220,7 @@ export type Section =
   | CityPickerSection
   | PilotSection
   | PilotSignupSection
-  | WaitlistCtaSection
+  | NowNextSection
   | BeliefsSection
   | StorySection
   | TeamSection

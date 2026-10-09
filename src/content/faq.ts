@@ -9,6 +9,17 @@ export const faq: FaqItem[] = [
     ],
   },
   {
+    q: "Is there an app?",
+    a: [
+      "Not yet. For the pilot, we're organizing everything ourselves: picking the dates, finding the spot and sending the reminders.",
+      [
+        "After the pilots, we'll build the Kizmet app to do that organizing for you. ",
+        { text: "Join the app waitlist", href: "#waitlist" },
+        " to hear when it launches.",
+      ],
+    ],
+  },
+  {
     q: "Do I need to know anyone?",
     a: ["Absolutely not. That's kind of the point."],
   },
@@ -51,7 +62,7 @@ export const faq: FaqItem[] = [
     a: [
       [
         "These are our first two cities, but definitely not our last. ",
-        { text: "Leave us your email", href: "#waitlist" },
+        { text: "Join the app waitlist", href: "#waitlist" },
         " and we'll let you know when Kizmet gets closer to you.",
       ],
     ],
@@ -59,7 +70,7 @@ export const faq: FaqItem[] = [
   {
     q: "What happens after the pilot?",
     a: [
-      "We learn from it and keep going. We'll use what we learn from these first clubs to make the next round better, then grow Kizmet from there, with more cities and more clubs shaped by the people who join them.",
+      "We learn from it and keep going. We'll use what we learn from these first clubs to make the next round better, then build the Kizmet app so clubs can run in more cities, shaped by the people who join them.",
     ],
   },
 ];

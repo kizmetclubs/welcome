@@ -24,7 +24,7 @@ export function PilotSignup({
   city,
   aside,
   submitLabel,
-  successMessage,
+  success,
 }: PilotSignupSection) {
   return (
     <section id={id} className="bg-mustard" aria-labelledby={`${id}-heading`}>
@@ -92,7 +92,7 @@ export function PilotSignup({
             </p>
           ) : null}
         </div>
-        <PilotSignupForm city={city} submitLabel={submitLabel} successMessage={successMessage} />
+        <PilotSignupForm city={city} submitLabel={submitLabel} success={success} />
       </div>
     </section>
   );

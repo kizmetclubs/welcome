@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader onLanding />
       <main id="top">
         <SectionRenderer sections={landingSections} />
       </main>

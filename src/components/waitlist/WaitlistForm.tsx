@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { SuccessPanel } from "@/components/SuccessPanel";
+import type { WaitlistContent } from "@/content/types";
 import { track } from "@/lib/analytics";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -16,11 +18,15 @@ const CITY_OPTIONS = [
 ] as const;
 
 /**
- * Email waitlist for people outside the pilot cities. Posts to /api/waitlist, which
+ * App waitlist for people who can't make the pilot. Posts to /api/waitlist, which
  * validates, rate-limits and upserts into Supabase. Picking "Somewhere else" reveals a
  * free-text field, stored as `other_place`, so we can see which cities to open next.
  */
-export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
+export function WaitlistForm({
+  submitLabel,
+  success,
+  confirmSent: confirmMessage,
+}: Pick<WaitlistContent, "submitLabel" | "success" | "confirmSent">) {
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [otherPlace, setOtherPlace] = useState("");
@@ -73,7 +79,10 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
   }
 
   const busy = status === "submitting";
-  const done = status === "success";
+
+  if (status === "success") {
+    return <SuccessPanel message={confirmSent ? confirmMessage : success} />;
+  }
 
   return (
     <form
@@ -101,7 +110,7 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <button className="btn coral" type="submit" disabled={busy || done}>
+          <button className="btn coral" type="submit" disabled={busy}>
             {busy ? "One sec…" : submitLabel}
           </button>
         </div>
@@ -134,7 +143,7 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
       <label className="chk">
         <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
         <span>
-          Email me when Kizmet opens near me. I can unsubscribe any time. See the{" "}
+          Email me when the Kizmet app launches. I can unsubscribe any time. See the{" "}
           <Link href="/privacy">privacy note</Link>.
         </span>
       </label>
@@ -142,17 +151,6 @@ export function WaitlistForm({ submitLabel }: { submitLabel: string }) {
       {error ? (
         <p role="alert" className="small danger">
           {error}
-        </p>
-      ) : null}
-
-      {done ? (
-        <p className="small" role="status" aria-live="polite" style={{ fontWeight: 700 }}>
-          {confirmSent
-            ? "Almost there — check your inbox to confirm."
-            : "Got it. We'll be in touch."}{" "}
-          <span className="e" aria-hidden="true" style={{ fontSize: 18, verticalAlign: "-.15em" }}>
-            k
-          </span>
         </p>
       ) : null}
     </form>

@@ -1,3 +1,4 @@
+import { HeroJumpLinks } from "@/components/nav/HeroJumpLinks";
 import type { HeroSection } from "@/content/types";
 
 const STAT_TONES = ["bg-teal", "bg-mustard", "bg-pink"];
@@ -6,7 +7,15 @@ const STAT_TONES = ["bg-teal", "bg-mustard", "bg-pink"];
  * The signature hero: a coral/pink checkerboard plate with the copy on a white card (text
  * never sits on the checker) and one corner sparkle.
  */
-export function Hero({ eyebrow, headline, subheadline, primaryCta, scribble, stats }: HeroSection) {
+export function Hero({
+  eyebrow,
+  headline,
+  subheadline,
+  primaryCta,
+  scribble,
+  stats,
+  footLink,
+}: HeroSection) {
   return (
     <section style={{ padding: "56px 0 96px" }}>
       <div className="in">
@@ -48,6 +57,12 @@ export function Hero({ eyebrow, headline, subheadline, primaryCta, scribble, sta
                 </span>
               ))}
             </div>
+            {footLink ? (
+              <a href={footLink.href} className="small" style={{ fontWeight: 700 }}>
+                {footLink.label}
+              </a>
+            ) : null}
+            <HeroJumpLinks />
           </div>
         </div>
       </div>

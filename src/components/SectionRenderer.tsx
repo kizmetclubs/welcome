@@ -7,12 +7,12 @@ import {
   ClosingCta,
   Faq,
   Hero,
+  NowNext,
   Pilot,
   PilotSignup,
   Safety,
   Story,
   Team,
-  WaitlistCta,
 } from "@/components/sections";
 import type { Section, SectionType } from "@/content/types";
 
@@ -28,7 +28,7 @@ const REGISTRY = {
   cityPicker: CityPicker,
   pilot: Pilot,
   pilotSignup: PilotSignup,
-  waitlistCta: WaitlistCta,
+  nowNext: NowNext,
   beliefs: Beliefs,
   story: Story,
   team: Team,
