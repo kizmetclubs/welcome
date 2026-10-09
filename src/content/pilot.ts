@@ -1,9 +1,9 @@
 import type { CityPilot, CitySlug } from "./types";
 
 /**
- * The pilots, one club per city (from the pilot planning doc, Sep 2026). Dates, time and
- * meeting spot are [bracketed] placeholders — fill them in here once they're locked and
- * every page/form updates.
+ * The pilots, one club per city (from the pilot planning doc, Sep 2026). Both meet on two
+ * Saturdays; the meeting spot is emailed to people who sign up. The time block is still a
+ * [bracketed] placeholder. Change anything here and every page and form updates.
  */
 export const pilots: Record<CitySlug, CityPilot> = {
   barcelona: {
@@ -15,9 +15,9 @@ export const pilots: Record<CitySlug, CityPilot> = {
         "Bring your own supplies and make something in the park, or just show up and get inspired. Extra supplies available.",
       tone: "mustard",
     },
-    dates: ["[Saturday, date 1]", "[Saturday, date 2]"],
+    dates: ["November 14", "November 21"],
     time: "[time block]",
-    place: "[park, neighborhood]",
+    place: "Location to be revealed by email",
     cap: "Under 10 people",
     cost: "Free — you just bring your own supplies",
     avatar: { src: "/cities/barcelona.png", monogram: "BCN" },
@@ -33,9 +33,9 @@ export const pilots: Record<CitySlug, CityPilot> = {
         "Bring a deck or borrow one. Pull cards, swap readings, and practice interpreting the cards with new friends.",
       tone: "teal",
     },
-    dates: ["[Saturday, date 1]", "[Saturday, date 2]"],
+    dates: ["November 14", "November 21"],
     time: "[time block]",
-    place: "[park, neighborhood]",
+    place: "Location to be revealed by email",
     cap: "Under 10 people",
     cost: "Free — bring a deck if you have one",
     // Placeholder tile until there's an original SF mark (no third-party logos).
