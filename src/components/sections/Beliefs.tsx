@@ -7,7 +7,7 @@ const BULLET_TONES = ["bg-pink", "bg-mustard", "bg-chartreuse", "bg-coral", "bg-
 const tileClass = (i: number) =>
   ["tile", "wig", "rise", i % 2 ? "r" : ""].filter(Boolean).join(" ");
 
-/** The teal beliefs band: white tiles, each a coloured dot, the belief and a line on why. */
+/** The teal beliefs band: white tiles, each a colored dot, the belief and a line on why. */
 export function Beliefs({ heading, beliefs }: BeliefsSection) {
   return (
     <section className="bg-teal">

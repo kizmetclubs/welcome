@@ -31,7 +31,7 @@ export default async function CityPage({ params }: { params: Params }) {
   if (!isCitySlug(city)) notFound();
   return (
     <>
-      <SiteHeader />
+      <SiteHeader onLanding />
       <main id="top">
         <SectionRenderer sections={buildSections(city)} />
       </main>

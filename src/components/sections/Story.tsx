@@ -9,6 +9,7 @@ const CHORE_TILT = [-1, 1.5, -1.5, 1];
  * follows on the same ground, so this one has no bottom padding.
  */
 export function Story({
+  id,
   eyebrow,
   heading,
   then,
@@ -23,7 +24,7 @@ export function Story({
   closing,
 }: StorySection) {
   return (
-    <section style={{ paddingBottom: 0 }}>
+    <section id={id} style={{ paddingBottom: 0 }}>
       <div className="in stack" style={{ gap: 56 }}>
         <div className="stack nar" style={{ gap: 18 }}>
           <span className="pill stk bg-pink" style={{ alignSelf: "flex-start" }}>

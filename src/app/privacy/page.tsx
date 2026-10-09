@@ -25,9 +25,9 @@ const ITEMS: { heading: string; body: React.ReactNode }[] = [
         which one, so we can tell which flyers and posts actually reach people.
         <br />
         <br />
-        <strong>If you join the email waitlist:</strong> your email address, an optional city (and
-        the place you type if you pick &ldquo;Somewhere else&rdquo;), and the fact that you ticked
-        the consent box.
+        <strong>If you join the app waitlist:</strong> your email address, an optional city (and the
+        place you type if you pick &ldquo;Somewhere else&rdquo;), and the fact that you ticked the
+        consent box.
         <br />
         <br />
         That&apos;s it. No last name, no street address, no date of birth, no ID, and nothing pulled
@@ -41,8 +41,9 @@ const ITEMS: { heading: string; body: React.ReactNode }[] = [
       <>
         For the pilot: to place you in a small club near you, send you the details, and reach you
         about your sessions by email or WhatsApp. Your neighborhood is only used to group people who
-        live close to each other. For the waitlist: only to email you when Kizmet opens, and to see
-        which cities have the most interest. We don&apos;t use any of it for anything else.
+        live close to each other. For the waitlist: only to email you when the Kizmet app launches,
+        and to see which cities have the most interest. We don&apos;t use any of it for anything
+        else.
       </>
     ),
   },
@@ -72,8 +73,8 @@ const ITEMS: { heading: string; body: React.ReactNode }[] = [
     body: (
       <>
         Pilot sign-ups are kept for the pilot and the follow-up afterwards, then deleted or stripped
-        of anything that identifies you. Waitlist emails are kept until Kizmet opens in your city or
-        you ask us to remove you, whichever comes first.
+        of anything that identifies you. Waitlist emails are kept until the Kizmet app launches in
+        your city or you ask us to remove you, whichever comes first.
       </>
     ),
   },
@@ -126,8 +127,8 @@ export default function PrivacyPage() {
               </h1>
               <p className="lead">
                 This covers the two forms on this site: the <strong>pilot sign-up</strong> and the{" "}
-                <strong>email waitlist</strong>. It doesn&apos;t cover the future app, which will
-                have its own policy.
+                <strong>app waitlist</strong>. It doesn&apos;t cover the future app, which will have
+                its own policy.
               </p>
               <div className="card stack" style={{ padding: 32, gap: 28, marginTop: 22 }}>
                 {ITEMS.map((item) => (

@@ -3,7 +3,7 @@ import { CityTag } from "@/components/CityTag";
 import { pilots } from "@/content/pilot";
 import type { TeamSection } from "@/content/types";
 
-/** Polaroid tilt and tape colour per member. */
+/** Polaroid tilt and tape color per member. */
 const POLAROIDS = [
   { tilt: -2.5, tape: "var(--kz-mustard-400)" },
   { tilt: 2, tape: "var(--kz-teal-400)" },
@@ -20,9 +20,9 @@ const polaroidClass = (i: number) =>
  * "The people behind it": taped polaroids with role, a line each and a city tag. Follows
  * the story section on the same cream ground, so it sits closer to it than a new section.
  */
-export function Team({ heading, members, closing }: TeamSection) {
+export function Team({ id, heading, members, closing }: TeamSection) {
   return (
-    <section style={{ paddingTop: 72 }}>
+    <section id={id} style={{ paddingTop: 72 }}>
       <div className="in stack" style={{ gap: 48 }}>
         <h3 className="h3">{heading}</h3>
         <ul

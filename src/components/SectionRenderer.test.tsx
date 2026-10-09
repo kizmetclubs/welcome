@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { buildSections, landingSections } from "@/content/landing";
 import { CITY_SLUGS } from "@/content/pilot";
+import { site } from "@/content/site";
 import { REGISTERED_SECTION_TYPES } from "./SectionRenderer";
 
 /**
@@ -38,9 +39,19 @@ describe("SectionRenderer registry", () => {
     }
   });
 
-  it("home page has the city picker and an email waitlist fallback", () => {
+  for (const page of pages) {
+    it(`${page.name}: every nav link points at a section on the page`, () => {
+      const ids = new Set(
+        page.sections.flatMap((s) => [s.id, s.type === "nowNext" ? s.waitlist.id : undefined])
+      );
+      const missing = site.nav.map((link) => link.href.slice(1)).filter((id) => !ids.has(id));
+      expect(missing).toEqual([]);
+    });
+  }
+
+  it("home page has the city picker and the app waitlist", () => {
     const types = landingSections.map((s) => s.type);
     expect(types).toContain("cityPicker");
-    expect(types).toContain("waitlistCta");
+    expect(types).toContain("nowNext");
   });
 });

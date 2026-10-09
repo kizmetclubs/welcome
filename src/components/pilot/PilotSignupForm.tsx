@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
+import { SuccessPanel } from "@/components/SuccessPanel";
 import { pilots } from "@/content/pilot";
-import type { CitySlug } from "@/content/types";
+import type { CitySlug, SuccessMessage } from "@/content/types";
 import { track } from "@/lib/analytics";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -21,11 +22,11 @@ const CITY_OPTIONS: { value: CitySlug; label: string }[] = [
 export function PilotSignupForm({
   city: initialCity,
   submitLabel,
-  successMessage,
+  success,
 }: {
   city?: CitySlug;
   submitLabel: string;
-  successMessage: { strong: string; rest: string };
+  success: SuccessMessage;
 }) {
   const datesId = useId();
   const statusId = useId();
@@ -92,7 +93,14 @@ export function PilotSignupForm({
   }
 
   const busy = status === "submitting";
-  const done = status === "success";
+
+  if (status === "success") {
+    return (
+      <div className="card callout" style={{ padding: 32 }}>
+        <SuccessPanel message={success} name={firstName.trim()} />
+      </div>
+    );
+  }
 
   return (
     <form
@@ -207,20 +215,9 @@ export function PilotSignupForm({
         </p>
       ) : null}
 
-      <button className="btn coral lg full" type="submit" disabled={busy || done}>
+      <button className="btn coral lg full" type="submit" disabled={busy}>
         {busy ? "One sec…" : submitLabel}
       </button>
-
-      {done ? (
-        <div className="okbox" role="status" aria-live="polite">
-          <span className="e" aria-hidden="true" style={{ fontSize: 24 }}>
-            k
-          </span>
-          <span>
-            <b>{successMessage.strong}</b> {successMessage.rest}
-          </span>
-        </div>
-      ) : null}
     </form>
   );
 }
