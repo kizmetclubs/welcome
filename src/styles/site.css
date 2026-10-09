@@ -1,7 +1,7 @@
 /*
  * Kizmet landing page styles — ported from Ash's landing-page artifact (v4). Class names
  * and values match the artifact so the two can be compared side by side; only the tokens in
- * tokens.css carry raw colour values.
+ * tokens.css carry raw color values.
  *
  * Rule of thumb: only things you can click cast the hard offset shadow (.btn, the FAQ "+",
  * the pressed segmented button). The exceptions are the hero plate and .callout containers.
@@ -672,7 +672,7 @@ details p {
   }
 }
 
-/* scalloped edge between sections; --scallop is the colour of the section below */
+/* scalloped edge between sections; --scallop is the color of the section below */
 .scallop {
   height: 20px;
   background-repeat: repeat-x;
