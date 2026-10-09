@@ -158,3 +158,12 @@ _Goal: the new section order and design-system rules from the v4 handoff._
 - [x] **8.3** New order: hero → clubs → sign-up (with the how-it-works steps) → waitlist → beliefs → story → team → safety → closing CTA → FAQ. City pages keep their hero + pilot sections, then the same shared sections. `HowItWorks` removed.
 - [x] **8.4** New `Story` and `ClosingCta` sections; team polaroids with photos (`public/team`); city tags with avatars (`public/cities`); FAQ answers as paragraphs with links.
 - [ ] **8.5** Open from the handoff: footer tagline ("every week" vs "a few times"); session count in the form ("both Saturdays"); an original SF city mark (monogram tile until then). City page buttons now say "I'm in".
+
+---
+
+## M9 — Feedback round: pilot vs app, navigation, waitlist, form confirmation (Oct 2026)
+
+- [x] **9.1** "Pilot first. App next." section (`nowNext`, `#how`) right after the clubs: what we organize by hand for the pilot, what the app takes over later. FAQ gains "Is there an app?".
+- [x] **9.2** App waitlist moved into that section (`#waitlist`), reworded for people who can't make the pilot; linked from the hero, the nav and the FAQ.
+- [x] **9.3** Both forms are replaced by a success panel after sending (scrolls into view, takes focus, says what happens next).
+- [ ] **9.4** Navigation: three mockups behind `?nav=a|b|c` (header links + phone menu / sticky quick-link bar / hero jump links). Pick one, set `site.navVariant`, delete the other two and `NavMockupSwitcher`.
