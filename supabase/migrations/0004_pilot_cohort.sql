@@ -14,6 +14,7 @@ alter table public.pilot_signups
 
 comment on column public.pilot_signups.cohort is
   'Which group the person signed up for (cities with several groups); null for single-group cities.';
+
 alter table public.pilot_signups
   add column if not exists research_consent boolean not null default false;
 
