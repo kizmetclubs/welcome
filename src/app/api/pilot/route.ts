@@ -67,10 +67,9 @@ export async function POST(req: Request) {
       club: pilots[d.city].club.name,
       both_dates: d.bothDates,
       consent: d.consent,
+      research_consent: d.researchConsent,
       source: d.source ?? null,
-      // Only sent for cities with groups, so single-group sign-ups don't depend on the
-      // cohort column (migration 0004) existing yet.
-      ...(d.cohort ? { cohort: d.cohort } : {}),
+      cohort: d.cohort, // null for single-group cities
     },
     { onConflict: "email,city" } // re-submitting updates the same row
   );

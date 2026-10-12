@@ -172,6 +172,7 @@ _Goal: the new section order and design-system rules from the v4 handoff._
 
 ## M10 — San Francisco runs two groups (Oct 2026)
 
-- [x] **10.1** `cohorts` on a city's pilot (dates, time, venue, neighborhood per group). San Francisco: Group 1 Thu Oct 22 & 29, 7–8:30pm, Green Heron (Haight-Ashbury); Group 2 Mon Nov 2 & 9, 7–8:30pm, Robber Baron (Polk Gulch).
+- [x] **10.1** `cohorts` on a city's pilot (dates, time, venue, neighborhood per group). San Francisco: Group 1 Thu Oct 22 & 29, 7–8:30pm, The Green Heron (Haight-Ashbury); Group 2 Mon Nov 2 & 9, 7–8:30pm, Robber Baron (Polk Gulch).
 - [x] **10.2** The SF page shows both groups (hero and details card); the sign-up form asks "Which group can you make?" whenever the city is San Francisco, and the API requires a valid group there.
-- [ ] **10.3** Run `supabase/migrations/0004_pilot_cohort.sql` (adds `pilot_signups.cohort`, puts existing SF sign-ups in group 1) **before** deploying.
+- [ ] **10.3** Run `supabase/migrations/0004_pilot_cohort.sql` (adds `pilot_signups.cohort` and `research_consent`, puts existing SF sign-ups in group 1) **before** deploying.
+- [x] **10.4** Pilot form adds a required checkbox: the person understands the pilot is how we learn to build the app, and agrees to take part in surveys (stored as `research_consent`).

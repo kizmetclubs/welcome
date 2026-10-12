@@ -29,6 +29,7 @@ const valid = {
   neighborhood: "Gràcia",
   bothDates: true,
   consent: true,
+  researchConsent: true,
   source: "flyer-gracia",
 };
 
@@ -54,9 +55,15 @@ describe("POST /api/pilot", () => {
     expect(upsertMock.mock.calls[0][1]).toMatchObject({ onConflict: "email,city" });
   });
 
-  it("doesn't send a group for a single-group city", async () => {
+  it("stores no group for a single-group city, and the survey agreement", async () => {
     await post({ ...valid, cohort: "group-1" }, "7.7.7.1");
-    expect(upsertMock.mock.calls[0][0]).not.toHaveProperty("cohort");
+    expect(upsertMock.mock.calls[0][0]).toMatchObject({ cohort: null, research_consent: true });
+  });
+
+  it("requires agreeing to the pilot surveys (422)", async () => {
+    expect((await post({ ...valid, researchConsent: false }, "7.7.7.5")).status).toBe(422);
+    expect((await post({ ...valid, researchConsent: undefined }, "7.7.7.6")).status).toBe(422);
+    expect(upsertMock).not.toHaveBeenCalled();
   });
 
   it("stores the chosen group for San Francisco", async () => {

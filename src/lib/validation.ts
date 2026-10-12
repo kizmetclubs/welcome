@@ -38,7 +38,7 @@ const shortText = (label: string, max: number) =>
 /**
  * Single source of truth for the pilot form, shared by the client and the route. Kept to
  * the "short" field set: name, email, WhatsApp, city, neighborhood, group (cities with
- * several groups), both dates, consent.
+ * several groups), both dates, consent, and agreement to the pilot surveys.
  */
 export const pilotSignupSchema = z
   .object({
@@ -55,6 +55,12 @@ export const pilotSignupSchema = z
     }),
     consent: z.literal(true, {
       errorMap: () => ({ message: "Please tick the box so we can contact you about the pilot." }),
+    }),
+    /** Understands the pilot is research for the app, and agrees to the surveys. */
+    researchConsent: z.literal(true, {
+      errorMap: () => ({
+        message: "Please tick the box to confirm you're up for the pilot surveys.",
+      }),
     }),
     source: z.string().trim().max(80).nullish(),
     /** Which group, for cities that run several (see `cohorts` in content/pilot.ts). */

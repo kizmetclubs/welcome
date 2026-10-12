@@ -2,8 +2,8 @@ import type { CityPilot, CitySlug } from "./types";
 
 /**
  * The pilots, one club per city (from the pilot planning doc, Sep 2026). Barcelona is one
- * group on two Saturdays, its spot emailed to people who sign up (time block still a
- * [bracketed] placeholder). San Francisco runs two groups, each meeting twice at its own
+ * group on two Saturdays, its time and spot still to be announced (the spot is emailed to
+ * people who sign up). San Francisco runs two groups, each meeting twice at its own
  * venue; the form asks which one. Change anything here and every page and form updates.
  */
 export const pilots: Record<CitySlug, CityPilot> = {
@@ -17,7 +17,7 @@ export const pilots: Record<CitySlug, CityPilot> = {
       tone: "mustard",
     },
     dates: ["November 14", "November 21"],
-    time: "[time block]",
+    time: "TBA",
     place: "Location to be revealed by email",
     cap: "Under 10 people",
     cost: "Free — you just bring your own supplies",
@@ -44,7 +44,7 @@ export const pilots: Record<CitySlug, CityPilot> = {
         dates: ["Thursday, October 22", "Thursday, October 29"],
         short: "Oct 22 & 29",
         time: "7–8:30pm",
-        venue: "Green Heron",
+        venue: "The Green Heron",
         neighborhood: "Haight-Ashbury",
       },
       {

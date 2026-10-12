@@ -44,6 +44,7 @@ export function PilotSignupForm({
   const [cohort, setCohort] = useState("");
   const [bothDates, setBothDates] = useState<"" | "yes" | "no">("");
   const [consent, setConsent] = useState(false);
+  const [researchConsent, setResearchConsent] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
   const startedAt = useRef(0);
@@ -70,6 +71,9 @@ export function PilotSignupForm({
     if (cohorts && !chosen) return setError("Please pick the group you can make.");
     if (!bothDates) return setError("Let us know if you can make both dates.");
     if (!consent) return setError("Please tick the box so we can contact you about the pilot.");
+    if (!researchConsent) {
+      return setError("Please tick the box to confirm you're up for the pilot surveys.");
+    }
 
     setError(null);
     setStatus("submitting");
@@ -86,6 +90,7 @@ export function PilotSignupForm({
           cohort: chosen?.id ?? null,
           bothDates: bothDates === "yes",
           consent,
+          researchConsent,
           source: source.current,
           startedAt: startedAt.current,
           company: honeypot ?? "",
@@ -247,6 +252,18 @@ export function PilotSignupForm({
         <span>
           Kizmet can contact me by email or WhatsApp about the pilot. My details are never sold. See
           the <Link href="/privacy">privacy note</Link>.
+        </span>
+      </label>
+
+      <label className="chk">
+        <input
+          type="checkbox"
+          checked={researchConsent}
+          onChange={(e) => setResearchConsent(e.target.checked)}
+        />
+        <span>
+          I understand Kizmet is running this pilot to learn how to build the app, and I agree to
+          take part in short surveys about my experience.
         </span>
       </label>
 
