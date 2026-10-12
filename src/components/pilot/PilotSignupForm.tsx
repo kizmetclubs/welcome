@@ -19,7 +19,7 @@ const CITY_OPTIONS: { value: CitySlug; label: string }[] = [
 ];
 
 /**
- * Pilot sign-up (pilot doc, "short" field set). Posts to /api/pilot. The city pre-fills
+ * Pilot sign-up (pilot doc, "short" field set, plus last name). Posts to /api/pilot. The city pre-fills
  * from the route (`city` prop) but stays editable; the recruitment channel is captured
  * automatically from ?src= / utm_source on the URL.
  */
@@ -37,6 +37,7 @@ export function PilotSignupForm({
   const statusId = useId();
 
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [city, setCity] = useState<CitySlug | "">(initialCity ?? "");
@@ -83,6 +84,7 @@ export function PilotSignupForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           firstName,
+          lastName,
           email,
           whatsapp,
           city,
@@ -145,6 +147,19 @@ export function PilotSignupForm({
           />
         </label>
         <label className="f">
+          Last name
+          <input
+            className="inp"
+            autoComplete="family-name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+        </label>
+      </div>
+
+      <div className="g2" style={{ gap: 20 }}>
+        <label className="f">
           Email
           <input
             className="inp"
@@ -156,9 +171,6 @@ export function PilotSignupForm({
             required
           />
         </label>
-      </div>
-
-      <div className="g2" style={{ gap: 20 }}>
         <label className="f">
           WhatsApp number
           <input
@@ -172,6 +184,9 @@ export function PilotSignupForm({
             required
           />
         </label>
+      </div>
+
+      <div className="g2" style={{ gap: 20 }}>
         <label className="f">
           City
           <select
@@ -188,18 +203,17 @@ export function PilotSignupForm({
             ))}
           </select>
         </label>
+        <label className="f">
+          Neighborhood
+          <input
+            className="inp"
+            placeholder={city === "sanfrancisco" ? "e.g. the Mission" : "e.g. Gràcia"}
+            value={neighborhood}
+            onChange={(e) => setNeighborhood(e.target.value)}
+            required
+          />
+        </label>
       </div>
-
-      <label className="f">
-        Neighborhood
-        <input
-          className="inp"
-          placeholder={city === "sanfrancisco" ? "e.g. the Mission" : "e.g. Gràcia"}
-          value={neighborhood}
-          onChange={(e) => setNeighborhood(e.target.value)}
-          required
-        />
-      </label>
 
       {cohorts ? (
         <div className="stack" style={{ gap: 8 }}>

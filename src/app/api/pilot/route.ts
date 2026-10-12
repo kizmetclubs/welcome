@@ -60,6 +60,7 @@ export async function POST(req: Request) {
   const { error } = await supabase.from("pilot_signups").upsert(
     {
       first_name: d.firstName,
+      last_name: d.lastName,
       email: d.email,
       whatsapp: d.whatsapp,
       city: d.city,

@@ -23,6 +23,7 @@ function post(body: unknown, ip = "1.1.1.1") {
 
 const valid = {
   firstName: "Ana",
+  lastName: "Garcia",
   email: "Ana@Example.com",
   whatsapp: "+34 600 000 000",
   city: "barcelona",
@@ -46,6 +47,7 @@ describe("POST /api/pilot", () => {
     const row = upsertMock.mock.calls[0][0];
     expect(row).toMatchObject({
       first_name: "Ana",
+      last_name: "Garcia",
       email: "ana@example.com",
       city: "barcelona",
       club: pilots.barcelona.club.name,

@@ -27,7 +27,13 @@ function post(body: unknown, headers: Record<string, string> = {}) {
   );
 }
 
-const valid = { email: "a@b.com", consent: true, city: "barcelona" };
+const valid = {
+  firstName: "Ana",
+  lastName: "Garcia",
+  email: "a@b.com",
+  consent: true,
+  city: "barcelona",
+};
 
 beforeEach(() => {
   __resetRateLimit();
@@ -49,13 +55,19 @@ describe("POST /api/waitlist", () => {
   });
 
   it("rejects false consent (422) without inserting", async () => {
-    const res = await post({ email: "a@b.com", consent: false }, { "x-forwarded-for": "2.2.2.2" });
+    const res = await post(
+      { firstName: "Ana", lastName: "Garcia", email: "a@b.com", consent: false },
+      { "x-forwarded-for": "2.2.2.2" }
+    );
     expect(res.status).toBe(422);
     expect(upsertMock).not.toHaveBeenCalled();
   });
 
   it("rejects an invalid email (422)", async () => {
-    const res = await post({ email: "nope", consent: true }, { "x-forwarded-for": "3.3.3.3" });
+    const res = await post(
+      { firstName: "Ana", lastName: "Garcia", email: "nope", consent: true },
+      { "x-forwarded-for": "3.3.3.3" }
+    );
     expect(res.status).toBe(422);
   });
 
@@ -83,11 +95,19 @@ describe("POST /api/waitlist", () => {
 
   it("double opt-in (flag on): stores unconfirmed, emails a token, returns 'confirm_sent'", async () => {
     vi.stubEnv("WAITLIST_DOUBLE_OPTIN", "true");
-    const res = await post({ email: "c@d.com", consent: true }, { "x-forwarded-for": "9.9.9.9" });
+    const res = await post(
+      { firstName: "Ana", lastName: "Garcia", email: "c@d.com", consent: true },
+      { "x-forwarded-for": "9.9.9.9" }
+    );
     expect(res.status).toBe(200);
     await expect(res.json()).resolves.toMatchObject({ ok: true, state: "confirm_sent" });
     const row = upsertMock.mock.calls[0][0];
-    expect(row).toMatchObject({ email: "c@d.com", confirmed: false });
+    expect(row).toMatchObject({
+      first_name: "Ana",
+      last_name: "Garcia",
+      email: "c@d.com",
+      confirmed: false,
+    });
     expect(typeof row.confirm_token).toBe("string");
     expect(sendEmailMock).toHaveBeenCalledOnce();
   });

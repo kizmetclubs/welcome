@@ -1,13 +1,22 @@
 import { z } from "zod";
 import { pilots } from "@/content/pilot";
 
-/* ── email waitlist (people outside the pilot cities) ─────────────────────── */
+const shortText = (label: string, max: number) =>
+  z
+    .string()
+    .trim()
+    .min(1, `Please add your ${label}.`)
+    .max(max, `Please keep your ${label} under ${max} characters.`);
+
+/* ── app waitlist (people who can't make the pilot) ───────────────────────── */
 
 /** City buckets — coarse by design (spec §6: neighborhood/city, never address). */
 export const CITY_VALUES = ["barcelona", "san_francisco", "other"] as const;
 export type City = (typeof CITY_VALUES)[number];
 
 export const waitlistSchema = z.object({
+  firstName: shortText("first name", 60),
+  lastName: shortText("last name", 60),
   email: z.string().trim().toLowerCase().email("Please enter a valid email address."),
   consent: z.literal(true, {
     errorMap: () => ({ message: "Please tick the box so we can email you." }),
@@ -28,21 +37,15 @@ export type WaitlistInput = z.infer<typeof waitlistSchema>;
 
 export const PILOT_CITY_VALUES = ["barcelona", "sanfrancisco"] as const;
 
-const shortText = (label: string, max: number) =>
-  z
-    .string()
-    .trim()
-    .min(1, `Please add your ${label}.`)
-    .max(max, `Please keep your ${label} under ${max} characters.`);
-
 /**
  * Single source of truth for the pilot form, shared by the client and the route. Kept to
- * the "short" field set: name, email, WhatsApp, city, neighborhood, group (cities with
+ * the "short" field set: first and last name, email, WhatsApp, city, neighborhood, group (cities with
  * several groups), both dates, consent, and agreement to the pilot surveys.
  */
 export const pilotSignupSchema = z
   .object({
     firstName: shortText("first name", 60),
+    lastName: shortText("last name", 60),
     email: z.string().trim().toLowerCase().email("Please enter a valid email address."),
     whatsapp: z
       .string()

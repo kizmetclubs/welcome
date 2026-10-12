@@ -75,7 +75,7 @@ const nowNext: Section = {
     body: "Get an email when the Kizmet app launches. That's the only email we'll send.",
     submitLabel: "Notify me",
     success: {
-      heading: "You're on the list!",
+      heading: "You're on the list, {name}!",
       body: "We'll email you as soon as the Kizmet app launches. Until then, we won't fill your inbox.",
     },
     confirmSent: {

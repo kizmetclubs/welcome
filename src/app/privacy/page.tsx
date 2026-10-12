@@ -19,21 +19,21 @@ const ITEMS: { heading: string; body: React.ReactNode }[] = [
     heading: "What we collect",
     body: (
       <>
-        <strong>If you sign up for a pilot:</strong> your first name, email address, WhatsApp
-        number, city, neighborhood, which group you can make (where a city has more than one),
-        whether you can make both dates, and the fact that you ticked the two consent boxes (being
-        contacted about the pilot, and taking part in its surveys). If you arrived through one of
-        our links or QR codes, we also note which one, so we can tell which flyers and posts
+        <strong>If you sign up for a pilot:</strong> your first and last name, email address,
+        WhatsApp number, city, neighborhood, which group you can make (where a city has more than
+        one), whether you can make both dates, and the fact that you ticked the two consent boxes
+        (being contacted about the pilot, and taking part in its surveys). If you arrived through
+        one of our links or QR codes, we also note which one, so we can tell which flyers and posts
         actually reach people.
         <br />
         <br />
-        <strong>If you join the app waitlist:</strong> your email address, an optional city (and the
-        place you type if you pick &ldquo;Somewhere else&rdquo;), and the fact that you ticked the
-        consent box.
+        <strong>If you join the app waitlist:</strong> your first and last name, email address, an
+        optional city (and the place you type if you pick &ldquo;Somewhere else&rdquo;), and the
+        fact that you ticked the consent box.
         <br />
         <br />
-        That&apos;s it. No last name, no street address, no date of birth, no ID, and nothing pulled
-        in from other accounts.
+        That&apos;s it. No street address, no date of birth, no ID, and nothing pulled in from other
+        accounts.
       </>
     ),
   },

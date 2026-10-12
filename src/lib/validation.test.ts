@@ -4,6 +4,8 @@ import { waitlistSchema } from "./validation";
 describe("waitlistSchema", () => {
   it("accepts a valid signup and normalizes the email", () => {
     const result = waitlistSchema.safeParse({
+      firstName: "Ana",
+      lastName: "Garcia",
       email: "  Hello@Example.COM ",
       consent: true,
       city: "barcelona",
@@ -14,39 +16,95 @@ describe("waitlistSchema", () => {
 
   it("keeps a free-text place for 'other', normalizing blanks to null", () => {
     const withPlace = waitlistSchema.safeParse({
+      firstName: "Ana",
+      lastName: "Garcia",
       email: "a@b.com",
       consent: true,
       city: "other",
       otherPlace: "  Madrid ",
     });
     expect(withPlace.success && withPlace.data.otherPlace).toBe("Madrid");
-    const blank = waitlistSchema.safeParse({ email: "a@b.com", consent: true, otherPlace: "" });
+    const blank = waitlistSchema.safeParse({
+      firstName: "Ana",
+      lastName: "Garcia",
+      email: "a@b.com",
+      consent: true,
+      otherPlace: "",
+    });
     expect(blank.success && blank.data.otherPlace).toBe(null);
     expect(
-      waitlistSchema.safeParse({ email: "a@b.com", consent: true, otherPlace: "x".repeat(81) })
-        .success
+      waitlistSchema.safeParse({
+        firstName: "Ana",
+        lastName: "Garcia",
+        email: "a@b.com",
+        consent: true,
+        otherPlace: "x".repeat(81),
+      }).success
     ).toBe(false);
   });
 
   it("accepts a missing or null city", () => {
-    expect(waitlistSchema.safeParse({ email: "a@b.com", consent: true }).success).toBe(true);
-    expect(waitlistSchema.safeParse({ email: "a@b.com", consent: true, city: null }).success).toBe(
-      true
-    );
+    expect(
+      waitlistSchema.safeParse({
+        firstName: "Ana",
+        lastName: "Garcia",
+        email: "a@b.com",
+        consent: true,
+      }).success
+    ).toBe(true);
+    expect(
+      waitlistSchema.safeParse({
+        firstName: "Ana",
+        lastName: "Garcia",
+        email: "a@b.com",
+        consent: true,
+        city: null,
+      }).success
+    ).toBe(true);
   });
 
   it("rejects an invalid email", () => {
-    expect(waitlistSchema.safeParse({ email: "nope", consent: true }).success).toBe(false);
+    expect(
+      waitlistSchema.safeParse({
+        firstName: "Ana",
+        lastName: "Garcia",
+        email: "nope",
+        consent: true,
+      }).success
+    ).toBe(false);
+  });
+
+  it("requires a first and last name", () => {
+    const base = { email: "a@b.com", consent: true };
+    expect(waitlistSchema.safeParse({ ...base, firstName: "Ana" }).success).toBe(false);
+    expect(waitlistSchema.safeParse({ ...base, firstName: " ", lastName: "Garcia" }).success).toBe(
+      false
+    );
   });
 
   it("rejects missing or false consent", () => {
-    expect(waitlistSchema.safeParse({ email: "a@b.com", consent: false }).success).toBe(false);
-    expect(waitlistSchema.safeParse({ email: "a@b.com" }).success).toBe(false);
+    expect(
+      waitlistSchema.safeParse({
+        firstName: "Ana",
+        lastName: "Garcia",
+        email: "a@b.com",
+        consent: false,
+      }).success
+    ).toBe(false);
+    expect(
+      waitlistSchema.safeParse({ firstName: "Ana", lastName: "Garcia", email: "a@b.com" }).success
+    ).toBe(false);
   });
 
   it("rejects an unknown city", () => {
     expect(
-      waitlistSchema.safeParse({ email: "a@b.com", consent: true, city: "paris" }).success
+      waitlistSchema.safeParse({
+        firstName: "Ana",
+        lastName: "Garcia",
+        email: "a@b.com",
+        consent: true,
+        city: "paris",
+      }).success
     ).toBe(false);
   });
 });
