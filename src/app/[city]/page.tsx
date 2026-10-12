@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const pilot = pilots[city];
   return {
     title: `${pilot.name} pilot`,
-    description: `${pilot.club.name} in ${pilot.name}: one small club, ${pilot.cap}, meeting twice on two Saturdays. Free. Sign up.`,
+    description: `${pilot.club.name} in ${pilot.name}: one small club, ${pilot.cap}, meeting twice${pilot.cohorts ? ` (${pilot.cohorts.map((c) => c.short).join(" or ")})` : ` (${pilot.dates.join(" & ")})`}. Free. Sign up.`,
     alternates: { canonical: `/${city}` },
   };
 }

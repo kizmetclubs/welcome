@@ -9,13 +9,31 @@ const BAND: Record<ClubTone, string> = { mustard: "food", teal: "out" };
  */
 export function Pilot({ id, eyebrow, heading, intro, pilot }: PilotSection) {
   const tone = pilot.club.tone;
-  const facts = [
-    { label: "When", value: pilot.dates.join(" and ") },
-    { label: "Time", value: pilot.time },
-    { label: "Where", value: pilot.place },
-    { label: "How many", value: pilot.cap },
-    { label: "Cost", value: pilot.cost },
-  ];
+  // Cities with several groups list each group's dates, time and venue instead.
+  const facts: { label: string; value: React.ReactNode }[] = pilot.cohorts
+    ? [
+        ...pilot.cohorts.map((cohort) => ({
+          label: cohort.label,
+          value: (
+            <>
+              {cohort.dates.join(" & ")}
+              <br />
+              {cohort.time}
+              <br />
+              {cohort.venue}, {cohort.neighborhood}
+            </>
+          ),
+        })),
+        { label: "How many", value: `${pilot.cap} per group` },
+        { label: "Cost", value: pilot.cost },
+      ]
+    : [
+        { label: "When", value: pilot.dates.join(" and ") },
+        { label: "Time", value: pilot.time },
+        { label: "Where", value: pilot.place },
+        { label: "How many", value: pilot.cap },
+        { label: "Cost", value: pilot.cost },
+      ];
 
   return (
     <section id={id} className="sec-white">

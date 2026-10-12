@@ -58,7 +58,24 @@ export interface Step {
   body: string;
 }
 
-/** One city's pilot. Dates/venue are [bracketed] placeholders until locked. */
+/**
+ * One group within a city's pilot: same club, its own dates and venue. Sign-ups pick one;
+ * `id` is what's stored in pilot_signups.cohort.
+ */
+export interface Cohort {
+  id: string;
+  /** "Group 1" */
+  label: string;
+  /** Full dates, e.g. "Thursday, October 22". */
+  dates: string[];
+  /** Compact dates for pills and buttons, e.g. "Oct 22 & 29". */
+  short: string;
+  time: string;
+  venue: string;
+  neighborhood: string;
+}
+
+/** One city's pilot. Cities with several groups list them in `cohorts`. */
 export interface CityPilot {
   slug: CitySlug;
   name: string;
@@ -67,14 +84,17 @@ export interface CityPilot {
     blurb: string;
     tone: ClubTone;
   };
+  /** Single-group cities: the dates, time and place. Ignored where `cohorts` is set. */
   dates: string[];
   time: string;
   place: string;
+  /** Several groups to choose from (the sign-up form asks which one). */
+  cohorts?: Cohort[];
   cap: string;
   cost: string;
   /** City avatar: `src` under /public/cities; `monogram` is the fallback tile. */
   avatar: { src?: string; monogram: string };
-  /** Short launch note ("Starts in November"). Shown on the city page, not the club cards. */
+  /** Short launch note ("Starts November 14"). Shown on the city page, not the club cards. */
   status: string;
   /** City-appropriate loneliness stat from the pilot doc (never mixed across borders). */
   stat: string;

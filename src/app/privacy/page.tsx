@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 // Plain-language privacy note. Keep this in step with what the two forms actually collect
 // (src/lib/validation.ts) — update LAST_UPDATED whenever it changes.
-const LAST_UPDATED = "3 October 2026";
+const LAST_UPDATED = "October 12, 2026";
 
 const ITEMS: { heading: string; body: React.ReactNode }[] = [
   {
@@ -20,9 +20,10 @@ const ITEMS: { heading: string; body: React.ReactNode }[] = [
     body: (
       <>
         <strong>If you sign up for a pilot:</strong> your first name, email address, WhatsApp
-        number, city, neighborhood, whether you can make both Saturdays, and the fact that you
-        ticked the consent box. If you arrived through one of our links or QR codes, we also note
-        which one, so we can tell which flyers and posts actually reach people.
+        number, city, neighborhood, which group you can make (where a city has more than one),
+        whether you can make both dates, and the fact that you ticked the consent box. If you
+        arrived through one of our links or QR codes, we also note which one, so we can tell which
+        flyers and posts actually reach people.
         <br />
         <br />
         <strong>If you join the app waitlist:</strong> your email address, an optional city (and the

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s · Kizmet",
   },
   description:
-    "Clubs for adults. Same people, every week. A small club that meets twice, on two Saturdays, in a park. Pilots in Barcelona and San Francisco — no app, just show up.",
+    "Clubs for adults. Same people, every week. A small club that meets twice with the same people. Pilots in Barcelona and San Francisco — no app, just show up.",
   openGraph: {
     title: "Kizmet — Clubs are back",
     description: "Same people, every week. Join the pilot in Barcelona or San Francisco.",

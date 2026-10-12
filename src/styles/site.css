@@ -944,3 +944,36 @@ html {
   font-weight: 800;
   text-decoration-thickness: 2px;
 }
+
+/* pick-one cards in the pilot form (e.g. which group); pressed = chosen */
+.choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 10px;
+}
+.choices button {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  font: 400 14px/1.35 var(--font-sans);
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border-ink);
+  background: var(--kz-white);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.choices button b {
+  font-size: 15px;
+}
+.choices button span {
+  color: var(--text-muted);
+}
+.choices button[aria-pressed="true"] {
+  background: var(--kz-chartreuse-400);
+  box-shadow: var(--shadow-sticker-sm);
+}
+.choices button[aria-pressed="true"] span {
+  color: var(--kz-espresso-900);
+}
