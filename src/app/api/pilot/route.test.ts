@@ -54,6 +54,24 @@ describe("POST /api/pilot", () => {
     expect(upsertMock.mock.calls[0][1]).toMatchObject({ onConflict: "email,city" });
   });
 
+  it("doesn't send a group for a single-group city", async () => {
+    await post({ ...valid, cohort: "group-1" }, "7.7.7.1");
+    expect(upsertMock.mock.calls[0][0]).not.toHaveProperty("cohort");
+  });
+
+  it("stores the chosen group for San Francisco", async () => {
+    const sf = { ...valid, city: "sanfrancisco", neighborhood: "Mission", cohort: "group-2" };
+    expect((await post(sf, "7.7.7.2")).status).toBe(200);
+    expect(upsertMock.mock.calls[0][0]).toMatchObject({ city: "sanfrancisco", cohort: "group-2" });
+  });
+
+  it("requires a valid group for San Francisco (422)", async () => {
+    const sf = { ...valid, city: "sanfrancisco", neighborhood: "Mission" };
+    expect((await post(sf, "7.7.7.3")).status).toBe(422);
+    expect((await post({ ...sf, cohort: "group-9" }, "7.7.7.4")).status).toBe(422);
+    expect(upsertMock).not.toHaveBeenCalled();
+  });
+
   it("rejects a missing city (422) without inserting", async () => {
     const res = await post({ ...valid, city: "paris" }, "2.2.2.2");
     expect(res.status).toBe(422);
