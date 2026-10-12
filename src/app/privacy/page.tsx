@@ -12,26 +12,28 @@ export const metadata: Metadata = {
 
 // Plain-language privacy note. Keep this in step with what the two forms actually collect
 // (src/lib/validation.ts) — update LAST_UPDATED whenever it changes.
-const LAST_UPDATED = "3 October 2026";
+const LAST_UPDATED = "October 12, 2026";
 
 const ITEMS: { heading: string; body: React.ReactNode }[] = [
   {
     heading: "What we collect",
     body: (
       <>
-        <strong>If you sign up for a pilot:</strong> your first name, email address, WhatsApp
-        number, city, neighborhood, whether you can make both Saturdays, and the fact that you
-        ticked the consent box. If you arrived through one of our links or QR codes, we also note
-        which one, so we can tell which flyers and posts actually reach people.
+        <strong>If you sign up for a pilot:</strong> your first and last name, email address,
+        WhatsApp number, city, neighborhood, which group you can make (where a city has more than
+        one), whether you can make both dates, and the fact that you ticked the two consent boxes
+        (being contacted about the pilot, and taking part in its surveys). If you arrived through
+        one of our links or QR codes, we also note which one, so we can tell which flyers and posts
+        actually reach people.
         <br />
         <br />
-        <strong>If you join the app waitlist:</strong> your email address, an optional city (and the
-        place you type if you pick &ldquo;Somewhere else&rdquo;), and the fact that you ticked the
-        consent box.
+        <strong>If you join the app waitlist:</strong> your first and last name, email address, an
+        optional city (and the place you type if you pick &ldquo;Somewhere else&rdquo;), and the
+        fact that you ticked the consent box.
         <br />
         <br />
-        That&apos;s it. No last name, no street address, no date of birth, no ID, and nothing pulled
-        in from other accounts.
+        That&apos;s it. No street address, no date of birth, no ID, and nothing pulled in from other
+        accounts.
       </>
     ),
   },
@@ -40,10 +42,10 @@ const ITEMS: { heading: string; body: React.ReactNode }[] = [
     body: (
       <>
         For the pilot: to place you in a small club near you, send you the details, and reach you
-        about your sessions by email or WhatsApp. Your neighborhood is only used to group people who
-        live close to each other. For the waitlist: only to email you when the Kizmet app launches,
-        and to see which cities have the most interest. We don&apos;t use any of it for anything
-        else.
+        about your sessions by email or WhatsApp, including a few short surveys so we learn what to
+        build into the app. Your neighborhood is only used to group people who live close to each
+        other. For the waitlist: only to email you when the Kizmet app launches, and to see which
+        cities have the most interest. We don&apos;t use any of it for anything else.
       </>
     ),
   },

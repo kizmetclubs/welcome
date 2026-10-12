@@ -9,13 +9,17 @@ import { track } from "@/lib/analytics";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+/** "Thursday, October 22" ×2 → "Thursdays". */
+const weekdays = (dates: string[]) =>
+  [...new Set(dates.map((date) => date.split(",")[0]))].map((day) => `${day}s`).join(" & ");
+
 const CITY_OPTIONS: { value: CitySlug; label: string }[] = [
   { value: "barcelona", label: "Barcelona" },
   { value: "sanfrancisco", label: "San Francisco" },
 ];
 
 /**
- * Pilot sign-up (pilot doc, "short" field set). Posts to /api/pilot. The city pre-fills
+ * Pilot sign-up (pilot doc, "short" field set, plus last name). Posts to /api/pilot. The city pre-fills
  * from the route (`city` prop) but stays editable; the recruitment channel is captured
  * automatically from ?src= / utm_source on the URL.
  */
@@ -29,15 +33,19 @@ export function PilotSignupForm({
   success: SuccessMessage;
 }) {
   const datesId = useId();
+  const cohortId = useId();
   const statusId = useId();
 
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [city, setCity] = useState<CitySlug | "">(initialCity ?? "");
   const [neighborhood, setNeighborhood] = useState("");
+  const [cohort, setCohort] = useState("");
   const [bothDates, setBothDates] = useState<"" | "yes" | "no">("");
   const [consent, setConsent] = useState(false);
+  const [researchConsent, setResearchConsent] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
   const startedAt = useRef(0);
@@ -50,14 +58,23 @@ export function PilotSignupForm({
   }, []);
 
   const pilot = city ? pilots[city] : null;
+  const cohorts = pilot?.cohorts;
+  const chosen = cohorts?.find((option) => option.id === cohort);
+  const datesQuestion = cohorts
+    ? `Can you make both dates${chosen ? ` (${chosen.short})` : " in your group"}?`
+    : `Can you make both Saturdays?${pilot ? ` (${pilot.dates.join(" & ")})` : ""}`;
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const honeypot = new FormData(event.currentTarget).get("company");
 
     if (!city) return setError("Please pick your city.");
+    if (cohorts && !chosen) return setError("Please pick the group you can make.");
     if (!bothDates) return setError("Let us know if you can make both dates.");
     if (!consent) return setError("Please tick the box so we can contact you about the pilot.");
+    if (!researchConsent) {
+      return setError("Please tick the box to confirm you're up for the pilot surveys.");
+    }
 
     setError(null);
     setStatus("submitting");
@@ -67,12 +84,15 @@ export function PilotSignupForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           firstName,
+          lastName,
           email,
           whatsapp,
           city,
           neighborhood,
+          cohort: chosen?.id ?? null,
           bothDates: bothDates === "yes",
           consent,
+          researchConsent,
           source: source.current,
           startedAt: startedAt.current,
           company: honeypot ?? "",
@@ -80,7 +100,7 @@ export function PilotSignupForm({
       });
       if (res.ok) {
         setStatus("success");
-        track("pilot_signup", { city });
+        track("pilot_signup", chosen ? { city, cohort: chosen.id } : { city });
         return;
       }
       const data = (await res.json().catch(() => null)) as { error?: string } | null;
@@ -127,6 +147,19 @@ export function PilotSignupForm({
           />
         </label>
         <label className="f">
+          Last name
+          <input
+            className="inp"
+            autoComplete="family-name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+        </label>
+      </div>
+
+      <div className="g2" style={{ gap: 20 }}>
+        <label className="f">
           Email
           <input
             className="inp"
@@ -138,9 +171,6 @@ export function PilotSignupForm({
             required
           />
         </label>
-      </div>
-
-      <div className="g2" style={{ gap: 20 }}>
         <label className="f">
           WhatsApp number
           <input
@@ -154,6 +184,9 @@ export function PilotSignupForm({
             required
           />
         </label>
+      </div>
+
+      <div className="g2" style={{ gap: 20 }}>
         <label className="f">
           City
           <select
@@ -170,22 +203,49 @@ export function PilotSignupForm({
             ))}
           </select>
         </label>
+        <label className="f">
+          Neighborhood
+          <input
+            className="inp"
+            placeholder={city === "sanfrancisco" ? "e.g. the Mission" : "e.g. Gràcia"}
+            value={neighborhood}
+            onChange={(e) => setNeighborhood(e.target.value)}
+            required
+          />
+        </label>
       </div>
 
-      <label className="f">
-        Neighborhood
-        <input
-          className="inp"
-          placeholder={city === "sanfrancisco" ? "e.g. the Mission" : "e.g. Gràcia"}
-          value={neighborhood}
-          onChange={(e) => setNeighborhood(e.target.value)}
-          required
-        />
-      </label>
+      {cohorts ? (
+        <div className="stack" style={{ gap: 8 }}>
+          <span className="flabel" id={cohortId}>
+            Which group can you make?
+          </span>
+          <div className="choices" role="group" aria-labelledby={cohortId}>
+            {cohorts.map((option) => (
+              <button
+                key={option.id}
+                type="button"
+                aria-pressed={cohort === option.id}
+                onClick={() => setCohort(option.id)}
+              >
+                <b>
+                  {option.label} · {option.short}
+                </b>
+                <span>
+                  {weekdays(option.dates)}, {option.time}
+                </span>
+                <span>
+                  {option.venue}, {option.neighborhood}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       <div className="stack" style={{ gap: 8 }}>
         <span className="flabel" id={datesId}>
-          Can you make both Saturdays?{pilot ? ` (${pilot.dates.join(" & ")})` : ""}
+          {datesQuestion}
         </span>
         <div className="seg" role="group" aria-labelledby={datesId}>
           {(["yes", "no"] as const).map((value) => (
@@ -206,6 +266,18 @@ export function PilotSignupForm({
         <span>
           Kizmet can contact me by email or WhatsApp about the pilot. My details are never sold. See
           the <Link href="/privacy">privacy note</Link>.
+        </span>
+      </label>
+
+      <label className="chk">
+        <input
+          type="checkbox"
+          checked={researchConsent}
+          onChange={(e) => setResearchConsent(e.target.checked)}
+        />
+        <span>
+          I understand Kizmet is running this pilot to learn how to build the app, and I agree to
+          take part in short surveys about my experience.
         </span>
       </label>
 

@@ -167,3 +167,14 @@ _Goal: the new section order and design-system rules from the v4 handoff._
 - [x] **9.2** App waitlist moved into that section (`#waitlist`), reworded for people who can't make the pilot; linked from the hero, the nav and the FAQ.
 - [x] **9.3** Both forms are replaced by a success panel after sending (scrolls into view, takes focus, says what happens next).
 - [ ] **9.4** Navigation: three mockups behind `?nav=a|b|c` (header links + phone menu / sticky quick-link bar / hero jump links). Pick one, set `site.navVariant`, delete the other two and `NavMockupSwitcher`.
+
+---
+
+## M10 — San Francisco runs two groups (Oct 2026)
+
+- [x] **10.1** `cohorts` on a city's pilot (dates, time, venue, neighborhood per group). San Francisco: Group 1 Thu Oct 22 & 29, 7–8:30pm, The Green Heron (Haight-Ashbury); Group 2 Mon Nov 2 & 9, 7–8:30pm, Robber Baron (Polk Gulch).
+- [x] **10.2** The SF page shows both groups (hero and details card); the sign-up form asks "Which group can you make?" whenever the city is San Francisco, and the API requires a valid group there.
+- [x] **10.3** Run `supabase/migrations/0004_pilot_cohort.sql` (adds `pilot_signups.cohort` and `research_consent`, puts existing SF sign-ups in group 1) **before** deploying.
+- [x] **10.4** Pilot form adds a required checkbox: the person understands the pilot is how we learn to build the app, and agrees to take part in surveys (stored as `research_consent`).
+- [x] **10.5** Both forms ask for first and last name (pilot adds `last_name`; waitlist adds `first_name` and `last_name`). Waitlist success message uses the first name.
+- [ ] **10.6** Run `supabase/migrations/0005_names.sql` **before** deploying.

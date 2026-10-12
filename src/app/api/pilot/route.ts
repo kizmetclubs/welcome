@@ -60,6 +60,7 @@ export async function POST(req: Request) {
   const { error } = await supabase.from("pilot_signups").upsert(
     {
       first_name: d.firstName,
+      last_name: d.lastName,
       email: d.email,
       whatsapp: d.whatsapp,
       city: d.city,
@@ -67,7 +68,9 @@ export async function POST(req: Request) {
       club: pilots[d.city].club.name,
       both_dates: d.bothDates,
       consent: d.consent,
+      research_consent: d.researchConsent,
       source: d.source ?? null,
+      cohort: d.cohort, // null for single-group cities
     },
     { onConflict: "email,city" } // re-submitting updates the same row
   );

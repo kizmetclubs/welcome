@@ -35,8 +35,8 @@ const signup = {
   submitLabel: "I'm in",
   success: {
     heading: "You're in, {name}!",
-    body: "We got your sign-up. We'll look it over by hand and message you by email or WhatsApp before November with the dates, the meeting spot and what to bring.",
-    note: "Nothing from us by November? Check your spam folder, or write to hello@kizmetclubs.com.",
+    body: "We got your sign-up. We'll look it over by hand and message you by email or WhatsApp before your first session with the details and what to bring.",
+    note: "Nothing from us within a few days? Check your spam folder, or write to hello@kizmetclubs.com.",
   },
 } satisfies Section;
 
@@ -55,7 +55,7 @@ const nowNext: Section = {
     "Kizmet will be an app that organizes your club for you. Before we build it, we're running the first clubs ourselves to learn what actually works.",
   now: {
     label: "Now: the pilot",
-    heading: "This November, we organize everything by hand.",
+    heading: "This fall, we organize everything by hand.",
     body: "No app to download yet. The four of us are the app for now.",
     points: [
       "We pick the dates and find the spot",
@@ -75,7 +75,7 @@ const nowNext: Section = {
     body: "Get an email when the Kizmet app launches. That's the only email we'll send.",
     submitLabel: "Notify me",
     success: {
-      heading: "You're on the list!",
+      heading: "You're on the list, {name}!",
       body: "We'll email you as soon as the Kizmet app launches. Until then, we won't fill your inbox.",
     },
     confirmSent: {
@@ -241,10 +241,14 @@ export function buildSections(city?: CitySlug): Section[] {
         type: "hero",
         eyebrow: `${pilot.name} · ${pilot.status}`,
         headline: pilot.club.name,
-        subheadline: `One small club, ${pilot.cap.toLowerCase()}, that meets twice, on two Saturdays, in ${pilot.name}. We pick the day and the place. You just show up.`,
+        subheadline: pilot.cohorts
+          ? `One small club, ${pilot.cap.toLowerCase()}, that meets twice in ${pilot.name}. Pick the group that fits your calendar: ${pilot.cohorts.map((c) => `${c.short} in ${c.neighborhood}`).join(", or ")}. You just show up.`
+          : `One small club, ${pilot.cap.toLowerCase()}, that meets twice, on two Saturdays, in ${pilot.name}. We pick the day and the place. You just show up.`,
         primaryCta: { label: "I'm in", href: "#signup" },
         scribble: { label: "Be my best friend.", href: "#signup" },
-        stats: [pilot.dates.join(" & "), pilot.place, pilot.cost],
+        stats: pilot.cohorts
+          ? [pilot.cohorts.map((c) => c.short).join(" or "), pilot.time, pilot.cost]
+          : [pilot.dates.join(" & "), pilot.place, pilot.cost],
         footLink: appWaitlistLink,
       },
       {
@@ -276,7 +280,7 @@ export function buildSections(city?: CitySlug): Section[] {
       id: "clubs",
       edgeBefore: { kind: "ribbon", tone: "chartreuse" },
       eyebrow: "First up: Barcelona + San Francisco",
-      heading: "One club in each city, starting this November.",
+      heading: "One club in each city, starting this fall.",
       intro:
         "We're keeping the first round small, then we'll take what we learn and grow from there.",
       cities: CITY_SLUGS.map((slug) => pilots[slug]),

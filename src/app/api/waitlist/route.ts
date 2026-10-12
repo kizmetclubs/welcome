@@ -61,7 +61,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Waitlist unavailable." }, { status: 503 });
   }
 
-  const { email, consent, city } = parsed.data;
+  const { firstName, lastName, email, consent, city } = parsed.data;
   // Only keep the free-text place when the visitor actually picked "Somewhere else".
   const otherPlace = city === "other" ? parsed.data.otherPlace : null;
   const doubleOptIn = process.env.WAITLIST_DOUBLE_OPTIN === "true";
@@ -71,6 +71,8 @@ export async function POST(req: Request) {
     const token = randomUUID();
     const { error } = await supabase.from("waitlist_signups").upsert(
       {
+        first_name: firstName,
+        last_name: lastName,
         email,
         consent,
         city: city ?? null,
@@ -97,6 +99,8 @@ export async function POST(req: Request) {
   // Single opt-in: explicit consent is the lawful basis; store as confirmed immediately.
   const { error } = await supabase.from("waitlist_signups").upsert(
     {
+      first_name: firstName,
+      last_name: lastName,
       email,
       consent,
       city: city ?? null,

@@ -27,6 +27,8 @@ export function WaitlistForm({
   success,
   confirmSent: confirmMessage,
 }: Pick<WaitlistContent, "submitLabel" | "success" | "confirmSent">) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
   const [otherPlace, setOtherPlace] = useState("");
@@ -44,6 +46,8 @@ export function WaitlistForm({
     event.preventDefault();
     const honeypot = new FormData(event.currentTarget).get("company");
 
+    if (!firstName.trim() || !lastName.trim())
+      return setError("Please add your first and last name.");
     if (!EMAIL_RE.test(email)) return setError("Please enter a valid email address.");
     if (!consent) return setError("Please tick the box so we can email you.");
 
@@ -54,6 +58,8 @@ export function WaitlistForm({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          firstName,
+          lastName,
           email,
           consent,
           city: city || null,
@@ -81,7 +87,9 @@ export function WaitlistForm({
   const busy = status === "submitting";
 
   if (status === "success") {
-    return <SuccessPanel message={confirmSent ? confirmMessage : success} />;
+    return (
+      <SuccessPanel message={confirmSent ? confirmMessage : success} name={firstName.trim()} />
+    );
   }
 
   return (
@@ -95,6 +103,29 @@ export function WaitlistForm({
       <div aria-hidden="true" className="hp">
         <label htmlFor="waitlist-company">Company</label>
         <input id="waitlist-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
+      <div className="g2" style={{ gap: 14 }}>
+        <label className="f">
+          First name
+          <input
+            className="inp"
+            autoComplete="given-name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+        </label>
+        <label className="f">
+          Last name
+          <input
+            className="inp"
+            autoComplete="family-name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+        </label>
       </div>
 
       <label className="f">

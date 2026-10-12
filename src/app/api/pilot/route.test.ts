@@ -23,12 +23,14 @@ function post(body: unknown, ip = "1.1.1.1") {
 
 const valid = {
   firstName: "Ana",
+  lastName: "Garcia",
   email: "Ana@Example.com",
   whatsapp: "+34 600 000 000",
   city: "barcelona",
   neighborhood: "Gràcia",
   bothDates: true,
   consent: true,
+  researchConsent: true,
   source: "flyer-gracia",
 };
 
@@ -45,6 +47,7 @@ describe("POST /api/pilot", () => {
     const row = upsertMock.mock.calls[0][0];
     expect(row).toMatchObject({
       first_name: "Ana",
+      last_name: "Garcia",
       email: "ana@example.com",
       city: "barcelona",
       club: pilots.barcelona.club.name,
@@ -52,6 +55,30 @@ describe("POST /api/pilot", () => {
       source: "flyer-gracia",
     });
     expect(upsertMock.mock.calls[0][1]).toMatchObject({ onConflict: "email,city" });
+  });
+
+  it("stores no group for a single-group city, and the survey agreement", async () => {
+    await post({ ...valid, cohort: "group-1" }, "7.7.7.1");
+    expect(upsertMock.mock.calls[0][0]).toMatchObject({ cohort: null, research_consent: true });
+  });
+
+  it("requires agreeing to the pilot surveys (422)", async () => {
+    expect((await post({ ...valid, researchConsent: false }, "7.7.7.5")).status).toBe(422);
+    expect((await post({ ...valid, researchConsent: undefined }, "7.7.7.6")).status).toBe(422);
+    expect(upsertMock).not.toHaveBeenCalled();
+  });
+
+  it("stores the chosen group for San Francisco", async () => {
+    const sf = { ...valid, city: "sanfrancisco", neighborhood: "Mission", cohort: "group-2" };
+    expect((await post(sf, "7.7.7.2")).status).toBe(200);
+    expect(upsertMock.mock.calls[0][0]).toMatchObject({ city: "sanfrancisco", cohort: "group-2" });
+  });
+
+  it("requires a valid group for San Francisco (422)", async () => {
+    const sf = { ...valid, city: "sanfrancisco", neighborhood: "Mission" };
+    expect((await post(sf, "7.7.7.3")).status).toBe(422);
+    expect((await post({ ...sf, cohort: "group-9" }, "7.7.7.4")).status).toBe(422);
+    expect(upsertMock).not.toHaveBeenCalled();
   });
 
   it("rejects a missing city (422) without inserting", async () => {
